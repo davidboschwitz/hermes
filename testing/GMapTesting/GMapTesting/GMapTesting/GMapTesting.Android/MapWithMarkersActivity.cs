@@ -33,7 +33,13 @@ namespace GMapTesting.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.MapLayout);
+            try
+            {
+                SetContentView(Resource.Layout.MapLayout);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Exeption {0}", e.Source);
+            }
 
             var mapFragment = (MapFragment)FragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
