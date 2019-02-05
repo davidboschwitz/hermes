@@ -9,7 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.iOS", "Hermes\Hermes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.UWP", "Hermes\Hermes.UWP\Hermes.UWP.csproj", "{AD2058ED-DD05-4A21-8118-51C9FA2C40D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes", "Hermes\Hermes\Hermes.csproj", "{222DCE35-04A2-4B2A-A0B9-84C3A1562589}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes", "Hermes\Hermes\Hermes.csproj", "{222DCE35-04A2-4B2A-A0B9-84C3A1562589}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19702633-3CB1-4F33-9763-218AE30390E2}"
+	ProjectSection(SolutionItems) = preProject
+		Hermes.Service = Hermes.Service
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
