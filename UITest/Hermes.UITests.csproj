@@ -29,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>3.4.0.1029999</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.UITest" Version="2.2.7" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
