@@ -13,10 +13,10 @@ namespace GMAP1
             var tabs = new TabbedPage();
 
             // demonstrates the map control with zooming and map-types
-            tabs.Children.Add(new MapPage { Title = "Map/Zoom", Icon = "glyphish_74_location.png" });
+            tabs.Children.Add(new MapPage { Title = "Map/Zoom"});
 
             // demonstrates the map control with zooming and map-types
-            tabs.Children.Add(new PinPage { Title = "Pins", Icon = "glyphish_07_map_marker.png" });
+            tabs.Children.Add(new PinPage { Title = "Pins", Icon = "Icons/pin.png" });
 
             MainPage = tabs;
         }
