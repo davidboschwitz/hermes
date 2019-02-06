@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hermes.Views.NewsPage">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;Check Maps For Details&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                    <Label Text="&#10;&#10;Title: Shelters on Welch Avenue Providing Food&#10;TimeStamp: 2/6/2019 14:02 CST&#10;"
+                        FontSize="12"
+                    />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
