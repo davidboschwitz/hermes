@@ -10,26 +10,37 @@ namespace GMAP1
     {
         public MapPage()
         {
-            var map = new Map(
-                MapSpan.FromCenterAndRadius(
-                        new Position(42.025250, -93.650870), Distance.FromMiles(0.3)))
-            {
-                IsShowingUser = true,
-                HeightRequest = 100,
-                WidthRequest = 960,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            };
-            var stack = new StackLayout { Spacing = 0 };
-            stack.Children.Add(map);
-            Content = stack;
+            //InitializeComponent();
 
-            var slider = new Slider(1, 18, 1);
-            slider.ValueChanged += (sender, e) =>
+            CustomMap customMap = new CustomMap()
             {
-                var zoomLevel = e.NewValue; // between 1 and 18
-                var latlongdegrees = 360 / (Math.Pow(2, zoomLevel));
-                map.MoveToRegion(new MapSpan(map.VisibleRegion.Center, latlongdegrees, latlongdegrees));
+                MapType = MapType.Street,
+                WidthRequest = App.ScreenWidth,
+                HeightRequest = App.ScreenHeight
             };
+
+            var pin = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(42.025250, -93.650870),
+                Label = "Test Custom Pin",
+                Address = "Test",
+                Id = "Ames",
+                Url = "http://iastate.edu"
+            };
+
+            customMap.CustomPins = new List<CustomPin> { pin };
+            customMap.Pins.Add(pin);
+            customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
+
+            /*
+            var stack = new StackLayout { Spacing = 0 };
+            stack.Children.Add(customMap);
+            Content = stack;
+            */
+
+            Content = customMap;
+            
         }
     }
 }

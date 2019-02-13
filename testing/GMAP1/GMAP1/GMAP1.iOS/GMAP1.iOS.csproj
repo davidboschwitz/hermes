@@ -160,4 +160,7 @@
       <Name>GMAP1</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pin.png" />
+  </ItemGroup>
 </Project>

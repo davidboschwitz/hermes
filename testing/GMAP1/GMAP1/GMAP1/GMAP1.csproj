@@ -17,4 +17,10 @@
   <ItemGroup>
     <Folder Include="Icons\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="App2.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
