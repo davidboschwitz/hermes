@@ -3,11 +3,11 @@
 
 namespace Hermes.Models
 {
-    public class FoodPin : IPin<FoodPin>
+    public class FoodAndWaterPin : IPin<FoodAndWaterPin>
     {
         public double Availability;
         
-        public FoodPin()
+        public FoodAndWaterPin()
         {
             this.Location.Latitude = Double.NaN;
             this.Location.Longitude = Double.NaN;
@@ -15,7 +15,7 @@ namespace Hermes.Models
             this.Availability = 0.0;
         }
 
-        public FoodPin(double lat, double lon)
+        public FoodAndWaterPin(double lat, double lon)
         {
             this.Location.Latitude = lat;
             this.Location.Longitude = lon;

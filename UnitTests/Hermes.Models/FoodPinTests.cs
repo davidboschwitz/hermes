@@ -6,11 +6,11 @@ namespace UnitTests.Hermes.ModelsTests
     [TestFixture]
     public class FoodPinTests
     {
-        private FoodPin _foodPin;
+        private FoodAndWaterPin _foodPin;
         string RName = "Food and Water";
 
         [SetUp]
-        public void SetupBeforeEachTest() => _foodPin = new FoodPin();
+        public void SetupBeforeEachTest() => _foodPin = new FoodAndWaterPin();
 
         [Test]
         public void PinConstructor1()
@@ -33,7 +33,7 @@ namespace UnitTests.Hermes.ModelsTests
         public void PinConstructor2()
         {
             //Arrange
-            _foodPin = new FoodPin(1.0, 1.0);
+            _foodPin = new FoodAndWaterPin(1.0, 1.0);
 
             //Act
             var Resource = _foodPin.Resource;

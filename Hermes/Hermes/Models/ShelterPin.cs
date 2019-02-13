@@ -2,7 +2,7 @@
 
 namespace Hermes.Models
 {
-    public class ShelterPin : IPin<FoodPin>
+    public class ShelterPin : IPin<FoodAndWaterPin>
     {
 
         public ShelterPin(double lat, double lon)

@@ -156,9 +156,6 @@
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>3.4.0.1029999</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.UITest">
-      <Version>2.2.7</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hermes\Hermes.csproj">

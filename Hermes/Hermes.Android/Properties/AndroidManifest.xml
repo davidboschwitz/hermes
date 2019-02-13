@@ -9,6 +9,6 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="Hermes.Android">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="YOUR_API_KEY" />
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAJ80rolI5NRBXgrvwylHrcAQBGhii_1dI" />
 	</application>
 </manifest>

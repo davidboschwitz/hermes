@@ -10,3 +10,4 @@ namespace Hermes.Models
         double Latitude { get; set; }
     }
 }
+

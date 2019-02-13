@@ -2,7 +2,7 @@
 
 namespace Hermes.Models
 {
-    public class MedicalPin : IPin<FoodPin>
+    public class MedicalPin : IPin<FoodAndWaterPin>
     {
 
         public MedicalPin(double lat, double lon)

@@ -67,11 +67,9 @@
     <PackageReference Include="Xamarin.Google.Maps.Utils">
       <Version>1.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.UITest">
-      <Version>2.2.7</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +111,14 @@
       <Project>{4CE708B3-9B8B-4193-B3AC-0CD7B0879ADA}</Project>
       <Name>Hermes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapInfoWindow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\pin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
