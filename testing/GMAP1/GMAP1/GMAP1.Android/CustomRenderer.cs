@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 
+using Xamarin.Forms;
+using GMAP1;
+using GMAP1.Droid;
+
+[assembly: ExportRenderer(typeof(CustomMap), typeof(CustomRenderer))]
 namespace GMAP1.Droid
 {
     class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
@@ -55,14 +54,13 @@ namespace GMAP1.Droid
             marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
             marker.SetTitle(pin.Label);
             marker.SetSnippet(pin.Address);
-            marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pin));
+            //marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pin));
             return marker;
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
-            var inflater = Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) as Android.Views.LayoutInflater;
-            if (inflater != null)
+            if (Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) is Android.Views.LayoutInflater inflater)
             {
                 Android.Views.View view;
 
@@ -72,7 +70,22 @@ namespace GMAP1.Droid
                     throw new Exception("Custom pin not found");
                 }
 
-                view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
+                //DependencyService.Get<IMessage>().LongAlert("This pins label is: " + customPin.Label.ToString());
+
+                if (customPin.Label.ToString().Equals("supplies"))
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
+                } else if (customPin.Label.ToString().Equals("medical")) 
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Medical, null);
+                } else if (customPin.Label.ToString().Equals("shelter"))
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Shelter, null);
+                } else
+                {
+                    //DependencyService.Get<IMessage>().LongAlert("Resorting to default view");
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
+                }
 
                 var infoTitle = view.FindViewById<TextView>(Resource.Id.InfoWindowTitle);
                 var infoSubtitle = view.FindViewById<TextView>(Resource.Id.InfoWindowSubtitle);
@@ -93,7 +106,6 @@ namespace GMAP1.Droid
 
         public Android.Views.View GetInfoWindow(Marker marker)
         {
-            //throw new NotImplementedException();
             return null;
         }
 

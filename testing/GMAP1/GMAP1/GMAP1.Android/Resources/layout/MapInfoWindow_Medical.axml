@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/full_layout_medical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/supplies" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@drawable/monkey" />
+            android:src="@drawable/medical" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,15 +20,17 @@
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/InfoWindowTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="InfoWindowTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+				android:gravity="center"
+                android:text="S"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/InfoWindowSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+				android:gravity="center"
                 android:text="InfoWindowSubtitle"
                 android:textColor="@android:color/black" />
         </LinearLayout>
