@@ -3,12 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.NewsPage">
     <ContentPage.Content>
-        <Grid Padding="20">
-            <ScrollView>
-                <StackLayout>
-
-                </StackLayout>
-            </ScrollView>
-        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>
