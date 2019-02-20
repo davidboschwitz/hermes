@@ -1,4 +1,5 @@
 ﻿using System;
+using Hermes.Database;
 using Hermes.Networking.Messaging;
 
 namespace Hermes.Networking
@@ -7,11 +8,11 @@ namespace Hermes.Networking
     {
         INetworkConnection CurrentConnection { get; }
 
-        event Action<Message> MessageRecieved;
-        event Action<Message> MessageSent;
+        event Action<DatabaseItem> MessageRecieved;
+        event Action<DatabaseItem> MessageSent;
 
         void AttachMessageHandler(MessageHandler messageHandler);
         
-        void SendMessage(Message message);
+        void SendMessage(DatabaseItem message);
     }
 }

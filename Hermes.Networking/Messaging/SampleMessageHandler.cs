@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Hermes.Database;
+using System.Collections.Generic;
 
 namespace Hermes.Networking.Messaging
 {
@@ -19,32 +20,31 @@ namespace Hermes.Networking.Messaging
             NetworkController = networkController;
         }
 
-        public override void RecieveMessage(Message message)
+        public override void RecieveMessage(DatabaseItem message)
         {
-            var header = message?.Header;
-            if (!Namespace.Equals(header?.Namespace))
+            if (!Namespace.Equals(message?.MessageNamespace))
             {
-                throw new UnhandledMessageException($"{header.Namespace}.{header.Name} cannot be handled by SampleMessageHandler.");
+                throw new UnhandledMessageException($"{message.MessageNamespace}.{message.MessageName} cannot be handled by SampleMessageHandler.");
             }
-            else if (MESSAGE_NAME_TEXT_MESSAGE.Equals(header.Name))
-            {
-                var payload = new TextMessagePayload(message.RawPayload);
-            }
-            else if (MESSAGE_NAME_READ_RECIEPT.Equals(header.Name))
+            else if (MESSAGE_NAME_TEXT_MESSAGE.Equals(message.MessageName))
             {
 
             }
-            else if (MESSAGE_NAME_ERROR.Equals(header.Name))
+            else if (MESSAGE_NAME_READ_RECIEPT.Equals(message.MessageName))
+            {
+
+            }
+            else if (MESSAGE_NAME_ERROR.Equals(message.MessageName))
             {
                  
             }
             else
             {
-                throw new UnhandledMessageException($"{header.Namespace}.{header.Name} cannot be handled by SampleMessageHandler.");
+                throw new UnhandledMessageException($"{message.MessageNamespace}.{message.MessageName} cannot be handled by SampleMessageHandler.");
             }
         }
 
-        public override void SendMessage(Message message)
+        public override void SendMessage(DatabaseItem message)
         {
             NetworkController.SendMessage(message);
         }

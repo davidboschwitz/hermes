@@ -4,13 +4,14 @@ namespace Hermes.Database
 {
     public abstract class DatabaseItem
     {
-        Guid MessageID;
-        Guid SenderID;
-        Guid RecipientID;
+        public Guid MessageID;
+        public Guid SenderID;
+        public Guid RecipientID;
 
-        DateTime CreatedTimestamp;
-        DateTime UpdatedTimestamp;
+        public DateTime CreatedTimestamp;
+        public DateTime UpdatedTimestamp;
 
-        string MessageType;
+        public string MessageNamespace;
+        public string MessageName;
     }
 }
