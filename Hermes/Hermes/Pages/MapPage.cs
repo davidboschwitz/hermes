@@ -20,19 +20,43 @@ namespace Hermes
                 HeightRequest = App.ScreenHeight
             };
 
-            var pin = new CustomPin
+
+            var examplePinSupplies = new CustomPin
             {
                 Type = PinType.Place,
-                Position = new Position(42.025250, -93.650870),
-                Label = "Iowa State Food Shelter",
-                Address = "2229 Lincoln Way Ames, IA",
-                Id = "FoodPin1",
-                Url = "http://iastate.edu"
+                Position = new Position(42.02525, -93.65087),
+                Address = " - need to possibly implement - ",
+                Id = "supplies",
+                Label = "supplies",
+                Url = "https://www.redcross.org/store"
             };
 
-            customMap.CustomPins = new List<CustomPin> { pin };
-            customMap.Pins.Add(pin);
+            var examplePinMedical = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(42.02290, -93.63912),
+                Address = " - need to possibly implement - ",
+                Id = "medical",
+                Label = "medical",
+                Url = "http://www.redcross.org"
+            };
+
+            var examplePinShelter = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(42.02045, -93.60968),
+                Address = " - need to possibly implement - ",
+                Id = "shelter",
+                Label = "shelter",
+                Url = "http://www.redcross.org"
+            };
+
+            customMap.CustomPins = new List<CustomPin> { examplePinSupplies, examplePinMedical, examplePinShelter };
+            customMap.Pins.Add(examplePinSupplies);
+            customMap.Pins.Add(examplePinMedical);
+            customMap.Pins.Add(examplePinShelter);
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
+
 
             Content = customMap;
 

@@ -60,6 +60,11 @@ namespace Hermes.Droid
         private void googleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             ((CustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            Map.Pins.Add(new Pin
+            {
+                Label = "Pin from tap",
+                Position = new Position(e.Point.Latitude, e.Point.Longitude)
+            });
         }
 
         protected override MarkerOptions CreateMarker(Pin pin)
@@ -74,8 +79,7 @@ namespace Hermes.Droid
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
-            var inflater = Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) as Android.Views.LayoutInflater;
-            if (inflater != null)
+            if (Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) is Android.Views.LayoutInflater inflater)
             {
                 Android.Views.View view;
 
@@ -85,7 +89,25 @@ namespace Hermes.Droid
                     throw new Exception("Custom pin not found");
                 }
 
-                view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
+                //DependencyService.Get<IMessage>().LongAlert("This pins label is: " + customPin.Label.ToString());
+
+                if (customPin.Label.ToString().Equals("supplies"))
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
+                }
+                else if (customPin.Label.ToString().Equals("medical"))
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Medical, null);
+                }
+                else if (customPin.Label.ToString().Equals("shelter"))
+                {
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Shelter, null);
+                }
+                else
+                {
+                    //DependencyService.Get<IMessage>().LongAlert("Resorting to default view");
+                    view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
+                }
 
                 var infoTitle = view.FindViewById<TextView>(Resource.Id.InfoWindowTitle);
                 var infoSubtitle = view.FindViewById<TextView>(Resource.Id.InfoWindowSubtitle);
@@ -101,6 +123,7 @@ namespace Hermes.Droid
 
                 return view;
             }
+
             return null;
         }
 
