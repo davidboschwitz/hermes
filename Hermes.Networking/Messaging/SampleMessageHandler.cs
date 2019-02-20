@@ -36,7 +36,7 @@ namespace Hermes.Networking.Messaging
             }
             else if (MESSAGE_NAME_ERROR.Equals(header.Name))
             {
-
+                 
             }
             else
             {
