@@ -49,25 +49,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Hermes/Hermes.Android/Hermes.Android.csproj
+    <PackageReference Include="NUnit">
+      <Version>3.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="NUnitTestAdapter">
+      <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1029999" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>3.4.0.1029999</Version>
+    </PackageReference>
+=======
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+>>>>>>> Hermes/Hermes.Android/Hermes.Android.csproj
     <PackageReference Include="Xamarin.Google.Maps.Utils">
       <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MessageAndroid.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
@@ -100,5 +122,45 @@
       <Name>Hermes</Name>
     </ProjectReference>
   </ItemGroup>
+<<<<<<< Hermes/Hermes.Android/Hermes.Android.csproj
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapInfoWindow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\monkey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\shelter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\supplies.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\globe.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\medical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapInfoWindow_Medical.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapInfoWindow_Shelter.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MapInfoWindow_Supplies.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+=======
+>>>>>>> Hermes/Hermes.Android/Hermes.Android.csproj
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
