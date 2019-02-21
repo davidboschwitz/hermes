@@ -17,6 +17,9 @@ namespace Hermes
                 HeightRequest = App.ScreenHeight
             };
 
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            customMap.GestureRecognizers.Add(tapGestureRecognizer);
+
             var examplePinSupplies = new CustomPin
             {
                 Type = PinType.Place,

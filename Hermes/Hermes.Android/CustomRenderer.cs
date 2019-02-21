@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
@@ -18,10 +19,27 @@ namespace Hermes.Droid
     {
         List<CustomPin> customPins;
 
+        private readonly MapGestureListener _listener;
+        private readonly GestureDetector _detector;
+
         //readonly private GoogleMap myGoogleMap;
 
         public CustomRenderer(Context context) : base(context)
         {
+            _listener = new MapGestureListener();
+            #pragma warning disable 618
+            _detector = new GestureDetector(_listener);
+            #pragma warning restore 618
+        }
+
+        void HandleTouch(object sender, TouchEventArgs e)
+        {
+            _detector.OnTouchEvent(e.Event);
+        }
+
+        void HandleGenericMotion(object sender, GenericMotionEventArgs e)
+        {
+            _detector.OnTouchEvent(e.Event);
         }
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
@@ -38,6 +56,24 @@ namespace Hermes.Droid
                 var formsMap = (CustomMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
+            }
+
+            if (e.NewElement == null)
+            {
+                if (this.GenericMotion != null)
+                {
+                    GenericMotion -= HandleGenericMotion;
+                }
+                if (this.Touch != null)
+                {
+                    Touch -= HandleTouch;
+                }
+            }
+
+            if (e.OldElement == null)
+            {
+                GenericMotion += HandleGenericMotion;
+                Touch += HandleTouch;
             }
         }
 
@@ -63,6 +99,7 @@ namespace Hermes.Droid
                 Label = "Pin from tap",
                 Position = new Position(e.Point.Latitude, e.Point.Longitude)
             });
+      
         }
 
         protected override MarkerOptions CreateMarker(Pin pin)
@@ -85,8 +122,6 @@ namespace Hermes.Droid
                 {
                     throw new Exception("Custom pin not found");
                 }
-
-                DependencyService.Get<IMessage>().LongAlert("This pins label is: " + customPin.Label.ToString());
 
                 if (customPin.Label.ToString().Equals("supplies"))
                 {
@@ -157,6 +192,11 @@ namespace Hermes.Droid
                 }
             }
             return null;
+        }
+
+        void SetCustomPin(Position p)
+        {
+
         }
     }
 }
