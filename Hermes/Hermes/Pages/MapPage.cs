@@ -8,18 +8,14 @@ namespace Hermes
 {
     public class MapPage : ContentPage
     {
-        
-
         public MapPage()
         {
-
             CustomMap customMap = new CustomMap()
             {
                 MapType = MapType.Street,
                 WidthRequest = App.ScreenWidth,
                 HeightRequest = App.ScreenHeight
             };
-
 
             var examplePinSupplies = new CustomPin
             {
@@ -57,11 +53,7 @@ namespace Hermes
             customMap.Pins.Add(examplePinShelter);
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
 
-
             Content = customMap;
-
         }
     }
-
-    
 }

@@ -1,9 +1,6 @@
-﻿using System.Runtime.Remoting.Messaging;
-
-using Android.App;
+﻿using Android.App;
 using Android.Widget;
 using Hermes.Droid;
-using Hermes.Models;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MessageAndroid))]
 namespace Hermes.Droid

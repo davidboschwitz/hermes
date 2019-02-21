@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using Hermes.Droid;
 using Hermes.Models;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 
+[assembly: ExportRenderer(typeof(CustomMap), typeof(CustomRenderer))]
 namespace Hermes.Droid
 {
-    class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
     {
         List<CustomPin> customPins;
 
-        private GoogleMap _map;
+        //readonly private GoogleMap myGoogleMap;
 
         public CustomRenderer(Context context) : base(context)
         {
@@ -44,6 +41,7 @@ namespace Hermes.Droid
             }
         }
 
+
         protected override void OnMapReady(GoogleMap map)
         {
             base.OnMapReady(map);
@@ -51,13 +49,16 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
+            /*
             if(map != null)
             {
-                map.MapClick += googleMap_MapClick;
+                map.MapClick += GoogleMap_MapClick;
             }
+            */
         }
 
-        private void googleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        /*
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             ((CustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             Map.Pins.Add(new Pin
@@ -66,6 +67,7 @@ namespace Hermes.Droid
                 Position = new Position(e.Point.Latitude, e.Point.Longitude)
             });
         }
+        */
 
         protected override MarkerOptions CreateMarker(Pin pin)
         {
@@ -73,7 +75,6 @@ namespace Hermes.Droid
             marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
             marker.SetTitle(pin.Label);
             marker.SetSnippet(pin.Address);
-            marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pin));
             return marker;
         }
 
@@ -89,7 +90,7 @@ namespace Hermes.Droid
                     throw new Exception("Custom pin not found");
                 }
 
-                //DependencyService.Get<IMessage>().LongAlert("This pins label is: " + customPin.Label.ToString());
+                DependencyService.Get<IMessage>().LongAlert("This pins label is: " + customPin.Label.ToString());
 
                 if (customPin.Label.ToString().Equals("supplies"))
                 {
@@ -129,7 +130,6 @@ namespace Hermes.Droid
 
         public Android.Views.View GetInfoWindow(Marker marker)
         {
-            //throw new NotImplementedException();
             return null;
         }
 
