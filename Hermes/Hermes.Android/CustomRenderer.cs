@@ -14,7 +14,7 @@ using Xamarin.Forms.Maps.Android;
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomRenderer))]
 namespace Hermes.Droid
 {
-    class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
+    class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
         List<CustomPin> customPins;
 
@@ -49,15 +49,12 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-            /*
             if(map != null)
             {
                 map.MapClick += GoogleMap_MapClick;
             }
-            */
         }
 
-        /*
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             ((CustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
@@ -67,7 +64,6 @@ namespace Hermes.Droid
                 Position = new Position(e.Point.Latitude, e.Point.Longitude)
             });
         }
-        */
 
         protected override MarkerOptions CreateMarker(Pin pin)
         {
