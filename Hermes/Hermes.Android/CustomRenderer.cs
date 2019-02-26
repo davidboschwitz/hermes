@@ -19,29 +19,12 @@ namespace Hermes.Droid
     {
         List<CustomPin> customPins;
 
-        private readonly MapGestureListener _listener;
-        private readonly GestureDetector _detector;
-
         //readonly private GoogleMap myGoogleMap;
 
         public CustomRenderer(Context context) : base(context)
         {
-            _listener = new MapGestureListener();
-            #pragma warning disable 618
-            _detector = new GestureDetector(_listener);
-            #pragma warning restore 618
         }
-
-        void HandleTouch(object sender, TouchEventArgs e)
-        {
-            _detector.OnTouchEvent(e.Event);
-        }
-
-        void HandleGenericMotion(object sender, GenericMotionEventArgs e)
-        {
-            _detector.OnTouchEvent(e.Event);
-        }
-
+       
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
@@ -57,26 +40,7 @@ namespace Hermes.Droid
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
-
-            if (e.NewElement == null)
-            {
-                if (this.GenericMotion != null)
-                {
-                    GenericMotion -= HandleGenericMotion;
-                }
-                if (this.Touch != null)
-                {
-                    Touch -= HandleTouch;
-                }
-            }
-
-            if (e.OldElement == null)
-            {
-                GenericMotion += HandleGenericMotion;
-                Touch += HandleTouch;
-            }
         }
-
 
         protected override void OnMapReady(GoogleMap map)
         {
@@ -94,12 +58,18 @@ namespace Hermes.Droid
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
             ((CustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
-            Map.Pins.Add(new Pin
+            var addingPin = new CustomPin
             {
+                Type = PinType.Place,
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Address = " - need to possibly implement - ",
+                Id = "shelter",
                 Label = "Pin from tap",
-                Position = new Position(e.Point.Latitude, e.Point.Longitude)
-            });
-      
+                Url = "http://www.redcross.org"
+            };
+
+            Map.Pins.Add(addingPin);
+            this.customPins.Add(addingPin);
         }
 
         protected override MarkerOptions CreateMarker(Pin pin)
@@ -192,11 +162,6 @@ namespace Hermes.Droid
                 }
             }
             return null;
-        }
-
-        void SetCustomPin(Position p)
-        {
-
         }
     }
 }

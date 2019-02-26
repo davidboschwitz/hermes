@@ -12,13 +12,11 @@ namespace Hermes
         {
             CustomMap customMap = new CustomMap()
             {
+                HeightRequest = 100,
+                WidthRequest = 960,
+                VerticalOptions = LayoutOptions.FillAndExpand,
                 MapType = MapType.Street,
-                WidthRequest = App.ScreenWidth,
-                HeightRequest = App.ScreenHeight
             };
-
-            var tapGestureRecognizer = new TapGestureRecognizer();
-            customMap.GestureRecognizers.Add(tapGestureRecognizer);
 
             var examplePinSupplies = new CustomPin
             {
@@ -57,6 +55,27 @@ namespace Hermes
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
 
             Content = customMap;
+
+            /*
+            var addPin = new ToggleButton { Text = "Add pin" };
+
+            var buttons = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = {
+                    addPin
+                }
+            };
+
+            Content = new StackLayout
+            {
+                Spacing = 0,
+                Children = {
+                    customMap,
+                    buttons
+                }
+            };
+            */
         }
     }
 }
