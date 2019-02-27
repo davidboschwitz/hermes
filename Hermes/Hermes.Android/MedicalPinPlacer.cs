@@ -13,16 +13,16 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(OriginalCustomMap), typeof(OriginalCustomRenderer))]
+[assembly: ExportRenderer(typeof( MedicalPinMap), typeof(MedicalPinPlacer))]
 
 namespace Hermes.Droid
 {
-    class OriginalCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    class MedicalPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
+     
+        List<CustomPin> customPins = new List<CustomPin>();
 
-        List<CustomPin> customPins;
-
-        public OriginalCustomRenderer(Context context) : base(context)
+        public MedicalPinPlacer(Context context) : base(context)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (OriginalCustomMap)e.NewElement;
+                var formsMap = (MedicalPinMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
@@ -58,14 +58,14 @@ namespace Hermes.Droid
 
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            ((MedicalPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var addingPin = new CustomPin
             {
                 Type = PinType.Place,
                 Position = new Position(e.Point.Latitude, e.Point.Longitude),
                 Address = " - need to possibly implement - ",
-                Id = "shelter",
-                Label = "shelter",
+                Id = "medical",
+                Label = "medical",
                 Url = "http://www.redcross.org"
             };
 
@@ -93,7 +93,6 @@ namespace Hermes.Droid
                 {
                     throw new Exception("Custom pin not found");
                 }
-
                 if (customPin.Label.ToString().Equals("supplies"))
                 {
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);

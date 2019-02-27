@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hermes.Pages;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -12,7 +13,7 @@ namespace Hermes
 
         public App()
         {
-            MainPage = new MapPage();
+            MainPage = new NavigationPage(new PinPlaceSelection());
         }
 
         public void SetWidth(double w)

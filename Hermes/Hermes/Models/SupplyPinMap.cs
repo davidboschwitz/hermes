@@ -4,7 +4,7 @@ using Xamarin.Forms.Maps;
 
 namespace Hermes.Models
 {
-    public class OriginalCustomMap : Map
+    public class SupplyPinMap : Map
     {
         public List<CustomPin> CustomPins { get; set; }
 
@@ -20,5 +20,4 @@ namespace Hermes.Models
             Tapped?.Invoke(this, e);
         }
     }
-
 }
