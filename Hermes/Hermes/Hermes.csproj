@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1029999" />
@@ -20,6 +26,5 @@
     <Folder Include="Controllers\" />
     <Folder Include="Services\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 </Project>
