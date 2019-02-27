@@ -5,9 +5,15 @@ using Xamarin.Forms.Maps;
 
 namespace Hermes.Models
 {
-    public class JustViewCustomMap : Map
+    public class RouteCustomMap : Map
     {
         public List<CustomPin> CustomPins { get; set; }
+        public List<Position> RouteCoordinates { get; set; }
+
+        public RouteCustomMap()
+        {
+            RouteCoordinates = new List<Position>();
+        }
 
         public event EventHandler<MapTapEventArgs> Tapped;
 

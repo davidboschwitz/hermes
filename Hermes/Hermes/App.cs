@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using Hermes.Pages;
 
 namespace Hermes
 {
@@ -12,7 +13,8 @@ namespace Hermes
 
         public App()
         {
-            MainPage = new MapPage();
+            //MainPage = new MapPage();
+            MainPage = new MapPageRoutes();
         }
 
         public void SetWidth(double w)

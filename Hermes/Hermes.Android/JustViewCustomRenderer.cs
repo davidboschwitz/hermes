@@ -10,7 +10,7 @@ using Hermes.Models;
 using Xamarin.Forms.Maps.Android;
 using Xamarin.Forms.Maps;
 
-[assembly: ExportRenderer(typeof(JustViewCustomMap), typeof(OriginalCustomRenderer))]
+[assembly: ExportRenderer(typeof(JustViewCustomMap), typeof(JustViewCustomRenderer))]
 namespace Hermes.Droid
 {
     class JustViewCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
@@ -84,10 +84,18 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (OriginalCustomMap)e.NewElement;
+                var formsMap = (JustViewCustomMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
+        }
+
+        protected override void OnMapReady(GoogleMap map)
+        {
+            base.OnMapReady(map);
+
+            NativeMap.InfoWindowClick += OnInfoWindowClick;
+            NativeMap.SetInfoWindowAdapter(this);
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
