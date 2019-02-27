@@ -29,6 +29,12 @@ namespace Hermes.Views
                     case (int)MenuItemType.Browse:
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
+                    case (int)MenuItemType.Maps:
+                        MenuPages.Add(id, new NavigationPage(new MapPage()));
+                        break;
+                    case (int)MenuItemType.News:
+                        MenuPages.Add(id, new NavigationPage(new NewsPage()));
+                        break;
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
