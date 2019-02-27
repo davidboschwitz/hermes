@@ -7,7 +7,9 @@ namespace Hermes.Models
     public enum MenuItemType
     {
         Browse,
-        About
+        About,
+        News,
+        Maps
     }
     public class HomeMenuItem
     {
