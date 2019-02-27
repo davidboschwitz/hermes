@@ -10,7 +10,7 @@ namespace Hermes
     {
         public MapPage()
         {
-            CustomMap customMap = new CustomMap()
+            OriginalCustomMap customMap = new OriginalCustomMap()
             {
                 HeightRequest = 100,
                 WidthRequest = 960,

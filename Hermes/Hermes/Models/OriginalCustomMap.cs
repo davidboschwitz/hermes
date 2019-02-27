@@ -4,7 +4,7 @@ using Xamarin.Forms.Maps;
 
 namespace Hermes.Models
 {
-    public class CustomMap : Map
+    public class OriginalCustomMap : Map
     {
         public List<CustomPin> CustomPins { get; set; }
 

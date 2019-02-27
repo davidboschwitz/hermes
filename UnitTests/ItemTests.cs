@@ -10,7 +10,7 @@ namespace UnitTests
         public void ItemConstructor()
         {
             //Arrange
-            Item i = new Item("Ball", "Text", "Red");
+            Item i = new Item { Id ="Ball", Text = "Text", Description = "Red" };
             //Act
 
             //Assert
