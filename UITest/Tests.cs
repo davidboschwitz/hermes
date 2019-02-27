@@ -33,13 +33,11 @@
 //            //appi = 
 //            //app = AppInitializer.StartApp(platform);
 //        }
-
 //        [Test]
 //        public void WelcomeTextIsDisplayed()
 //        {
 //            //AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
 //            //app.Screenshot("Welcome screen.");
-
 //           // Assert.IsTrue(results.Any());
 //        }
 //    }
