@@ -60,7 +60,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer.cs" />
+    <Compile Include="JustViewCustomRenderer.cs" />
+    <Compile Include="OriginalCustomRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MessageAndroid.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

@@ -12,16 +12,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 
-[assembly: ExportRenderer(typeof(CustomMap), typeof(CustomRenderer))]
+[assembly: ExportRenderer(typeof(OriginalCustomMap), typeof(OriginalCustomRenderer))]
 namespace Hermes.Droid
 {
-    class CustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    class OriginalCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
         List<CustomPin> customPins;
 
-        //readonly private GoogleMap myGoogleMap;
-
-        public CustomRenderer(Context context) : base(context)
+        public OriginalCustomRenderer(Context context) : base(context)
         {
         }
        
@@ -36,7 +34,7 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (CustomMap)e.NewElement;
+                var formsMap = (OriginalCustomMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
@@ -57,7 +55,7 @@ namespace Hermes.Droid
 
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            ((CustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var addingPin = new CustomPin
             {
                 Type = PinType.Place,
@@ -69,7 +67,7 @@ namespace Hermes.Droid
             };
 
             Map.Pins.Add(addingPin);
-            this.customPins.Add(addingPin);
+            customPins.Add(addingPin);
         }
 
         protected override MarkerOptions CreateMarker(Pin pin)
