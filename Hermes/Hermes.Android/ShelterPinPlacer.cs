@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
@@ -12,19 +13,19 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(OriginalCustomMap), typeof(OriginalCustomRenderer))]
+[assembly: ExportRenderer(typeof(ShelterPinMap), typeof(ShelterPinPlacer))]
 
 namespace Hermes.Droid
 {
-    class OriginalCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
-    {
+    class ShelterPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    {       
 
         List<CustomPin> customPins;
 
-        public OriginalCustomRenderer(Context context) : base(context)
+        public ShelterPinPlacer(Context context) : base(context)
         {
         }
-
+       
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
@@ -36,7 +37,7 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (OriginalCustomMap)e.NewElement;
+                var formsMap = (ShelterPinMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
@@ -49,7 +50,7 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-            if (map != null)
+            if(map != null)
             {
                 map.MapClick += GoogleMap_MapClick;
             }
@@ -57,7 +58,7 @@ namespace Hermes.Droid
 
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            ((ShelterPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var addingPin = new CustomPin
             {
                 Type = PinType.Place,
@@ -69,8 +70,11 @@ namespace Hermes.Droid
             };
 
             Map.Pins.Add(addingPin);
+
             customPins.Add(addingPin);
         }
+
+       
 
         protected override MarkerOptions CreateMarker(Pin pin)
         {
@@ -163,5 +167,6 @@ namespace Hermes.Droid
             }
             return null;
         }
+
     }
 }

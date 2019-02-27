@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
@@ -12,16 +13,18 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(OriginalCustomMap), typeof(OriginalCustomRenderer))]
+[assembly: ExportRenderer(typeof(SupplyPinMap), typeof(SupplyPinPlacer))]
 
 namespace Hermes.Droid
 {
-    class OriginalCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    class SupplyPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
 
+           
+        
         List<CustomPin> customPins;
 
-        public OriginalCustomRenderer(Context context) : base(context)
+        public SupplyPinPlacer(Context context) : base(context)
         {
         }
 
@@ -36,7 +39,7 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (OriginalCustomMap)e.NewElement;
+                var formsMap = (SupplyPinMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
@@ -57,14 +60,14 @@ namespace Hermes.Droid
 
         private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
         {
-            ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            ((SupplyPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
             var addingPin = new CustomPin
             {
                 Type = PinType.Place,
                 Position = new Position(e.Point.Latitude, e.Point.Longitude),
                 Address = " - need to possibly implement - ",
-                Id = "shelter",
-                Label = "shelter",
+                Id = "supplies",
+                Label = "supplies",
                 Url = "http://www.redcross.org"
             };
 
