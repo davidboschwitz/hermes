@@ -6,7 +6,7 @@ namespace Hermes.Models
 {
     public enum MenuItemType
     {
-        Browse,
+        Chat,
         About,
         News,
         Maps

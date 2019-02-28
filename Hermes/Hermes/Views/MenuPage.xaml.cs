@@ -18,7 +18,7 @@ namespace Hermes.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Chat" },
+                new HomeMenuItem {Id = MenuItemType.Chat, Title="Chat" },
                 new HomeMenuItem {Id = MenuItemType.Maps, Title="Maps" },
                 new HomeMenuItem {Id = MenuItemType.News, Title="News" },
                 new HomeMenuItem {Id = MenuItemType.About, Title="About" }

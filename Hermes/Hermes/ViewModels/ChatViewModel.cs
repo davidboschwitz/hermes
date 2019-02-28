@@ -1,56 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
 using Hermes.Models;
-using Hermes.Services;
+using Hermes.Views;
 
 namespace Hermes.ViewModels
 {
-    public class ChatViewModel : INotifyPropertyChanged
+    public class ChatViewModel : IChatViewModel
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new ChatDataStore();
+        public ObservableCollection<Item> Items { get; set; }
+        public Command LoadItemsCommand { get; set; }
 
-        bool isBusy = false;
-        public bool IsBusy
+        public ChatViewModel()
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            Title = "Chat";
+            Items = new ObservableCollection<Item>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            {
+                var newItem = item as Item;
+                Items.Add(newItem);
+                await DataStore.AddItemAsync(newItem);
+            });
         }
 
-        string title = string.Empty;
-        public string Title
+        async Task ExecuteLoadItemsCommand()
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
-        }
-
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
+            if (IsBusy)
                 return;
 
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            IsBusy = true;
+
+            try
+            {
+                Items.Clear();
+                var items = await DataStore.GetItemsAsync(true);
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
-        #endregion
     }
 }

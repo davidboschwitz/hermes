@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hermes.Models;
 
+
 namespace Hermes.Services
 {
     public class ChatDataStore : IDataStore<Item>
@@ -18,7 +19,7 @@ namespace Hermes.Services
             items = new List<Item>();
             var mockItems = new List<Item>
             {
-                //new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is a test." },
+                //new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
                 //new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
                 //new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
                 //new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
@@ -35,7 +36,7 @@ namespace Hermes.Services
         public async Task<bool> AddItemAsync(Item item)
         {
             items.Add(item);
-            StartClient(item.Description, item.Text);
+
             return await Task.FromResult(true);
         }
 
@@ -87,9 +88,5 @@ namespace Hermes.Services
 
 
         }
-
-
-
     }
-
 }

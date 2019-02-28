@@ -17,7 +17,7 @@ namespace Hermes.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Chat, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -26,7 +26,7 @@ namespace Hermes.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
+                    case (int)MenuItemType.Chat:
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
                     case (int)MenuItemType.Maps:
