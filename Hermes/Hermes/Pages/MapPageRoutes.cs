@@ -21,7 +21,7 @@ namespace Hermes.Pages
             var exampleStartPin = new CustomPin
             {
                 Type = PinType.Place,
-                Position = new Position(42.02525, -93.65087),
+                Position = new Position(42.02332, -93.66791),
                 Address = " - need to possibly implement - ",
                 Id = "supplies",
                 Label = "supplies",
@@ -31,7 +31,7 @@ namespace Hermes.Pages
             var exampleEndPin = new CustomPin
             {
                 Type = PinType.Place,
-                Position = new Position(42.02045, -93.60968),
+                Position = new Position(42.020454, -93.60969),
                 Address = " - need to possibly implement - ",
                 Id = "supplies",
                 Label = "supplies",

@@ -27,8 +27,8 @@ namespace Hermes.Droid
 
         public RouteCustomRenderer(Context context) : base(context)
         {
-            //Testing if this constructor gets called first
-            DependencyService.Get<IMessage>().LongAlert("Constructor Called");
+            //Example of how to do a toast: 
+            //DependencyService.Get<IMessage>().LongAlert("This is a toast!");
         }
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
@@ -52,19 +52,20 @@ namespace Hermes.Droid
         {
             base.OnMapReady(map);
 
-            DrawRoute();
+            DrawRoute(NativeMap);
 
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
         }
 
-        public async void DrawRoute()
+        public void DrawRoute(GoogleMap g)
         {
-            var lat1 = 42.02332;
-            var long1 = -93.66791;
-            var lat2 = 42.020454;
-            var long2 = -93.60969;
+            var lat1 = "42.02332";
+            var long1 = "-93.66791";
+            var lat2 = "42.020454";
+            var long2 = "-93.60969";
 
+            //url = https://maps.googleapis.com/maps/api/directions/json?origin=42.02332,-93.66791&destination=42.020454,-93.60969&key=AIzaSyAJ80rolI5NRBXgrvwylHrcAQBGhii_1dI
             var url = "https://maps.googleapis.com/maps/api/directions/json?" +
                 "origin=" + lat1 + "," + long1 +
                 "&destination=" + lat2 + "," + long2 +
@@ -76,19 +77,30 @@ namespace Hermes.Droid
                 json = wc.DownloadString(url);
             }
 
+            DependencyService.Get<IMessage>().LongAlert("How many lines in this JSON: " + json.Split('\n').Length);
+
             var lstDecodedPoints = FnDecodePolylinePoints(json);
             var latLngPoints = new LatLng[lstDecodedPoints.Count];
             int index = 0;
-            foreach (Android.Locations.Location loc in lstDecodedPoints)
+            foreach (Position loc in lstDecodedPoints)
             {
                 latLngPoints[index++] = new LatLng(loc.Latitude, loc.Longitude);
             }
+
             var polylineoption = new PolylineOptions();
             polylineoption.InvokeColor(Android.Graphics.Color.Green);
             polylineoption.Geodesic(true);
             polylineoption.Add(latLngPoints);
 
-            NativeMap.AddPolyline(polylineoption);
+            try
+            {
+                g.AddPolyline(polylineoption);
+            } catch (Exception e)
+            {
+                if (e.Source != null)
+                    Console.WriteLine("Exception source: {0}", e.Source);
+                throw;
+            }
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
@@ -173,20 +185,17 @@ namespace Hermes.Droid
             return null;
         }
 
-        List<Android.Locations.Location> FnDecodePolylinePoints(string encodedPoints)
+        List<Position> FnDecodePolylinePoints(string encodedPoints)
         {
-            if (string.IsNullOrEmpty(encodedPoints))
-                return null;
-            var poly = new List<Android.Locations.Location>();
+            if (encodedPoints == null || encodedPoints == "") return null;
+            List<Position> poly = new List<Position>();
             char[] polylinechars = encodedPoints.ToCharArray();
             int index = 0;
-
             int currentLat = 0;
             int currentLng = 0;
             int next5bits;
             int sum;
             int shifter;
-
             try
             {
                 while (index < polylinechars.Length)
@@ -200,12 +209,9 @@ namespace Hermes.Droid
                         sum |= (next5bits & 31) << shifter;
                         shifter += 5;
                     } while (next5bits >= 32 && index < polylinechars.Length);
-
                     if (index >= polylinechars.Length)
                         break;
-
                     currentLat += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
-
                     //calculate next longitude
                     sum = 0;
                     shifter = 0;
@@ -215,20 +221,19 @@ namespace Hermes.Droid
                         sum |= (next5bits & 31) << shifter;
                         shifter += 5;
                     } while (next5bits >= 32 && index < polylinechars.Length);
-
                     if (index >= polylinechars.Length && next5bits >= 32)
                         break;
-
                     currentLng += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
-                    Android.Locations.Location p = new Android.Locations.Location("");
-                    p.Latitude = Convert.ToDouble(currentLat) / 100000.0;
-                    p.Longitude = Convert.ToDouble(currentLng) / 100000.0;
+                    Position p = new Position(Convert.ToDouble(currentLat) / 100000.0,
+                        Convert.ToDouble(currentLng) / 100000.0);
                     poly.Add(p);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                DependencyService.Get<IMessage>().LongAlert("--CATCH--");
+                if (e.Source != null)
+                    Console.WriteLine("Exception source: {0}", e.Source);
+                throw;
             }
             return poly;
         }
