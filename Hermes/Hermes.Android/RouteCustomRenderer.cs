@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
@@ -77,6 +72,30 @@ namespace Hermes.Droid
                 json = wc.DownloadString(url);
             }
 
+            Route myr = JsonConvert.DeserializeObject<Route>(json);
+
+            DependencyService.Get<IMessage>().LongAlert("checking how many GWP in root:" + myr.Legs.Count);
+/*
+            var latLngPoints = new LatLng[myr.Legs.Count];
+            int index = 0;
+            foreach (var leg in myr.Legs)
+            {
+                var startingLat = leg.Start_location.Lat;
+                var startingLong = leg.Start_location.Lng;
+                var endingLat = leg.End_location.Lat;
+                var endingLong = leg.End_location.Lng;
+
+                latLngPoints[index++] = new LatLng(startingLat, endingLat);
+                latLngPoints[index++] = new LatLng(endingLat, endingLong);
+            }
+
+            var polylineoption = new PolylineOptions();
+            polylineoption.InvokeColor(Android.Graphics.Color.Green);
+            polylineoption.Geodesic(true);
+            polylineoption.Add(latLngPoints);
+            g.AddPolyline(polylineoption);
+
+            
             DependencyService.Get<IMessage>().LongAlert("How many lines in this JSON: " + json.Split('\n').Length);
 
             var lstDecodedPoints = FnDecodePolylinePoints(json);
@@ -101,6 +120,7 @@ namespace Hermes.Droid
                     Console.WriteLine("Exception source: {0}", e.Source);
                 throw;
             }
+            */
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
