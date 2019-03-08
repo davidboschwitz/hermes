@@ -6,19 +6,19 @@ using Xamarin.Forms.Xaml;
 
 namespace Hermes.Views
 {
-    //[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-
         public MainPage(MenuPage menu)
         {
             InitializeComponent();
 
             Master = menu;
-            Detail = menu.MenuItems[0].NavigationPage;
             MasterBehavior = MasterBehavior.Popover;
+
+            Detail = menu.MenuItems[0].NavigationPage;
         }
-        
+
         public async Task NavigateFromMenu(NavigationPage selectedPage)
         {
             if (selectedPage != null && Detail != selectedPage)
