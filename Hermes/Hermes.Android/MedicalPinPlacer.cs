@@ -19,7 +19,7 @@ namespace Hermes.Droid
 {
     class MedicalPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
-     
+
         List<CustomPin> customPins = new List<CustomPin>();
 
         public MedicalPinPlacer(Context context) : base(context)
@@ -29,6 +29,7 @@ namespace Hermes.Droid
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
+
 
             if (e.OldElement != null)
             {
@@ -56,22 +57,9 @@ namespace Hermes.Droid
             }
         }
 
-        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
-        {
-            ((MedicalPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
-            var addingPin = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(e.Point.Latitude, e.Point.Longitude),
-                Address = " - need to possibly implement - ",
-                Id = "medical",
-                Label = "medical",
-                Url = "http://www.redcross.org"
-            };
+       
 
-            Map.Pins.Add(addingPin);
-            customPins.Add(addingPin);
-        }
+        
 
         protected override MarkerOptions CreateMarker(Pin pin)
         {
@@ -82,11 +70,14 @@ namespace Hermes.Droid
             return marker;
         }
 
+        Android.Views.View view;
+
+
         public Android.Views.View GetInfoContents(Marker marker)
         {
             if (Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) is Android.Views.LayoutInflater inflater)
             {
-                Android.Views.View view;
+                //Android.Views.View view;
 
                 var customPin = GetCustomPin(marker);
                 if (customPin == null)
@@ -127,6 +118,38 @@ namespace Hermes.Droid
             }
 
             return null;
+        }
+
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            ((MedicalPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            var addingPin = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Address = " - need to possibly implement - ",
+                Id = "medical",
+                Label = "medical",
+                Url = "http://www.redcross.org"
+            };
+
+
+
+            Map.Pins.Add(addingPin);
+            customPins.Add(addingPin);
+
+            //Console.WriteLine(view.L);
+
+            //PopupMenu menu = new PopupMenu(Android.App.Application.Context, view);
+            //menu.Inflate(Resource.Layout.menu1);
+            //menu.MenuItemClick += (s1, arg1) => {
+            //    Console.WriteLine("{0} selected", arg1.Item.TitleFormatted);
+            //};
+            //menu.DismissEvent += (ISurfaceHolderCallback2, arg2) =>
+            //{
+            //    Console.WriteLine("menu dismissed");
+            //};
+            //menu.Show();
         }
 
         public Android.Views.View GetInfoWindow(Marker marker)

@@ -18,6 +18,9 @@ namespace Hermes.Models
         protected virtual void OnTap(MapTapEventArgs e)
         {
             Tapped?.Invoke(this, e);
+            Console.WriteLine("Hello");
         }
+
+       
     }
 }
