@@ -4,6 +4,11 @@ namespace Hermes.Models
 {
     public class Item
     {
+        public Item()
+        {
+
+        }
+
         public Item(string id, string text, string description)
         {
             Id = id;

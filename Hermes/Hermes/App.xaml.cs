@@ -19,8 +19,8 @@ namespace Hermes
             var builder = new ContainerBuilder();
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();
-
-            MainPage = Container.Resolve<MainPage>();
+            var mainPage = Container.Resolve<MainPage>();
+            MainPage = mainPage;
         }
 
         protected override void OnStart()
