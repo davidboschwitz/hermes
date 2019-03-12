@@ -60,6 +60,7 @@ namespace Hermes.Droid
             var lat2 = "42.020454";
             var long2 = "-93.60969";
 
+            //below is the concatinated url to check outputs
             //url = https://maps.googleapis.com/maps/api/directions/json?origin=42.02332,-93.66791&destination=42.020454,-93.60969&key=AIzaSyAJ80rolI5NRBXgrvwylHrcAQBGhii_1dI
             var url = "https://maps.googleapis.com/maps/api/directions/json?" +
                 "origin=" + lat1 + "," + long1 +
@@ -72,20 +73,20 @@ namespace Hermes.Droid
                 json = wc.DownloadString(url);
             }
 
-            Route myr = JsonConvert.DeserializeObject<Route>(json);
+            RootObject myr = JsonConvert.DeserializeObject<RootObject>(json);
 
-            DependencyService.Get<IMessage>().LongAlert("checking how many GWP in root:" + myr.Legs.Count);
-/*
-            var latLngPoints = new LatLng[myr.Legs.Count];
+            //DependencyService.Get<IMessage>().LongAlert("checking how many GWP in root:" + myr.Routes[0].Legs.Count);
+
+            var latLngPoints = new LatLng[(myr.Routes[0].Legs[0].Steps.Count)*2];
             int index = 0;
-            foreach (var leg in myr.Legs)
+            foreach (var step in myr.Routes[0].Legs[0].Steps)
             {
-                var startingLat = leg.Start_location.Lat;
-                var startingLong = leg.Start_location.Lng;
-                var endingLat = leg.End_location.Lat;
-                var endingLong = leg.End_location.Lng;
+                var startingLat = step.Start_location.Lat;
+                var startingLong = step.Start_location.Lng;
+                var endingLat = step.End_location.Lat;
+                var endingLong = step.End_location.Lng;
 
-                latLngPoints[index++] = new LatLng(startingLat, endingLat);
+                latLngPoints[index++] = new LatLng(startingLat, startingLong);
                 latLngPoints[index++] = new LatLng(endingLat, endingLong);
             }
 
@@ -94,33 +95,6 @@ namespace Hermes.Droid
             polylineoption.Geodesic(true);
             polylineoption.Add(latLngPoints);
             g.AddPolyline(polylineoption);
-
-            
-            DependencyService.Get<IMessage>().LongAlert("How many lines in this JSON: " + json.Split('\n').Length);
-
-            var lstDecodedPoints = FnDecodePolylinePoints(json);
-            var latLngPoints = new LatLng[lstDecodedPoints.Count];
-            int index = 0;
-            foreach (Position loc in lstDecodedPoints)
-            {
-                latLngPoints[index++] = new LatLng(loc.Latitude, loc.Longitude);
-            }
-
-            var polylineoption = new PolylineOptions();
-            polylineoption.InvokeColor(Android.Graphics.Color.Green);
-            polylineoption.Geodesic(true);
-            polylineoption.Add(latLngPoints);
-
-            try
-            {
-                g.AddPolyline(polylineoption);
-            } catch (Exception e)
-            {
-                if (e.Source != null)
-                    Console.WriteLine("Exception source: {0}", e.Source);
-                throw;
-            }
-            */
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
