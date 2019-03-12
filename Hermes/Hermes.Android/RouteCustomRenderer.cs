@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
@@ -27,8 +22,8 @@ namespace Hermes.Droid
 
         public RouteCustomRenderer(Context context) : base(context)
         {
-            //Testing if this constructor gets called first
-            DependencyService.Get<IMessage>().LongAlert("Constructor Called");
+            //Example of how to do a toast: 
+            //DependencyService.Get<IMessage>().LongAlert("This is a toast!");
         }
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
@@ -52,19 +47,21 @@ namespace Hermes.Droid
         {
             base.OnMapReady(map);
 
-            DrawRoute();
+            DrawRoute(NativeMap);
 
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
         }
 
-        public async void DrawRoute()
+        public void DrawRoute(GoogleMap g)
         {
-            var lat1 = 42.02332;
-            var long1 = -93.66791;
-            var lat2 = 42.020454;
-            var long2 = -93.60969;
+            var lat1 = "42.02332";
+            var long1 = "-93.66791";
+            var lat2 = "42.020454";
+            var long2 = "-93.60969";
 
+            //below is the concatinated url to check outputs
+            //url = https://maps.googleapis.com/maps/api/directions/json?origin=42.02332,-93.66791&destination=42.020454,-93.60969&key=AIzaSyAJ80rolI5NRBXgrvwylHrcAQBGhii_1dI
             var url = "https://maps.googleapis.com/maps/api/directions/json?" +
                 "origin=" + lat1 + "," + long1 +
                 "&destination=" + lat2 + "," + long2 +
@@ -76,19 +73,28 @@ namespace Hermes.Droid
                 json = wc.DownloadString(url);
             }
 
-            var lstDecodedPoints = FnDecodePolylinePoints(json);
-            var latLngPoints = new LatLng[lstDecodedPoints.Count];
+            RootObject myr = JsonConvert.DeserializeObject<RootObject>(json);
+
+            //DependencyService.Get<IMessage>().LongAlert("checking how many GWP in root:" + myr.Routes[0].Legs.Count);
+
+            var latLngPoints = new LatLng[(myr.Routes[0].Legs[0].Steps.Count)*2];
             int index = 0;
-            foreach (Android.Locations.Location loc in lstDecodedPoints)
+            foreach (var step in myr.Routes[0].Legs[0].Steps)
             {
-                latLngPoints[index++] = new LatLng(loc.Latitude, loc.Longitude);
+                var startingLat = step.Start_location.Lat;
+                var startingLong = step.Start_location.Lng;
+                var endingLat = step.End_location.Lat;
+                var endingLong = step.End_location.Lng;
+
+                latLngPoints[index++] = new LatLng(startingLat, startingLong);
+                latLngPoints[index++] = new LatLng(endingLat, endingLong);
             }
+
             var polylineoption = new PolylineOptions();
             polylineoption.InvokeColor(Android.Graphics.Color.Green);
             polylineoption.Geodesic(true);
             polylineoption.Add(latLngPoints);
-
-            NativeMap.AddPolyline(polylineoption);
+            g.AddPolyline(polylineoption);
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
@@ -173,20 +179,17 @@ namespace Hermes.Droid
             return null;
         }
 
-        List<Android.Locations.Location> FnDecodePolylinePoints(string encodedPoints)
+        List<Position> FnDecodePolylinePoints(string encodedPoints)
         {
-            if (string.IsNullOrEmpty(encodedPoints))
-                return null;
-            var poly = new List<Android.Locations.Location>();
+            if (encodedPoints == null || encodedPoints == "") return null;
+            List<Position> poly = new List<Position>();
             char[] polylinechars = encodedPoints.ToCharArray();
             int index = 0;
-
             int currentLat = 0;
             int currentLng = 0;
             int next5bits;
             int sum;
             int shifter;
-
             try
             {
                 while (index < polylinechars.Length)
@@ -200,12 +203,9 @@ namespace Hermes.Droid
                         sum |= (next5bits & 31) << shifter;
                         shifter += 5;
                     } while (next5bits >= 32 && index < polylinechars.Length);
-
                     if (index >= polylinechars.Length)
                         break;
-
                     currentLat += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
-
                     //calculate next longitude
                     sum = 0;
                     shifter = 0;
@@ -215,20 +215,19 @@ namespace Hermes.Droid
                         sum |= (next5bits & 31) << shifter;
                         shifter += 5;
                     } while (next5bits >= 32 && index < polylinechars.Length);
-
                     if (index >= polylinechars.Length && next5bits >= 32)
                         break;
-
                     currentLng += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
-                    Android.Locations.Location p = new Android.Locations.Location("");
-                    p.Latitude = Convert.ToDouble(currentLat) / 100000.0;
-                    p.Longitude = Convert.ToDouble(currentLng) / 100000.0;
+                    Position p = new Position(Convert.ToDouble(currentLat) / 100000.0,
+                        Convert.ToDouble(currentLng) / 100000.0);
                     poly.Add(p);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                DependencyService.Get<IMessage>().LongAlert("--CATCH--");
+                if (e.Source != null)
+                    Console.WriteLine("Exception source: {0}", e.Source);
+                throw;
             }
             return poly;
         }
