@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Hermes.Views;
+using Autofac;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Hermes
@@ -9,12 +10,17 @@ namespace Hermes
     public partial class App : Application
     {
 
+        IContainer Container;
+
         public App()
         {
             InitializeComponent();
 
-
-            MainPage = new MainPage();
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new HermesModule());
+            Container = builder.Build();
+            var mainPage = Container.Resolve<MainPage>();
+            MainPage = mainPage;
         }
 
         protected override void OnStart()

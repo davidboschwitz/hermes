@@ -7,7 +7,8 @@ namespace Hermes.Database
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new DatabaseController())
-                .As<DatabaseController>();
+                .As<DatabaseController>()
+                .SingleInstance();
         }
     }
 }
