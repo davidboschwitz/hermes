@@ -19,6 +19,7 @@ namespace Hermes
             var builder = new ContainerBuilder();
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();
+
             var mainPage = Container.Resolve<MainPage>();
             MainPage = mainPage;
         }
