@@ -1,24 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
-using Xamarin.Forms;
 using Hermes.Models;
-using Xamarin.Forms.Maps.Android;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Xamarin.Forms.Maps.Android;
+using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(JustViewCustomMap), typeof(JustViewCustomRenderer))]
+[assembly: ExportRenderer(typeof(SupplyPinMap), typeof(SupplyPinPlacer))]
+
 namespace Hermes.Droid
 {
-    class JustViewCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
+    class SupplyPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
+
+           
+        
         List<CustomPin> customPins;
 
-        public JustViewCustomRenderer(Context context) : base(context)
+        public SupplyPinPlacer(Context context) : base(context)
         {
+        }
+
+        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.OldElement != null)
+            {
+                NativeMap.InfoWindowClick -= OnInfoWindowClick;
+            }
+
+            if (e.NewElement != null)
+            {
+                var formsMap = (SupplyPinMap)e.NewElement;
+                customPins = formsMap.CustomPins;
+                Control.GetMapAsync(this);
+            }
+        }
+
+        protected override void OnMapReady(GoogleMap map)
+        {
+            base.OnMapReady(map);
+
+            NativeMap.InfoWindowClick += OnInfoWindowClick;
+            NativeMap.SetInfoWindowAdapter(this);
+
+            if (map != null)
+            {
+                map.MapClick += GoogleMap_MapClick;
+            }
+        }
+
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            ((SupplyPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            var addingPin = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Address = " - need to possibly implement - ",
+                Id = "supplies",
+                Label = "supplies",
+                Url = "http://www.redcross.org"
+            };
+
+            Map.Pins.Add(addingPin);
+            customPins.Add(addingPin);
+        }
+
+        protected override MarkerOptions CreateMarker(Pin pin)
+        {
+            var marker = new MarkerOptions();
+            marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+            marker.SetTitle(pin.Label);
+            marker.SetSnippet(pin.Address);
+            return marker;
         }
 
         public Android.Views.View GetInfoContents(Marker marker)
@@ -47,6 +110,7 @@ namespace Hermes.Droid
                 }
                 else
                 {
+                    //DependencyService.Get<IMessage>().LongAlert("Resorting to default view");
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
                 }
 
@@ -71,31 +135,6 @@ namespace Hermes.Droid
         public Android.Views.View GetInfoWindow(Marker marker)
         {
             return null;
-        }
-
-        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
-        {
-            base.OnElementChanged(e);
-
-            if (e.OldElement != null)
-            {
-                NativeMap.InfoWindowClick -= OnInfoWindowClick;
-            }
-
-            if (e.NewElement != null)
-            {
-                var formsMap = (JustViewCustomMap)e.NewElement;
-                customPins = formsMap.CustomPins;
-                Control.GetMapAsync(this);
-            }
-        }
-
-        protected override void OnMapReady(GoogleMap map)
-        {
-            base.OnMapReady(map);
-
-            NativeMap.InfoWindowClick += OnInfoWindowClick;
-            NativeMap.SetInfoWindowAdapter(this);
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)

@@ -1,38 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
-using Xamarin.Forms;
 using Hermes.Models;
-using Xamarin.Forms.Maps.Android;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Xamarin.Forms.Maps.Android;
+using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(JustViewCustomMap), typeof(JustViewCustomRenderer))]
+[assembly: ExportRenderer(typeof( MedicalPinMap), typeof(MedicalPinPlacer))]
+
 namespace Hermes.Droid
 {
-    class JustViewCustomRenderer : MapRenderer, GoogleMap.IInfoWindowAdapter
+    class MedicalPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
     {
-        List<CustomPin> customPins;
 
-        public JustViewCustomRenderer(Context context) : base(context)
+        List<CustomPin> customPins = new List<CustomPin>();
+
+        public MedicalPinPlacer(Context context) : base(context)
         {
         }
+
+        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
+        {
+            base.OnElementChanged(e);
+
+
+            if (e.OldElement != null)
+            {
+                NativeMap.InfoWindowClick -= OnInfoWindowClick;
+            }
+
+            if (e.NewElement != null)
+            {
+                var formsMap = (MedicalPinMap)e.NewElement;
+                customPins = formsMap.CustomPins;
+                Control.GetMapAsync(this);
+            }
+        }
+
+        protected override void OnMapReady(GoogleMap map)
+        {
+            base.OnMapReady(map);
+
+            NativeMap.InfoWindowClick += OnInfoWindowClick;
+            NativeMap.SetInfoWindowAdapter(this);
+
+            if (map != null)
+            {
+                map.MapClick += GoogleMap_MapClick;
+            }
+        }
+
+       
+
+        
+
+        protected override MarkerOptions CreateMarker(Pin pin)
+        {
+            var marker = new MarkerOptions();
+            marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+            marker.SetTitle(pin.Label);
+            marker.SetSnippet(pin.Address);
+            return marker;
+        }
+
+        Android.Views.View view;
+
 
         public Android.Views.View GetInfoContents(Marker marker)
         {
             if (Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) is Android.Views.LayoutInflater inflater)
             {
-                Android.Views.View view;
+                //Android.Views.View view;
 
                 var customPin = GetCustomPin(marker);
                 if (customPin == null)
                 {
                     throw new Exception("Custom pin not found");
                 }
-
                 if (customPin.Label.ToString().Equals("supplies"))
                 {
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
@@ -47,6 +98,7 @@ namespace Hermes.Droid
                 }
                 else
                 {
+                    //DependencyService.Get<IMessage>().LongAlert("Resorting to default view");
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
                 }
 
@@ -68,34 +120,41 @@ namespace Hermes.Droid
             return null;
         }
 
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            ((MedicalPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            var addingPin = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Address = " - need to possibly implement - ",
+                Id = "medical",
+                Label = "medical",
+                Url = "http://www.redcross.org"
+            };
+
+
+
+            Map.Pins.Add(addingPin);
+            customPins.Add(addingPin);
+
+            //Console.WriteLine(view.L);
+
+            //PopupMenu menu = new PopupMenu(Android.App.Application.Context, view);
+            //menu.Inflate(Resource.Layout.menu1);
+            //menu.MenuItemClick += (s1, arg1) => {
+            //    Console.WriteLine("{0} selected", arg1.Item.TitleFormatted);
+            //};
+            //menu.DismissEvent += (ISurfaceHolderCallback2, arg2) =>
+            //{
+            //    Console.WriteLine("menu dismissed");
+            //};
+            //menu.Show();
+        }
+
         public Android.Views.View GetInfoWindow(Marker marker)
         {
             return null;
-        }
-
-        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
-        {
-            base.OnElementChanged(e);
-
-            if (e.OldElement != null)
-            {
-                NativeMap.InfoWindowClick -= OnInfoWindowClick;
-            }
-
-            if (e.NewElement != null)
-            {
-                var formsMap = (JustViewCustomMap)e.NewElement;
-                customPins = formsMap.CustomPins;
-                Control.GetMapAsync(this);
-            }
-        }
-
-        protected override void OnMapReady(GoogleMap map)
-        {
-            base.OnMapReady(map);
-
-            NativeMap.InfoWindowClick += OnInfoWindowClick;
-            NativeMap.SetInfoWindowAdapter(this);
         }
 
         void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)

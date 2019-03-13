@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
-namespace Hermes
+namespace Hermes.Pages
 {
     public class MapPage : ContentPage
     {
@@ -54,7 +54,7 @@ namespace Hermes
             customMap.Pins.Add(examplePinShelter);
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
 
-            Content = customMap;
+            //Content = customMap;
 
             /*
             var addPin = new ToggleButton { Text = "Add pin" };
@@ -66,16 +66,17 @@ namespace Hermes
                     addPin
                 }
             };
+            */
 
             Content = new StackLayout
             {
                 Spacing = 0,
                 Children = {
                     customMap,
-                    buttons
+                   
                 }
             };
-            */
+            
         }
     }
 }

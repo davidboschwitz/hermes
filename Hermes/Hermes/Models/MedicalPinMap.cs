@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms.Maps;
 
 namespace Hermes.Models
 {
-    public class JustViewCustomMap : Map
+    public class MedicalPinMap : Map
     {
         public List<CustomPin> CustomPins { get; set; }
 
@@ -19,6 +18,9 @@ namespace Hermes.Models
         protected virtual void OnTap(MapTapEventArgs e)
         {
             Tapped?.Invoke(this, e);
+            Console.WriteLine("Hello");
         }
+
+       
     }
 }
