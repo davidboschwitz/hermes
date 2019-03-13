@@ -17,10 +17,6 @@ namespace Hermes.Menu
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.About, "About", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
-
-            builder.Register(c => new MenuPage(menuItems: c.Resolve<IEnumerable<HermesMenuItem>>()))
-                .As<MenuPage>()
-                .SingleInstance();
         }
     }
 }
