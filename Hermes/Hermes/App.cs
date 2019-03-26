@@ -13,8 +13,8 @@ namespace Hermes
 
         public App()
         {
-            //MainPage = new NavigationPage(new PinPlaceSelection());
             MainPage = new PinInfoPage();
+            //MainPage = new PinInfoPage();
         }
 
         public void SetWidth(double w)

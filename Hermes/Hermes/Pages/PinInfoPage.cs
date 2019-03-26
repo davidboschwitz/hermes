@@ -1,9 +1,12 @@
 ﻿using Hermes.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+
 
 namespace Hermes.Pages
 {
@@ -17,6 +20,8 @@ namespace Hermes.Pages
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center
             };
+
+            Geocoder geoCoder = new Geocoder();
 
             Picker pinType = new Picker
             {
@@ -43,19 +48,25 @@ namespace Hermes.Pages
                 Text = "Submit"
             };
 
-            submit.Clicked += sub_Clicked;
+            submit.Clicked += sub_ClickedAsync;
 
-            void sub_Clicked(object sender, EventArgs e)
+            async void sub_ClickedAsync(object sender, EventArgs e)
             {
+                var positions = (await geoCoder.GetPositionsForAddressAsync(address.Text));
+
+                Position position = positions.FirstOrDefault();
+
                 CustomPin newPin = new CustomPin
                 {
                     Type = PinType.Place,
-                    //TODO: Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                    Position = new Position(position.Latitude, position.Longitude),
                     Address = address.Text,
                     //TODO: Id = ,
                     Label = pinType.SelectedItem.ToString(),
                     Url = url.Text
                 };
+
+                await Navigation.PushModalAsync(new AdminPinPage(newPin));
             }
 
             Content = new StackLayout
@@ -64,6 +75,7 @@ namespace Hermes.Pages
                 Children = {
                     header,
                     pinType,
+                    address,
                     information,
                     url,
                     submit

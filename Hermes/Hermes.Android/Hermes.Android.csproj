@@ -64,11 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeocodedWaypoint.cs" />
-    <Compile Include="SupplyPinPlacer.cs" />
     <Compile Include="JustViewCustomRenderer.cs" />
-    <Compile Include="MedicalPinPlacer.cs" />
+    <Compile Include="AdminPinPlacer.cs" />
     <Compile Include="OriginalCustomRenderer.cs" />
-    <Compile Include="ShelterPinPlacer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MessageAndroid.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

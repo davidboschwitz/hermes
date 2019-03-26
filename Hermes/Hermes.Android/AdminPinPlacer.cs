@@ -4,31 +4,39 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Hermes.Droid;
 using Hermes.Models;
+using Hermes.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(ShelterPinMap), typeof(ShelterPinPlacer))]
+[assembly: ExportRenderer(typeof( AdminPinMap), typeof(AdminPinPlacer))]
 
 namespace Hermes.Droid
 {
-    class ShelterPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
-    {       
+    class AdminPinPlacer : MapRenderer, GoogleMap.IInfoWindowAdapter, IOnMapReadyCallback
+    {
+        
+        List<CustomPin> customPins = new List<CustomPin>();
 
-        List<CustomPin> customPins;
+        Context context;
 
-        public ShelterPinPlacer(Context context) : base(context)
+        Android.Views.View view;
+
+        public AdminPinPlacer(Context context) : base(context)
         {
+            this.context = context;
         }
-       
+
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
         {
             base.OnElementChanged(e);
+
 
             if (e.OldElement != null)
             {
@@ -37,7 +45,7 @@ namespace Hermes.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (ShelterPinMap)e.NewElement;
+                var formsMap = (AdminPinMap)e.NewElement;
                 customPins = formsMap.CustomPins;
                 Control.GetMapAsync(this);
             }
@@ -50,30 +58,11 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-            if(map != null)
+            if (map != null)
             {
                 map.MapClick += GoogleMap_MapClick;
             }
         }
-
-        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
-        {
-            ((ShelterPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
-            var addingPin = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(e.Point.Latitude, e.Point.Longitude),
-                Address = " - need to possibly implement - ",
-                Id = "shelter",
-                Label = "shelter",
-                Url = "http://www.redcross.org"
-            };
-
-            Map.Pins.Add(addingPin);
-
-            customPins.Add(addingPin);
-        }
-
        
 
         protected override MarkerOptions CreateMarker(Pin pin)
@@ -89,14 +78,11 @@ namespace Hermes.Droid
         {
             if (Android.App.Application.Context.GetSystemService(Context.LayoutInflaterService) is Android.Views.LayoutInflater inflater)
             {
-                Android.Views.View view;
-
                 var customPin = GetCustomPin(marker);
                 if (customPin == null)
                 {
                     throw new Exception("Custom pin not found");
                 }
-
                 if (customPin.Label.ToString().Equals("supplies"))
                 {
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
@@ -111,7 +97,6 @@ namespace Hermes.Droid
                 }
                 else
                 {
-                    //DependencyService.Get<IMessage>().LongAlert("Resorting to default view");
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow_Supplies, null);
                 }
 
@@ -131,6 +116,28 @@ namespace Hermes.Droid
             }
 
             return null;
+        }
+
+        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        {
+            ((AdminPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+            var addingPin = new CustomPin
+            {
+                Type = PinType.Place,
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Address = " - need to possibly implement - ",
+                Id = "medical",
+                Label = "medical",
+                Url = "http://www.redcross.org"
+            };
+
+
+            Map.Pins.Add(addingPin);
+            customPins.Add(addingPin);
+
+            Position p = new Position(e.Point.Latitude, e.Point.Longitude);            
+
+            PopupMenu menu = new PopupMenu(Android.App.Application.Context, view);
         }
 
         public Android.Views.View GetInfoWindow(Marker marker)
@@ -167,6 +174,5 @@ namespace Hermes.Droid
             }
             return null;
         }
-
     }
 }
