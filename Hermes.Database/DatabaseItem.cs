@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Hermes.Database
 {
     public abstract class DatabaseItem
     {
+        [PrimaryKey]
         public Guid MessageID { get; set; }
+
         public Guid SenderID { get; set; }
         public Guid RecipientID { get; set; }
 
