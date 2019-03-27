@@ -13,8 +13,12 @@ namespace Hermes.Database
         // (they don't want non-user-generated data in Documents)
         private static readonly string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
         private static readonly string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder instead
+#elif __UWP__
+        // UWP, this one can't access files outside of it's packaging for some reason (ugh)
+        // so we do not save the file in the "library"
+        private static readonly string libraryPath = "";
 #else
-        // Android
+        // Android and all others
         // Just use whatever directory SpecialFolder.Personal returns
         private static readonly string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #endif
