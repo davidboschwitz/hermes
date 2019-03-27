@@ -1,18 +1,21 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Hermes.Database
 {
     public abstract class DatabaseItem
     {
-        public Guid MessageID;
-        public Guid SenderID;
-        public Guid RecipientID;
+        [PrimaryKey]
+        public Guid MessageID { get; set; }
 
-        public DateTime CreatedTimestamp;
-        public DateTime UpdatedTimestamp;
+        public Guid SenderID { get; set; }
+        public Guid RecipientID { get; set; }
 
-        public string MessageNamespace;
-        public string MessageName;
+        public DateTime CreatedTimestamp { get; set; }
+        public DateTime UpdatedTimestamp { get; set; }
+
+        public string MessageNamespace { get; set; }
+        public string MessageName { get; set; }
 
         public DatabaseItem()
         {
@@ -34,6 +37,5 @@ namespace Hermes.Database
         {
             return $"[{MessageID}]({SenderID}->{RecipientID})@{CreatedTimestamp}/{UpdatedTimestamp}<{MessageNamespace}.{MessageName}>";
         }
-
     }
 }
