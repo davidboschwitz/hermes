@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hermes.Capability.News;
 using Hermes.Menu;
 using System.Collections.Generic;
 
@@ -14,6 +15,10 @@ namespace Hermes.Views
 
             builder.Register(c => new AboutPage())
                    .As<AboutPage>()
+                   .SingleInstance();
+
+            builder.Register(c => new NewsPage(c.Resolve<INewsController>()))
+                   .As<NewsPage>()
                    .SingleInstance();
 
             builder.Register(c => new MainPage(c.Resolve<MenuPage>()))

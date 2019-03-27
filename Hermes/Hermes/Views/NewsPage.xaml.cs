@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Essentials;
-using Plugin.Geolocator;
 using Hermes.Models;
+using Hermes.Capability.News;
 
 namespace Hermes.Views
 {
@@ -20,10 +15,12 @@ namespace Hermes.Views
         private double latitude;
         private double longitude;
         private SearchBar searchBar;
+        private INewsController Controller;
 
-        public NewsPage()
+        public NewsPage(INewsController controller)
         {
             InitializeComponent();
+            Controller = controller;
             BindingContext = this;
             this.Content = BuildView();
         }
@@ -44,46 +41,21 @@ namespace Hermes.Views
         {
             List<Label> labelArr = new List<Label>();
 
-            List<ReportItem> reportList = RetrieveData();
-
-            /*Dummy data*/
-            ReportItem a1 = new ReportItem
-            {
-                Guid = Guid.NewGuid(),
-                TimeStamp = DateTime.Now.AddMinutes(12.35),
-                From = "Ames PD",
-                Title = "Flooding Occuring in Ames",
-                Text = "Overnight rainfall of 3 to 5 inches across Story County flooded numerous roadways and triggered mudslides, with authorities responding to reports of people trapped in stranded vehicles and forecasters issuing an elevated flood warning for the region Wednesday morning.",
-                LocationBased = false,
-                LatLong = null
-
-            };
-            ReportItem a2 = new ReportItem
-            {
-                Guid = Guid.NewGuid(),
-                TimeStamp = DateTime.Now,
-                From = "Red Cross",
-                Title = "Red Cross Giving Aid at Memorial Union",
-                Text = "The Red Cross is providing shelter, food, health services and emotional support during this challenging situation to those affected, like Rakiea, Jenna and Ollie, whose stories you can read here.  The Red Cross is working around the clock with our partners to get help to where it’s most needed, and we’re reaching more neighborhoods each day.",
-                LocationBased = true,
-                LatLong = new Tuple<Double, Double>(42.023267, -93.645772)
-            };
-            reportList.Add(a1);
-            reportList.Add(a2);
-            /*End dummy data*/
+            List<NewsItem> reportList = RetrieveData();
 
             for (int i = 0; i < reportList.Count; i++)
             {
                 labelArr.Add(new Label()
                 {
-                    Text = reportList[i].From + newLine + reportList[i].TimeStamp + newLine + reportList[i].Title + newLine + reportList[i].Text + newLine,
+                    Text = reportList[i].SenderID + newLine + reportList[i].CreatedTimestamp + newLine + reportList[i].Title + newLine + reportList[i].Body + newLine,
                     BackgroundColor = Color.MistyRose
                 });
+                /*
                 if (reportList[i].LocationBased == true)
                 {
                     labelArr[i].Text += newLine + "Check Coordinates:" + reportList[i].LatLong + newLine;
                     labelArr[i].BackgroundColor = Color.NavajoWhite;
-                }
+                }*/
             }
         return labelArr;
         }
@@ -134,9 +106,11 @@ namespace Hermes.Views
             return false;
         }
 
-        public List<ReportItem> RetrieveData()
+        public List<NewsItem> RetrieveData()
         {
-            List<ReportItem> reportList = new List<ReportItem>();
+            List<NewsItem> reportList = new List<NewsItem>();
+
+           
             
             return reportList;
         }

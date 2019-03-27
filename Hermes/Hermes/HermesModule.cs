@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hermes.Capability.News;
 using Hermes.Database;
 using Hermes.Menu;
 using Hermes.Views;
@@ -11,6 +12,7 @@ namespace Hermes
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new DatabaseModule());
+            builder.RegisterModule(new NewsModule());
             builder.RegisterModule(new MenuModule());
             builder.RegisterModule(new ViewsModule());
         }
