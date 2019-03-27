@@ -19,9 +19,11 @@ namespace Hermes.Database
         private static readonly string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #endif
         private static readonly string path = Path.Combine(libraryPath, sqliteFilename);
+
         
         public DatabaseController() : base(path)
         {
+
         }
     }
 }
