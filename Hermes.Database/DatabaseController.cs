@@ -1,26 +1,39 @@
 ﻿using SQLite;
 using System;
 using System.IO;
+using Xamarin.Forms;
 
 namespace Hermes.Database
 {
     public class DatabaseController : SQLiteConnection
     {
-        private static readonly string sqliteFilename = "hermes.db3";
+        public static string DatabaseFilePath
+        {
+            get
+            {
+                var filename = "hermes.db3";
+                string libraryPath;
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.Android:
+                        libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        break;
+                    case Device.iOS:
+                        // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
+                        // (they don't want non-user-generated data in Documents)
+                        var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
+                        libraryPath = Path.Combine(documentsPath, "..", "Library");
+                        break;
+                    case Device.UWP:
+                    default:
+                        libraryPath = "";
+                        break;
+                }
+                return Path.Combine(libraryPath, filename);
+            }
+        }
 
-#if __IOS__
-        // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
-        // (they don't want non-user-generated data in Documents)
-        private static readonly string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-        private static readonly string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder instead
-#else
-        // Android
-        // Just use whatever directory SpecialFolder.Personal returns
-        private static readonly string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-#endif
-        private static readonly string path = Path.Combine(libraryPath, sqliteFilename);
-
-        public DatabaseController() : base(path)
+        public DatabaseController() : base(DatabaseFilePath)
         {
         }
     }
