@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Hermes.Database;
 using Hermes.Menu;
+using Hermes.Networking;
 using Hermes.Views;
-using System.Collections.Generic;
 
 namespace Hermes
 {
@@ -12,6 +12,7 @@ namespace Hermes
         {
             //core modules
             builder.RegisterModule(new DatabaseModule());
+            builder.RegisterModule(new NetworkingModule());
 
             //capability modules
 

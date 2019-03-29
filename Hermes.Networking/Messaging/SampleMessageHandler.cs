@@ -46,7 +46,7 @@ namespace Hermes.Networking.Messaging
 
         public override void SendMessage(DatabaseItem message)
         {
-            NetworkController.SendMessage(message);
+            //NetworkController.SendMessage(message);
         }
     }
 }

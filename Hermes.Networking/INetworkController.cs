@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hermes.Database;
-using Hermes.Networking.Messaging;
 
 namespace Hermes.Networking
 {
@@ -8,11 +8,16 @@ namespace Hermes.Networking
     {
         INetworkConnection CurrentConnection { get; }
 
-        event Action<DatabaseItem> MessageRecieved;
-        event Action<DatabaseItem> MessageSent;
+        List<TableSyncController> TableSyncControllers { get; }
+        Dictionary<string, NamespaceNotificationController> NamespaceNotificationControllers { get; }
 
-        void AttachMessageHandler(MessageHandler messageHandler);
-        
-        void SendMessage(DatabaseItem message);
+        void SendMessage(Type type, DatabaseItem obj);
+
+        //event Action<DatabaseItem> MessageRecieved;
+        //event Action<DatabaseItem> MessageSent;
+
+        //void AttachMessageHandler(MessageHandler messageHandler);
+
+        //void SendMessage(DatabaseItem message);
     }
 }
