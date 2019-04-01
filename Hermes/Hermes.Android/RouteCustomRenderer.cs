@@ -91,7 +91,7 @@ namespace Hermes.Droid
             }
 
             var polylineoption = new PolylineOptions();
-            polylineoption.InvokeColor(Android.Graphics.Color.Green);
+            polylineoption.InvokeColor(Android.Graphics.Color.DarkBlue);
             polylineoption.Geodesic(true);
             polylineoption.Add(latLngPoints);
             g.AddPolyline(polylineoption);
