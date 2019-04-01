@@ -9,13 +9,13 @@ namespace Hermes.Menu
         protected override void Load(ContainerBuilder builder)
         {
 
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.News, "News", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.News, "News Feed", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Chat, "Chat", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Chat, "Messages", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.About, "About", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.About, "About Hermes", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
         }
     }
