@@ -13,7 +13,7 @@ namespace Hermes
 
         public App()
         {
-            MainPage = new PinInfoPage();
+            MainPage = new PinScrollPage();
             //MainPage = new PinInfoPage();
         }
 

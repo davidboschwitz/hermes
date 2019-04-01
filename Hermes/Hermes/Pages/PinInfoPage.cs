@@ -32,14 +32,14 @@ namespace Hermes.Pages
 
             Entry address = new Entry
             {
-                Placeholder = "Address"
+                Placeholder = "Address: Street, City State"
             };
 
             Editor information = new Editor { Placeholder = "Information" };
 
             Entry url = new Entry
             {
-                Placeholder = "url"
+                Placeholder = "URL"
             };
 
 
@@ -71,7 +71,7 @@ namespace Hermes.Pages
 
             Content = new StackLayout
             {
-                Spacing = 0,
+                Spacing = 1,
                 Children = {
                     header,
                     pinType,
