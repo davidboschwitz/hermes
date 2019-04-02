@@ -1,8 +1,11 @@
 ﻿using Hermes.Models;
-using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+
+using Plugin.Geolocator;
+using System;
+using System.Threading;
 
 namespace Hermes.Pages
 {
@@ -10,6 +13,9 @@ namespace Hermes.Pages
     {
         public MapPageRoutes()
         {
+            var currentLatitude = 0.0;
+            var currentLongitude = 0.0;
+
             RouteCustomMap customMap = new RouteCustomMap()
             {
                 HeightRequest = 100,
@@ -38,6 +44,28 @@ namespace Hermes.Pages
                 Url = "https://www.redcross.org/store"
             };
 
+            var getLocation = new Button
+            {
+                Text = "Get Location"
+            };
+
+            getLocation.Clicked += new EventHandler(OnButtonClicked);
+
+            async void OnButtonClicked(object sender, EventArgs e)
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
+
+                //CancellationTokenSource ctsrc = new CancellationTokenSource(2000);
+                var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(2000));
+
+                currentLongitude = position.Longitude;
+                currentLatitude = position.Latitude;
+
+                var currentPosition = new Position(currentLatitude, currentLongitude);
+                customMap.MoveToRegion(MapSpan.FromCenterAndRadius(currentPosition, Distance.FromMiles(0.05)));
+            }
+
             customMap.RouteCoordinates.Add(exampleStartPin.Position);
             customMap.RouteCoordinates.Add(exampleEndPin.Position);
 
@@ -48,7 +76,14 @@ namespace Hermes.Pages
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(exampleStartPin.Position, Distance.FromMiles(1.0)));
 
-            Content = customMap;
+            Content = new StackLayout
+            {
+                Spacing = 0,
+                Children = {
+                    customMap,
+                    getLocation
+                }
+            };
         }
     }
 }

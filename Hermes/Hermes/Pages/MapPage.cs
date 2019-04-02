@@ -73,7 +73,6 @@ namespace Hermes.Pages
                 Spacing = 0,
                 Children = {
                     customMap,
-                   
                 }
             };
             
