@@ -1,0 +1,51 @@
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using Hermes.Views;
+using Autofac;
+using Hermes.Networking;
+using System;
+using System.Diagnostics;
+using Hermes.Services;
+
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+namespace Hermes
+{
+    public partial class App : Application
+    {
+        IContainer Container;
+        INetworkController NetworkController;
+
+        public App() : this(new ContainerBuilder()) { }
+
+        public App(ContainerBuilder builder)
+        {
+            InitializeComponent();
+            
+            builder.RegisterModule(new HermesModule());
+            Container = builder.Build();
+
+            var networkController = Container.Resolve<INetworkController>();
+            NetworkController = networkController;
+
+            Container.Resolve<IHermesSupportService>().HermesIdentifier();
+
+            var mainPage = Container.Resolve<MainPage>();
+            MainPage = mainPage;
+        }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+    }
+}
