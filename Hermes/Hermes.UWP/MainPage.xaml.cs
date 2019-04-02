@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,10 @@ namespace Hermes.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Hermes.App());
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new UWPModule());
+
+            LoadApplication(new Hermes.App(builder));
         }
     }
 }

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hermes.Capability\Hermes.Capability.csproj" />
     <ProjectReference Include="..\Hermes.Database\Hermes.Database.csproj" />
   </ItemGroup>
 
