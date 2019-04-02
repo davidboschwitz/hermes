@@ -1,9 +1,12 @@
-﻿using Hermes.Networking;
+﻿using Hermes.Database;
+using System;
 
 namespace Hermes.Capability
 {
     public interface ICapabilityController
     {
-        MessageHandler MessageHandler { get; }
+        void OnNotification(string messageName, Guid messageID);
+
+        event Action<Type, DatabaseItem> SendMessage;
     }
 }

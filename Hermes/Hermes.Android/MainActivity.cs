@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define __ANDROID__
+using System;
 
 using Android.App;
 using Android.Content.PM;
@@ -6,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Autofac;
 
 namespace Hermes.Droid
 {
@@ -19,7 +21,11 @@ namespace Hermes.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new AndroidModule());
+
+            LoadApplication(new App(builder));
         }
     }
 }
