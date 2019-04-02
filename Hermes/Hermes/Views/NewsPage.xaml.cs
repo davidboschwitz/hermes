@@ -5,6 +5,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Hermes.Models;
 using Hermes.Capability.News;
+using Hermes.Database;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Hermes.Views
 {
@@ -12,8 +16,6 @@ namespace Hermes.Views
     public partial class NewsPage : ContentPage
     {
         private const string newLine = "\r\n";
-        private double latitude;
-        private double longitude;
         private SearchBar searchBar;
         private INewsController Controller;
 
@@ -41,7 +43,7 @@ namespace Hermes.Views
         {
             List<Label> labelArr = new List<Label>();
 
-            List<NewsItem> reportList = RetrieveData();
+            ObservableCollection<NewsItem> reportList = RetrieveData();
 
             for (int i = 0; i < reportList.Count; i++)
             {
@@ -50,12 +52,7 @@ namespace Hermes.Views
                     Text = reportList[i].SenderID + newLine + reportList[i].CreatedTimestamp + newLine + reportList[i].Title + newLine + reportList[i].Body + newLine,
                     BackgroundColor = Color.MistyRose
                 });
-                /*
-                if (reportList[i].LocationBased == true)
-                {
-                    labelArr[i].Text += newLine + "Check Coordinates:" + reportList[i].LatLong + newLine;
-                    labelArr[i].BackgroundColor = Color.NavajoWhite;
-                }*/
+
             }
         return labelArr;
         }
@@ -106,13 +103,17 @@ namespace Hermes.Views
             return false;
         }
 
-        public List<NewsItem> RetrieveData()
+        public ObservableCollection<NewsItem> RetrieveData()
         {
-            List<NewsItem> reportList = new List<NewsItem>();
+            ObservableCollection<NewsItem> reportList = Controller.Feed;
 
-           
-            
             return reportList;
         }
+
+        void Feed_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -22,7 +22,7 @@ namespace Hermes.Database
         // Just use whatever directory SpecialFolder.Personal returns
         private static readonly string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #endif
-        private static readonly string path = Path.Combine(libraryPath, sqliteFilename);
+        private static readonly string path = "";//Path.Combine(libraryPath, sqliteFilename);
 
         
         public DatabaseController() : base(path)
