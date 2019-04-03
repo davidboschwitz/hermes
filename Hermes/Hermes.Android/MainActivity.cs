@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-﻿using Android.App;
-=======
-﻿#define __ANDROID__
 using System;
 
 using Android.App;
->>>>>>> 0af9432be20ae2baa7f27982ff7b946aeb957443
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;

@@ -2,7 +2,7 @@
 
 namespace Hermes.Capability.Chat
 {
-    public class IChatController : ICapabilityController
+    public class IChatController //: ICapabilityController
     {
     }
 }
