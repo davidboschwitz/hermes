@@ -20,6 +20,7 @@
 	</Compile>
     <ProjectReference Include="..\..\Hermes.Capability.News\Hermes.Capability.News.csproj" />
     <ProjectReference Include="..\..\Hermes.Database\Hermes.Database.csproj" />
+    <ProjectReference Include="..\..\Hermes.Networking\Hermes.Networking.csproj" />
   </ItemGroup>
 
   <ItemGroup>
