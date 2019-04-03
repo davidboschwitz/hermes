@@ -33,7 +33,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Hermes Project" FontAttributes="Bold" FontSize="22" />
+                                <Span Text="Hermes" FontAttributes="Bold" FontSize="22" />
                                 <Span Text=" " />
                                 <Span Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
                             </FormattedString.Spans>
