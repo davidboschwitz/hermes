@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+          x:Class="Hermes.Views.Chat.ChatBubbleRecieved">
+    <Frame Margin="0" Padding="10,5,60,5" BackgroundColor="Transparent">
+        <Frame BackgroundColor="#EFEBE9"
+               OutlineColor="#BCAAA4"
+               HasShadow="False"
+               CornerRadius="5"
+               Margin="0"
+               Padding="0"
+               IsClippedToBounds="True">
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="MessageTxtBlock"
+                       Grid.Row="0"
+                       Margin="0"
+                       LineBreakMode="WordWrap"
+                       VerticalTextAlignment="Start"
+                       HorizontalTextAlignment="Start"  
+                       Text="{Binding Body}"/>
+                <Label Grid.Row="1"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="End"
+                       FontSize="10"
+                       Opacity="0.8"
+                       Margin="0"
+                       Text="{Binding CreatedTimestamp, StringFormat='{}{0:MM/dd/yyyy a\\t h:mm tt}'}"/>
+            </Grid>
+        </Frame>
+    </Frame>
+</ViewCell>

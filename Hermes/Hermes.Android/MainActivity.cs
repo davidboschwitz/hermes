@@ -32,7 +32,7 @@ namespace Hermes.Droid
             var builder = new ContainerBuilder();
             builder.RegisterModule(new AndroidModule());
 
-            LoadApplication(new App());
+            LoadApplication(new App(builder));
         }
     }
 }
