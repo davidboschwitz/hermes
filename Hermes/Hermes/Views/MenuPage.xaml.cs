@@ -31,8 +31,6 @@ namespace Hermes.Views
 
                 var navigationPage = ((HermesMenuItem)e.SelectedItem).NavigationPage;
                 await RootPage.NavigateFromMenu(navigationPage);
-
-                ListViewMenu.SelectedItem = null;
             };
         }
     }
