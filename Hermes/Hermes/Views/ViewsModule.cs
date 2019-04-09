@@ -25,8 +25,12 @@ namespace Hermes.Views
 
             builder.Register(c => new PinInfoPage())
                    .As<PinInfoPage>()
-				   .SingleInstance();
-				   
+                   .SingleInstance();
+
+            builder.Register(c => new PinScrollPage())
+                   .As<PinScrollPage>()
+                   .SingleInstance();
+
             builder.Register(c => new ChatPage(c.Resolve<IChatController>()))
                    .As<ChatPage>()
                    .SingleInstance();

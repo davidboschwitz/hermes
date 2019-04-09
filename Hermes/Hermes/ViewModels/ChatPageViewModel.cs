@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -20,12 +21,23 @@ namespace Hermes.ViewModels
             get { return controller; }
             set { SetProperty(ref controller, value); }
         }
+        private string inputBarText = string.Empty;
+        public string InputBarText
+        {
+            get { return inputBarText; }
+            set { SetProperty(ref inputBarText, value); }
+        }
 
         public ChatPageViewModel(IChatController controller)
         {
             Controller = controller;
 
-            SendCommand = new Command(() => Controller.Poop());
+            SendCommand = new Command(() =>
+            {
+                Debug.WriteLine($"vm:SendNewChatMessage({Controller.CurrentConversation}, {InputBarText})");
+                Controller.SendNewChatMessage(Controller.CurrentConversation, InputBarText);
+                InputBarText = string.Empty;
+            });
         }
 
         public event Action ScrollToLast;

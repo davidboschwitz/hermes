@@ -15,6 +15,8 @@ namespace Hermes.Capability.Chat
 
         void SelectConversation(ChatConversation conversation);
 
+        void SendNewChatMessage(ChatConversation conversation, string messageBody);
+
         void Poop();
     }
 }

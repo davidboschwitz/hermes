@@ -13,7 +13,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Entry x:Name="chatTextInput"
-                 Text="{Binding TextToSend}"
+                 Text="{Binding InputBarText}"
                  Margin="1"
                  TextColor="Black"
                  Keyboard="Chat"

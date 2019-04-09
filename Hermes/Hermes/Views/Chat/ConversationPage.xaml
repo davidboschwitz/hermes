@@ -20,7 +20,7 @@
                             <Frame Padding="10" Margin="0">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding Name}" 
+                                        <Label Text="{Binding Contact.Name}" 
                                                FontSize="24" 
                                                />
                                         <!--AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"-->
