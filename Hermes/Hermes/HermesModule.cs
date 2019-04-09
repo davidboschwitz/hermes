@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using Hermes.Capability.Chat;
+using Hermes.Capability.Map;
 using Hermes.Database;
 using Hermes.Menu;
 using Hermes.Networking;
@@ -20,6 +21,7 @@ namespace Hermes
             builder.RegisterModule(new NetworkingModule());
 
             //capability modules
+            builder.RegisterModule(new MapsModule());
             builder.RegisterModule(new ChatModule());
 
             //view modules

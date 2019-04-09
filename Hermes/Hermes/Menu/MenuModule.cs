@@ -15,7 +15,9 @@ namespace Hermes.Menu
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Admin Map", c.Resolve<PinInfoPage>()))
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map/PinInfoPage", c.Resolve<PinInfoPage>()))
+                .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map/PinScrollPage", c.Resolve<PinInfoPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.About, "About", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
