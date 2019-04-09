@@ -12,11 +12,11 @@ namespace Hermes.Networking
             Namespace = @namespace;
         }
 
-        public event Action<string, Guid> Notify;
+        public event Action<string, string, Guid> Notify;
 
-        public void FireNotify(string messageName, Guid messageID)
+        public void FireNotify(string messageNamespace, string messageName, Guid messageID)
         {
-            Notify.Invoke(messageName, messageID);
+            Notify?.Invoke(messageNamespace, messageName, messageID);
         }
     }
 }

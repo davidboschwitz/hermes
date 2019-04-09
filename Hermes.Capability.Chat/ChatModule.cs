@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hermes.Database;
 
 namespace Hermes.Capability.Chat
 {
@@ -6,9 +7,9 @@ namespace Hermes.Capability.Chat
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new ChatController())
-                .As<IChatController>()
-                .SingleInstance();
+            builder.Register(c => new ChatController(c.Resolve<DatabaseController>()))
+                   .As<IChatController>()
+                   .SingleInstance();
         }
     }
 }

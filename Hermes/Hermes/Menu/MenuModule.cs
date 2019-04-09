@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Hermes.Pages;
 using Hermes.Views;
-using System.Collections.Generic;
+using Hermes.Views.Chat;
 
 namespace Hermes.Menu
 {
@@ -9,10 +9,9 @@ namespace Hermes.Menu
     {
         protected override void Load(ContainerBuilder builder)
         {
-
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.News, "News", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Chat, "Chat", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Chat, "Chat", c.Resolve<ConversationPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
