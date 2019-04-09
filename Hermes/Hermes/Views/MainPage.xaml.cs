@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Hermes.Menu;
 using Xamarin.Forms.Xaml;
+using System.Diagnostics;
 
 namespace Hermes.Views
 {
@@ -21,6 +22,7 @@ namespace Hermes.Views
 
         public async Task NavigateFromMenu(NavigationPage selectedPage)
         {
+            Debug.WriteLine($"Switched to {selectedPage.RootPage.GetType().FullName}");
             if (selectedPage != null && Detail != selectedPage)
             {
                 Detail = selectedPage;

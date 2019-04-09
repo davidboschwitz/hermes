@@ -1,33 +1,36 @@
-﻿using System;
+﻿using Hermes.Capability.Chat;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
-using Hermes.Models;
-using Hermes.Services;
-
 namespace Hermes.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class ChatPageViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public ICommand SendCommand { get; }
 
-        bool isBusy = false;
-        public bool IsBusy
+        private IChatController controller;
+        public IChatController Controller
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return controller; }
+            set { SetProperty(ref controller, value); }
         }
 
-        string title = string.Empty;
-        public string Title
+        public ChatPageViewModel(IChatController controller)
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            Controller = controller;
+
+            SendCommand = new Command(() => Controller.Poop());
         }
 
+        public event Action ScrollToLast;
+
+        #region INotifyPropertyChanged
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
@@ -41,7 +44,6 @@ namespace Hermes.ViewModels
             return true;
         }
 
-        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
