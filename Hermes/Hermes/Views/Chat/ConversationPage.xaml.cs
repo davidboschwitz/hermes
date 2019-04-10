@@ -9,11 +9,11 @@ namespace Hermes.Views.Chat
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConversationPage : ContentPage
     {
-        public ConversationPage(IChatController controller, ChatPage chatPage)
+        public ConversationPage(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage)
         {
             InitializeComponent();
 
-            var vm = new ConversationPageViewModel(controller, chatPage);
+            var vm = new ConversationPageViewModel(controller, chatPage, chatNewConversationPage);
             BindingContext = vm;
             
             ConversationListView.ItemSelected += vm.SelctedItemHandler;

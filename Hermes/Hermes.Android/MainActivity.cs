@@ -7,7 +7,10 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Autofac;
+using Plugin.CurrentActivity;
 
+[assembly: UsesFeature("android.hardware.camera", Required = false)]
+[assembly: UsesFeature("android.hardware.camera.autofocus", Required = false)]
 namespace Hermes.Droid
 {
     [Activity(Label = "Hermes", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -21,6 +24,8 @@ namespace Hermes.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
+
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             var width = Resources.DisplayMetrics.WidthPixels;
             var height = Resources.DisplayMetrics.HeightPixels;

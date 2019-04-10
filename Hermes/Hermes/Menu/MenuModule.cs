@@ -9,17 +9,19 @@ namespace Hermes.Menu
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.News, "News", c.Resolve<NewsPage>()))
+            builder.Register(c => new HermesMenuItem("News", c.Resolve<NewsPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Chat, "Chat", c.Resolve<ConversationPage>()))
+            builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map", c.Resolve<MapPage>()))
+            builder.Register(c => new HermesMenuItem("Chat/Verify", c.Resolve<ChatVerificationCreatorPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map/PinInfoPage", c.Resolve<PinInfoPage>()))
+            builder.Register(c => new HermesMenuItem("Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.Map, "Map/PinScrollPage", c.Resolve<PinInfoPage>()))
+            builder.Register(c => new HermesMenuItem("Map/PinInfoPage", c.Resolve<PinInfoPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem(HermesMenuItemType.About, "About", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem("Map/PinScrollPage", c.Resolve<PinScrollPage>()))
+                .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("About", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
         }
     }

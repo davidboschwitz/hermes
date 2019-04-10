@@ -25,7 +25,7 @@ namespace Hermes.UWP
             var builder = new ContainerBuilder();
             builder.RegisterModule(new UWPModule());
 
-            LoadApplication(new Hermes.App());
+            LoadApplication(new Hermes.App(builder));
         }
     }
 }

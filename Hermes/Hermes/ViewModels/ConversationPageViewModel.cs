@@ -1,19 +1,16 @@
 ﻿using Hermes.Capability.Chat;
 using Hermes.Capability.Chat.Model;
-using Hermes.Views;
 using Hermes.Views.Chat;
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
 namespace Hermes.ViewModels
 {
-    public class ConversationPageViewModel : INotifyPropertyChanged
+    public class ConversationPageViewModel : BaseViewModel
     {
         public Guid Me => new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
 
@@ -24,15 +21,25 @@ namespace Hermes.ViewModels
             set { SetProperty(ref controller, value); }
         }
 
-        private MainPage RootPage => Application.Current.MainPage as MainPage;
+        public ICommand NewConversationCommand { get; }
+        
         private ChatPage ChatPage { get; }
+        private ChatNewConversationPage ChatNewConversationPage { get; }
         private NavigationPage NavigationChatPage { get; }
 
-        public ConversationPageViewModel(IChatController controller, ChatPage chatPage)
+        public ConversationPageViewModel(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage)
         {
             Controller = controller;
             ChatPage = chatPage;
-            NavigationChatPage = new NavigationPage(chatPage);
+            ChatNewConversationPage = chatNewConversationPage;
+
+            NewConversationCommand = new Command(NewConversationFunctionAsync);
+        }
+
+        private async void NewConversationFunctionAsync()
+        {
+            Debug.WriteLine("NewConversationFunctionAsync");
+            await RootPage.NavigateToPage(ChatNewConversationPage).ConfigureAwait(false);
         }
 
         public async void SelctedItemHandler(object sender, SelectedItemChangedEventArgs e)
@@ -42,28 +49,7 @@ namespace Hermes.ViewModels
 
             Debug.WriteLine($"Selected Conversation {e.SelectedItem}");
             Controller.SelectConversation(e.SelectedItem as ChatConversation);
-            await RootPage.NavigateFromMenu(NavigationChatPage);
+            await RootPage.NavigateToPage(ChatPage);
         }
-
-        #region INotifyPropertyChanged
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }
