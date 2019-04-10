@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hermes.Capability\Hermes.Capability.csproj" />
     <ProjectReference Include="..\Hermes.Database\Hermes.Database.csproj" />
+    <ProjectReference Include="..\Hermes.Networking\Hermes.Networking.csproj" />
   </ItemGroup>
 
 </Project>
