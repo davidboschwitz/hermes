@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Hermes.Models;
 using Hermes.Capability.News;
 using Hermes.Database;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using Hermes.Models;
 
 namespace Hermes.Views
 {
@@ -24,19 +23,20 @@ namespace Hermes.Views
             InitializeComponent();
             Controller = controller;
             BindingContext = this;
-            this.Content = BuildView();
+            Content = BuildView();
         }
 
-        //void GetLastLocationFromDevice()
-        //{
-        //    var location = CrossGeolocator.Current;
-        //    var position = location.GetPositionAsync();
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (listView.SelectedItem != null)
+            {
+                NewsReportPage reportPage = new NewsReportPage();
+                reportPage.BindingContext = e.SelectedItem as NewsItem;
+                listView.SelectedItem = null;
+                await Navigation.PushModalAsync(reportPage);
+            }
+        }
 
-        //    latitude = position.Result.Latitude;
-        //    longitude = position.Result.Longitude;
-        //    System.Diagnostics.Debug.WriteLine("Latitude {0}, Longitude {1}", this.latitude, this.longitude);
-
-        //}
 
 
         public List<Label> GenerateReports()
@@ -52,7 +52,6 @@ namespace Hermes.Views
                     Text = reportList[i].SenderID + newLine + reportList[i].CreatedTimestamp + newLine + reportList[i].Title + newLine + reportList[i].Body + newLine,
                     BackgroundColor = Color.MistyRose
                 });
-
             }
         return labelArr;
         }
@@ -63,36 +62,27 @@ namespace Hermes.Views
             Grid grid = new Grid { Padding = 20 };
             ScrollView scroll = new ScrollView { };
             StackLayout stack = new StackLayout { Orientation = StackOrientation.Vertical };
+
+            listView.ItemSelected += OnItemSelected;
+
             Label resultsLabel = new Label
             {
                 Text = "Result will appear here.",
                 VerticalOptions = LayoutOptions.Fill,
                 FontSize = 14
             };
-            searchBar = new SearchBar()
+            searchBar = new NewsSearchBar()
             {
                 Placeholder = "Search here",
                 SearchCommand = new Command(() => { resultsLabel.Text = "Result: " + searchBar.Text + " is what you asked for."; })
             };
-     
+            listView.ItemsSource = Controller.Feed;
 
             stack.Children.Add(resultsLabel);
             stack.Children.Add(searchBar);
-
-            grid.Children.Add(scroll);
+            stack.Children.Add(listView);
             scroll.Content = stack;
-            for (int i = 0; i < labelArr.Count; i++)
-            {
-                stack.Children.Add(labelArr[i]);
-                //Terrible way to check if need button fix later
-                if (labelArr[i].BackgroundColor == Color.NavajoWhite)
-                {
-                    stack.Children.Add(new Button()
-                    {
-                        Text = "Click here to see location"
-                    });
-                }
-            }
+            grid.Children.Add(scroll);
 
             return grid;
         }

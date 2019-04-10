@@ -15,6 +15,7 @@ namespace Hermes.Capability.News
 
         public NewsItem(string title, string body, DateTime timeStamp) : base(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), DateTime.Now, DateTime.Now, "News", "NewsItem")
         {
+            //Add SenderID to constructor to avoid duplicate items
             Title = title;
             Body = body;
             CreatedTimestamp = timeStamp;
