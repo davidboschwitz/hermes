@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Hermes.Views.Chat.ChatPage" 
+             xmlns:local="clr-namespace:Hermes.Views.Chat"
+             xmlns:converters="clr-namespace:Hermes.Views.Converters"
+             Title="Chat">
+    <ContentPage.Resources>
+        <converters:Base64ImageConverter x:Key="Base64ImageConverter"/>
+    </ContentPage.Resources>
+    <Grid RowSpacing="0" 
+           ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView x:Name="MessagesListView"
+                  Grid.Row="0" 
+                  ItemTemplate="{Binding ChatBubbleTypeSelector}" 
+                  ItemsSource="{Binding Controller.CurrentConversation.Messages}" 
+                  Margin="0"
+                  HasUnevenRows="True" 
+                  VerticalOptions="FillAndExpand" 
+                  Rotation="0" 
+                  SeparatorColor="Transparent" >
+        </ListView>
+        <BoxView HorizontalOptions="FillAndExpand"
+                 HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 Grid.Row="1"/>
+        <local:ChatInputBar Grid.Row="2" Margin="0,0,10,0"/>
+    </Grid>
+</ContentPage>

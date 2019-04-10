@@ -24,13 +24,14 @@ namespace Hermes
         {
             InitializeComponent();
 
+            builder.Register<Application>(c => this);
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();
 
             var networkController = Container.Resolve<INetworkController>();
             NetworkController = networkController;
 
-            Container.Resolve<IHermesSupportService>().HermesIdentifier();
+            //Container.Resolve<IHermesSupportService>().HermesIdentifier();
 
             var mainPage = Container.Resolve<MainPage>();
             MainPage = mainPage;

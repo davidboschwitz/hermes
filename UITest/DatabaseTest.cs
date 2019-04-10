@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Hermes.Database;
 using NUnit.Framework;
 using SQLite;
+using System.IO;
 
 namespace UnitTests
 {
@@ -50,6 +51,16 @@ namespace UnitTests
             Console.WriteLine("SetUp:start");
             DatabaseController = new DatabaseController();
             TestContext.WriteLine("SetUp:end");
+        }
+
+        [Test]
+        public void TestDb3Path()
+        {
+            var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            var path = Path.Combine(libraryPath, "hermes.db3");
+
+            TestContext.WriteLine(path);
         }
 
         [Test]

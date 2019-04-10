@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Hermes.Views.Chat.ChatInputBar">
+    <Grid RowSpacing="0" 
+          ColumnSpacing="0"
+          Padding="0,10,0,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image x:Name="ChatImageInput" 
+               Source="{Binding InputImageSource}"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="3"
+               HorizontalOptions="Fill"
+               VerticalOptions="FillAndExpand"
+               />
+        <Button x:Name="TakePhoto" 
+                Command="{Binding TakeImageCommand}"
+                Grid.Row="1"
+                Grid.Column="0"
+                />
+        <Entry x:Name="chatTextInput"
+                 Text="{Binding InputBarText}"
+                 Margin="1"
+                 TextColor="Black"
+                 Keyboard="Chat"
+                 HorizontalOptions="FillAndExpand"
+                 PlaceholderColor="LightGray"
+                 Placeholder="Type your message here"
+                 Grid.Row="1"
+                 Grid.Column="1"/>
+        <!--" Completed="Handle_Completed"-->
+        <Button Text="Send"
+                Grid.Row="1"
+                Grid.Column="2"
+                VerticalOptions="Center"
+                Command="{Binding SendCommand}" />    
+    </Grid>
+</ContentView>

@@ -1,12 +1,9 @@
-﻿using System;
+using Hermes.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
-using Hermes.Models;
-using Hermes.Services;
 
 namespace Hermes.ViewModels
 {
@@ -26,6 +23,9 @@ namespace Hermes.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        protected MainPage RootPage => Application.Current.MainPage as MainPage;
+
+        #region INotifyPropertyChanged
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
@@ -39,7 +39,6 @@ namespace Hermes.ViewModels
             return true;
         }
 
-        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
