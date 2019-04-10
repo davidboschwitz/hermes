@@ -8,4 +8,8 @@
     <PackageReference Include="Autofac" Version="4.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hermes.Capability\Hermes.Capability.csproj" />
+  </ItemGroup>
+
 </Project>

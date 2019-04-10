@@ -7,8 +7,8 @@ namespace Hermes.Capability.Map
     interface IMapController
     {
         //b
-        List<Layer> AllLayers();
-        List<Layer> ActiveLayers();
+       // List<Layer> AllLayers();
+       // List<Layer> ActiveLayers();
         void RemoveLayer();
         void AddLayer();
         void Update();

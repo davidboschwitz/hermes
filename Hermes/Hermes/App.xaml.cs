@@ -15,12 +15,15 @@ namespace Hermes
         IContainer Container;
         INetworkController NetworkController;
 
+        public static double ScreenWidth;
+        public static double ScreenHeight;
+
         public App() : this(new ContainerBuilder()) { }
 
         public App(ContainerBuilder builder)
         {
             InitializeComponent();
-            
+
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();
 
@@ -46,6 +49,27 @@ namespace Hermes
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+
+        public void SetWidth(double w)
+        {
+            ScreenWidth = w;
+        }
+
+        public void SetHeight(double h)
+        {
+            ScreenHeight = h;
+        }
+
+        public double GetWidth()
+        {
+            return ScreenWidth;
+        }
+
+        public double GetHeight()
+        {
+            return ScreenHeight;
         }
     }
 }
