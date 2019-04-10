@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+	</Compile>
+    <ProjectReference Include="..\..\Hermes.Capability.News\Hermes.Capability.News.csproj" />
     <ProjectReference Include="..\..\Hermes.Capability.Chat\Hermes.Capability.Chat.csproj" />
     <ProjectReference Include="..\..\Hermes.Capability.Map\Hermes.Capability.Map.csproj" />
     <ProjectReference Include="..\..\Hermes.Database\Hermes.Database.csproj" />
@@ -47,6 +51,9 @@
     </Compile>
     <Compile Update="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NewsReportPage.xaml.cs">
+      <DependentUpon>NewsReportPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -82,6 +89,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewsReportPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

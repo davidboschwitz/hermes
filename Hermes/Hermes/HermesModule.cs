@@ -1,5 +1,5 @@
 ﻿using Autofac;
-
+using Hermes.Capability.News;
 using Hermes.Capability.Chat;
 using Hermes.Capability.Map;
 using Hermes.Database;
@@ -21,6 +21,7 @@ namespace Hermes
             builder.RegisterModule(new NetworkingModule());
 
             //capability modules
+            builder.RegisterModule(new NewsModule());
             builder.RegisterModule(new MapsModule());
             builder.RegisterModule(new ChatModule());
 

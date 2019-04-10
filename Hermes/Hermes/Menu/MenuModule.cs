@@ -9,7 +9,7 @@ namespace Hermes.Menu
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new HermesMenuItem("News", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem("News", c.Resolve<NewsPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
                 .As<HermesMenuItem>();
