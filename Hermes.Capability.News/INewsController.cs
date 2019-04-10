@@ -1,8 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using Hermes.Networking;
+using System.Collections.ObjectModel;
 
 namespace Hermes.Capability.News
 {
-    public interface INewsController
+    [HermesNotifyNamespace(Capability.Namespace)]
+    [HermesSyncTable(typeof(NewsItem))]
+    public interface INewsController : ICapabilityController
     {
         ObservableCollection<NewsItem> Feed { get; }
     }

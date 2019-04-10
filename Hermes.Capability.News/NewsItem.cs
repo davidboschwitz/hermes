@@ -13,7 +13,7 @@ namespace Hermes.Capability.News
             //for sqlite generation
         }
 
-        public NewsItem(string title, string body, DateTime timeStamp) : base(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), DateTime.Now, DateTime.Now, "News", "NewsItem")
+        public NewsItem(string title, string body, DateTime timeStamp) : base(Guid.NewGuid(), Guid.NewGuid(), new Guid(), DateTime.Now, DateTime.Now, Capability.Namespace, Capability.MessageNames.NewsItem)
         {
             //Add SenderID to constructor to avoid duplicate items
             Title = title;
