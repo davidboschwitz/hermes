@@ -39,6 +39,10 @@ namespace Hermes.Views
                    .As<ConversationPage>()
                    .SingleInstance();
 
+            builder.Register(c => new ChatVerificationCreatorPage())
+                   .As<ChatVerificationCreatorPage>()
+                   .SingleInstance();
+
             builder.Register(c => new MainPage(c.Resolve<MenuPage>()))
                    .As<MainPage>()
                    .SingleInstance();

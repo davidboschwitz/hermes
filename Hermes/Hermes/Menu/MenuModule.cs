@@ -13,6 +13,8 @@ namespace Hermes.Menu
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
                 .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("Chat/Verify", c.Resolve<ChatVerificationCreatorPage>()))
+                .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Map/PinInfoPage", c.Resolve<PinInfoPage>()))
