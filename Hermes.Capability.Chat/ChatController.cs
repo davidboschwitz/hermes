@@ -86,6 +86,27 @@ namespace Hermes.Capability.Chat
 
                 conversation.Messages.Add(msg);
             }
+            //ChatImageMessages
+            DatabaseController.CreateTable<ChatImageMessage>();
+            foreach (var msg in DatabaseController.Table<ChatImageMessage>())
+            {
+                var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
+
+                ChatConversation conversation;
+                if (!conversations.TryGetValue(other, out conversation))
+                {
+                    ChatContact contact;
+                    if (!Contacts.TryGetValue(other, out contact))
+                    {
+                        contact = new ChatContact(other, "no name");
+                        Contacts.Add(other, contact);
+                    }
+                    conversation = new ChatConversation(contact);
+                    conversations.Add(other, conversation);
+                }
+
+                conversation.Messages.Add(msg);
+            }
 
             //Finalize initialization of conversations
             Conversations = new ObservableCollection<ChatConversation>(conversations.Values);
@@ -114,6 +135,21 @@ namespace Hermes.Capability.Chat
             SendMessage?.Invoke(typeof(ChatMessage), msg);
         }
 
+        public void SendNewChatImageMessage(ChatConversation conversation, string messageBody, string image)
+        {
+            var msg = new ChatImageMessage(conversation.Other, Me, messageBody, image);
+
+            //add message to conversation view
+            conversation.Messages.Add(msg);
+
+            //add message to database
+            DatabaseController.Insert(msg);
+
+            //send message to networking
+            SendMessage?.Invoke(typeof(ChatImageMessage), msg);
+        }
+
+
         public void Poop()
         {
         }
@@ -125,7 +161,7 @@ namespace Hermes.Capability.Chat
 
         private void SortConversations()
         {
-            Conversations = new ObservableCollection<ChatConversation>(Conversations.OrderBy(d => d.LastTimestamp));
+            Conversations = new ObservableCollection<ChatConversation>(Conversations.OrderByDescending(d => d.LastTimestamp));
             OnPropertyChanged("Conversations");
         }
 

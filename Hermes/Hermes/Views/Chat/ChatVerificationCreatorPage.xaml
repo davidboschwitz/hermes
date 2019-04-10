@@ -10,8 +10,8 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Image x:Name="PhotoImage" />
-                <Button x:Name="CameraButton" Text="Take Photo" Grid.Row="1" />
+                <Image x:Name="PhotoImage" Source="{Binding PhotoImageSource}" />
+                <Button x:Name="CameraButton" Text="Take Photo" Grid.Row="1" Command="{Binding TakePhotoCommand}" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -38,6 +38,9 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Header>
+                    <Label Text="Conversations" />
+                </ListView.Header>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

@@ -39,7 +39,7 @@ namespace Hermes.Views
                    .As<ConversationPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ChatVerificationCreatorPage())
+            builder.Register(c => new ChatVerificationCreatorPage(c.Resolve<IChatController>()))
                    .As<ChatVerificationCreatorPage>()
                    .SingleInstance();
 

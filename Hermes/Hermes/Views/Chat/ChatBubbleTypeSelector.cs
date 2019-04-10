@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Hermes.Capability.Chat;
+using Hermes.Capability.Chat.Model;
 using System.Diagnostics;
 using System;
 
@@ -10,32 +11,39 @@ namespace Hermes.Views.Chat
         DataTemplate ChatBubbleRecieved;
         DataTemplate ChatBubbleSent;
 
-        private Guid me = new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
-        //private IChatController Controller;
+        DataTemplate ChatBubbleImageRecieved;
+        DataTemplate ChatBubbleImageSent;
 
-        public ChatBubbleTypeSelector()//IChatController controller)
+        private Guid me;
+
+        public ChatBubbleTypeSelector(IChatController controller)
         {
-            //Controller = controller;
+            me = controller.Me;
 
             ChatBubbleRecieved = new DataTemplate(typeof(ChatBubbleRecieved));
             ChatBubbleSent = new DataTemplate(typeof(ChatBubbleSent));
+
+            ChatBubbleImageRecieved = new DataTemplate(typeof(ChatBubbleImageRecieved));
+            ChatBubbleImageSent = new DataTemplate(typeof(ChatBubbleImageSent));
         }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var msg = item as ChatMessage;
-            if (msg == null)
-                return null;
-
-            if (msg.RecipientID == me)//Controller.Me)
+            if (item is ChatImageMessage imageMsg)
             {
-                Debug.WriteLine($"R:{msg.Body}");
-                return ChatBubbleRecieved;
+                return imageMsg.RecipientID == me ? ChatBubbleImageRecieved : ChatBubbleImageSent;
+            }
+            else if (item is ChatVerificationMessage verifyMsg)
+            {
+                return verifyMsg.RecipientID == me ? ChatBubbleImageRecieved : ChatBubbleImageSent;
+            }
+            else if (item is ChatMessage chatMsg)
+            {
+                return chatMsg.RecipientID == me ? ChatBubbleRecieved : ChatBubbleSent;
             }
             else
             {
-                Debug.WriteLine($"S:{msg.Body}");
-                return ChatBubbleSent;
+                return null;
             }
         }
 

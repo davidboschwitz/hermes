@@ -1,21 +1,19 @@
 ﻿using Hermes.Capability.Chat;
-using Hermes.Capability.Chat.Model;
-using Hermes.Views;
-using Hermes.Views.Chat;
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
 namespace Hermes.ViewModels
 {
-    public class ConversationPageViewModel : INotifyPropertyChanged
+    public class ChatVerificationCreatorViewModel : INotifyPropertyChanged
     {
-        public Guid Me => new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
+        public ICommand TakePhotoCommand { get; }
 
         private IChatController controller;
         public IChatController Controller
@@ -24,25 +22,27 @@ namespace Hermes.ViewModels
             set { SetProperty(ref controller, value); }
         }
 
-        private MainPage RootPage => Application.Current.MainPage as MainPage;
-        private ChatPage ChatPage { get; }
-        private NavigationPage NavigationChatPage { get; }
-
-        public ConversationPageViewModel(IChatController controller, ChatPage chatPage)
+        private ImageSource photoImageSource;
+        public ImageSource PhotoImageSource
         {
-            Controller = controller;
-            ChatPage = chatPage;
-            NavigationChatPage = new NavigationPage(chatPage);
+            get { return photoImageSource; }
+            set { SetProperty(ref photoImageSource, value); }
         }
 
-        public async void SelctedItemHandler(object sender, SelectedItemChangedEventArgs e)
+        public ChatVerificationCreatorViewModel(IChatController controller)
         {
-            if (e == null)
-                return;
+            Controller = controller;
 
-            Debug.WriteLine($"Selected Conversation {e.SelectedItem}");
-            Controller.SelectConversation(e.SelectedItem as ChatConversation);
-            await RootPage.NavigateToPage(ChatPage);
+            TakePhotoCommand = new Command(TakePhotoFunction);
+        }
+
+        private async void TakePhotoFunction()
+        {
+            Debug.WriteLine("TakePhotoFunction");
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+            if (photo != null)
+                PhotoImageSource = ImageSource.FromStream(() => { return photo.GetStream(); });
         }
 
         #region INotifyPropertyChanged
