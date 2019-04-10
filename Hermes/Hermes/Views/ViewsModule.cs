@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Hermes.Capability.News;
+using Hermes.Capability.Chat;
 using Hermes.Menu;
 using Hermes.Pages;
+using Hermes.Views.Chat;
 using System.Collections.Generic;
 
 namespace Hermes.Views
@@ -28,6 +30,14 @@ namespace Hermes.Views
 
             builder.Register(c => new PinInfoPage())
                    .As<PinInfoPage>()
+				   .SingleInstance();
+				   
+            builder.Register(c => new ChatPage(c.Resolve<IChatController>()))
+                   .As<ChatPage>()
+                   .SingleInstance();
+
+            builder.Register(c => new ConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>()))
+                   .As<ConversationPage>()
                    .SingleInstance();
 
             builder.Register(c => new MainPage(c.Resolve<MenuPage>()))
