@@ -20,12 +20,26 @@ namespace Hermes.Views
             Detail = menu.MenuItems[0].NavigationPage;
         }
 
-        public async Task NavigateFromMenu(NavigationPage selectedPage)
+        public async Task SetNavigationRoot(NavigationPage selectedPage)
         {
             Debug.WriteLine($"Switched to {selectedPage.RootPage.GetType().FullName}");
             if (selectedPage != null && Detail != selectedPage)
             {
                 Detail = selectedPage;
+
+                if (Device.RuntimePlatform == Device.Android)
+                    await Task.Delay(100);
+
+                IsPresented = false;
+            }
+        }
+
+        public async Task NavigateToPage(ContentPage selectedPage)
+        {
+            Debug.WriteLine($"Switched to {selectedPage.GetType().FullName}");
+            if (selectedPage != null && Detail != selectedPage)
+            {
+                await (Detail as NavigationPage).PushAsync(selectedPage);
 
                 if (Device.RuntimePlatform == Device.Android)
                     await Task.Delay(100);
