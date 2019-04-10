@@ -8,10 +8,10 @@ namespace Hermes.Views.Chat
 {
     public class ChatBubbleTypeSelector : DataTemplateSelector
     {
-        DataTemplate ChatBubbleRecieved;
+        DataTemplate ChatBubbleReceived;
         DataTemplate ChatBubbleSent;
 
-        DataTemplate ChatBubbleImageRecieved;
+        DataTemplate ChatBubbleImageReceived;
         DataTemplate ChatBubbleImageSent;
 
         private Guid me;
@@ -20,10 +20,10 @@ namespace Hermes.Views.Chat
         {
             me = controller.Me;
 
-            ChatBubbleRecieved = new DataTemplate(typeof(ChatBubbleRecieved));
+            ChatBubbleReceived = new DataTemplate(typeof(ChatBubbleReceived));
             ChatBubbleSent = new DataTemplate(typeof(ChatBubbleSent));
 
-            ChatBubbleImageRecieved = new DataTemplate(typeof(ChatBubbleImageRecieved));
+            ChatBubbleImageReceived = new DataTemplate(typeof(ChatBubbleImageReceived));
             ChatBubbleImageSent = new DataTemplate(typeof(ChatBubbleImageSent));
         }
 
@@ -31,15 +31,15 @@ namespace Hermes.Views.Chat
         {
             if (item is ChatImageMessage imageMsg)
             {
-                return imageMsg.RecipientID == me ? ChatBubbleImageRecieved : ChatBubbleImageSent;
+                return imageMsg.RecipientID == me ? ChatBubbleImageReceived : ChatBubbleImageSent;
             }
             else if (item is ChatVerificationMessage verifyMsg)
             {
-                return verifyMsg.RecipientID == me ? ChatBubbleImageRecieved : ChatBubbleImageSent;
+                return verifyMsg.RecipientID == me ? ChatBubbleImageReceived : ChatBubbleImageSent;
             }
             else if (item is ChatMessage chatMsg)
             {
-                return chatMsg.RecipientID == me ? ChatBubbleRecieved : ChatBubbleSent;
+                return chatMsg.RecipientID == me ? ChatBubbleReceived : ChatBubbleSent;
             }
             else
             {
