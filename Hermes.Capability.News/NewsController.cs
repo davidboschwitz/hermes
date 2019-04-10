@@ -31,7 +31,7 @@ namespace Hermes.Capability.News
         {
             DatabaseController.CreateTable<NewsItem>();
             /*Dummy Data*/
-            /*NewsItem a1 = new NewsItem(
+            NewsItem a1 = new NewsItem(
                 title: "Flooding Occuring in Ames",
                 body: "Overnight rainfall of 3 to 5 inches across Story County flooded numerous roadways and triggered mudslides, with authorities responding to reports of people trapped in stranded vehicles and forecasters issuing an elevated flood warning for the region Wednesday morning.",
                 timeStamp: DateTime.Now.AddMinutes(12.35)
@@ -43,7 +43,7 @@ namespace Hermes.Capability.News
              );
             //Check for existing items
             DatabaseController.Insert(a1);
-            DatabaseController.Insert(a2);*/
+            DatabaseController.Insert(a2);
         }
     }
 }
