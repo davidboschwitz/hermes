@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Hermes.Capability.News;
 using Hermes.Capability.Chat;
 using Hermes.Menu;
 using Hermes.Pages;
@@ -19,6 +20,10 @@ namespace Hermes.Views
                    .As<AboutPage>()
                    .SingleInstance();
 
+            builder.Register(c => new NewsPage(c.Resolve<INewsController>()))
+                   .As<NewsPage>()
+				   .SingleInstance();
+				   
             builder.Register(c => new MapPage())
                    .As<MapPage>()
                    .SingleInstance();

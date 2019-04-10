@@ -22,6 +22,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Capability.Map", "He
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Capability.Chat", "Hermes.Capability.Chat\Hermes.Capability.Chat.csproj", "{54C72F9E-0732-4F58-BA1D-D6E976793B5A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Capability.News", "Hermes.Capability.News\Hermes.Capability.News.csproj", "{DA32A721-2D82-4F89-9667-37D7B1757A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B571CDF-724E-4EB3-BB6F-A2CE495657EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +306,18 @@ Global
 		{54C72F9E-0732-4F58-BA1D-D6E976793B5A}.Release|x64.Build.0 = Release|Any CPU
 		{54C72F9E-0732-4F58-BA1D-D6E976793B5A}.Release|x86.ActiveCfg = Release|Any CPU
 		{54C72F9E-0732-4F58-BA1D-D6E976793B5A}.Release|x86.Build.0 = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|ARM.ActiveCfg = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA32A721-2D82-4F89-9667-37D7B1757A94}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
