@@ -35,7 +35,6 @@ namespace Hermes.Database
 
         public DatabaseController() : base(DatabaseFilePath)
         {
-
         }
     }
 }
