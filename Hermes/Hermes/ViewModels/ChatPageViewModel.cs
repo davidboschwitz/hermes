@@ -62,7 +62,6 @@ namespace Hermes.ViewModels
 
             if (photo != null)
                 InputImageSource = ImageSource.FromStream(() => { return photo.GetStream(); });
-
         }
 
         private void SendFunction()

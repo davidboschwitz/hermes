@@ -35,7 +35,15 @@ namespace Hermes.Views
                    .As<ChatPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>()))
+            builder.Register(c => new AddContactPage(c.Resolve<IChatController>()))
+                   .As<AddContactPage>()
+                   .SingleInstance();
+
+            builder.Register(c => new ChatNewConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>()))
+                   .As<ChatNewConversationPage>()
+                   .SingleInstance();
+
+            builder.Register(c => new ConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>(), c.Resolve<ChatNewConversationPage>()))
                    .As<ConversationPage>()
                    .SingleInstance();
 

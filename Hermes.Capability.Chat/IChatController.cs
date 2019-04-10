@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Hermes.Capability.Chat
 {
-    [HermesNotifyNamespace("Chat")]
+    [HermesNotifyNamespace(Capability.Namespace)]
     [HermesSyncTable(typeof(ChatMessage)), HermesSyncTable(typeof(ChatVerificationMessage)), HermesSyncTable(typeof(ChatImageMessage))]
     public interface IChatController : ICapabilityController
     {
@@ -14,10 +14,12 @@ namespace Hermes.Capability.Chat
         ObservableCollection<ChatConversation> Conversations { get; }
 
         void SelectConversation(ChatConversation conversation);
+        void SelectConversation(ChatContact contact);
 
         void SendNewChatMessage(ChatConversation conversation, string messageBody);
         void SendNewChatImageMessage(ChatConversation conversation, string messageBody, string image);
 
         void Poop();
+        void CreateContact(ChatContact contact);
     }
 }

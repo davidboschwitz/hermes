@@ -21,8 +21,21 @@ namespace Hermes.Capability.Chat
             set { SetProperty(ref currentConversation, value); }
         }
 
-        public ObservableCollection<ChatConversation> Conversations { get; private set; }
-        public Dictionary<Guid, ChatContact> Contacts { get; }
+        private ObservableCollection<ChatConversation> conversations;
+        public ObservableCollection<ChatConversation> Conversations
+        {
+            get { return conversations; }
+            private set { SetProperty(ref conversations, value); }
+        }
+        public Dictionary<Guid, ChatConversation> ConversationsMap { get; }
+
+        private ObservableCollection<ChatContact> contacts;
+        public ObservableCollection<ChatContact> Contacts
+        {
+            get { return contacts; }
+            private set { SetProperty(ref contacts, value); }
+        }
+        public Dictionary<Guid, ChatContact> ContactsMap { get; }
 
         private DatabaseController DatabaseController { get; }
 
@@ -32,13 +45,14 @@ namespace Hermes.Capability.Chat
 
             //contacts
             DatabaseController.CreateTable<ChatContact>();
-            Contacts = new Dictionary<Guid, ChatContact>();
+            ContactsMap = new Dictionary<Guid, ChatContact>();
             foreach (var contact in DatabaseController.Table<ChatContact>())
             {
-                Contacts.Add(contact.ID, contact);
+                ContactsMap.Add(contact.ID, contact);
             }
+            SortContacts();
 
-            var conversations = new Dictionary<Guid, ChatConversation>();
+            ConversationsMap = new Dictionary<Guid, ChatConversation>();
             //ChatMessages
             DatabaseController.CreateTable<ChatMessage>();
             var x1 = new ChatMessage(Me, Guid.NewGuid(), "test1");
@@ -47,70 +61,45 @@ namespace Hermes.Capability.Chat
             DatabaseController.Insert(x2);
             foreach (var msg in DatabaseController.Table<ChatMessage>())
             {
-                var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
-
-                ChatConversation conversation;
-                if (!conversations.TryGetValue(other, out conversation))
-                {
-                    ChatContact contact;
-                    if (!Contacts.TryGetValue(other, out contact))
-                    {
-                        contact = new ChatContact(other, "no name");
-                        Contacts.Add(other, contact);
-                    }
-                    conversation = new ChatConversation(contact);
-                    conversations.Add(other, conversation);
-                }
-
-                conversation.Messages.Add(msg);
+                AddMessage(msg);
             }
 
             //ChatVerifciationMessages
             DatabaseController.CreateTable<ChatVerificationMessage>();
             foreach (var msg in DatabaseController.Table<ChatVerificationMessage>())
             {
-                var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
-
-                ChatConversation conversation;
-                if (!conversations.TryGetValue(other, out conversation))
-                {
-                    ChatContact contact;
-                    if (!Contacts.TryGetValue(other, out contact))
-                    {
-                        contact = new ChatContact(other, "no name");
-                        Contacts.Add(other, contact);
-                    }
-                    conversation = new ChatConversation(contact);
-                    conversations.Add(other, conversation);
-                }
-
-                conversation.Messages.Add(msg);
+                AddMessage(msg);
             }
             //ChatImageMessages
             DatabaseController.CreateTable<ChatImageMessage>();
             foreach (var msg in DatabaseController.Table<ChatImageMessage>())
             {
-                var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
-
-                ChatConversation conversation;
-                if (!conversations.TryGetValue(other, out conversation))
-                {
-                    ChatContact contact;
-                    if (!Contacts.TryGetValue(other, out contact))
-                    {
-                        contact = new ChatContact(other, "no name");
-                        Contacts.Add(other, contact);
-                    }
-                    conversation = new ChatConversation(contact);
-                    conversations.Add(other, conversation);
-                }
-
-                conversation.Messages.Add(msg);
+                AddMessage(msg);
             }
 
             //Finalize initialization of conversations
-            Conversations = new ObservableCollection<ChatConversation>(conversations.Values);
+            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values);
             SortConversations();
+        }
+
+        public void AddMessage(ChatMessage msg)
+        {
+            var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
+
+            ChatConversation conversation;
+            if (!ConversationsMap.TryGetValue(other, out conversation))
+            {
+                ChatContact contact;
+                if (!ContactsMap.TryGetValue(other, out contact))
+                {
+                    contact = new ChatContact(other, "no name");
+                    ContactsMap.Add(other, contact);
+                }
+                conversation = new ChatConversation(contact);
+                ConversationsMap.Add(other, conversation);
+            }
+
+            conversation.Messages.Add(msg);
         }
 
         public event Action<Type, DatabaseItem> SendMessage;
@@ -133,6 +122,8 @@ namespace Hermes.Capability.Chat
 
             //send message to networking
             SendMessage?.Invoke(typeof(ChatMessage), msg);
+
+            SortConversations();
         }
 
         public void SendNewChatImageMessage(ChatConversation conversation, string messageBody, string image)
@@ -147,6 +138,8 @@ namespace Hermes.Capability.Chat
 
             //send message to networking
             SendMessage?.Invoke(typeof(ChatImageMessage), msg);
+
+            SortConversations();
         }
 
 
@@ -159,10 +152,33 @@ namespace Hermes.Capability.Chat
             CurrentConversation = conversation;
         }
 
+        public void SelectConversation(ChatContact contact)
+        {
+            ChatConversation conversation;
+            if (!ConversationsMap.TryGetValue(contact.ID, out conversation))
+            {
+                conversation = new ChatConversation(contact);
+                ConversationsMap.Add(contact.ID, conversation);
+            }
+            SelectConversation(conversation);
+        }
+
+        public void CreateContact(ChatContact contact)
+        {
+            Debug.WriteLine($"AddContact({contact.ID}, {contact.Name}");
+            ContactsMap.Add(contact.ID, contact);
+            DatabaseController.Insert(contact);
+            SortContacts();
+        }
+
+        private void SortContacts()
+        {
+            Contacts = new ObservableCollection<ChatContact>(ContactsMap.Values.OrderBy(o => o.Name));
+        }
+
         private void SortConversations()
         {
-            Conversations = new ObservableCollection<ChatConversation>(Conversations.OrderByDescending(d => d.LastTimestamp));
-            OnPropertyChanged("Conversations");
+            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values.OrderByDescending(d => d.LastTimestamp));
         }
 
         #region INotifyPropertyChanged
