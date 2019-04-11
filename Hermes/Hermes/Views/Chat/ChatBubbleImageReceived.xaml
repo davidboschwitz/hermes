@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:converters="clr-namespace:Hermes.Views.Converters"
+          x:Class="Hermes.Views.Chat.ChatBubbleImageReceived">
+    <Frame Margin="0" Padding="10,5,60,5" BackgroundColor="Transparent">
+        <Frame.Resources>
+            <converters:Base64ImageConverter x:Key="Base64ImageConverter"/>
+        </Frame.Resources>
+        <Frame BackgroundColor="#EFEBE9"
+               OutlineColor="#BCAAA4"
+               HasShadow="False"
+               CornerRadius="5"
+               Margin="0"
+               Padding="0"
+               IsClippedToBounds="True">
+            <StackLayout Padding="5" VerticalOptions="FillAndExpand">
+                <Image x:Name="MessageImage"
+                       Source="{Binding Image, Converter={StaticResource Base64ImageConverter}}"
+                       Margin="0"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="Fill"/>
+                <Label x:Name="MessageTxtBlock"
+                       Margin="1"
+                       LineBreakMode="WordWrap"
+                       Text="{Binding Body}"/>
+                <Label HorizontalTextAlignment="End"
+                       VerticalTextAlignment="End"
+                       FontSize="10"
+                       Opacity="0.8"
+                       Margin="0"
+                       Text="{Binding CreatedTimestamp, StringFormat='{}{0:MM/dd/yyyy a\\t h:mm tt}'}"/>
+            </StackLayout>
+        </Frame>
+    </Frame>
+</ViewCell>

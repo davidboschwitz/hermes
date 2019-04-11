@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Hermes.Views.Chat.ChatPage" 
              xmlns:local="clr-namespace:Hermes.Views.Chat"
+             xmlns:converters="clr-namespace:Hermes.Views.Converters"
              Title="Chat">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:ChatBubbleTypeSelector x:Key="MessageTemplateSelector"/>
-        </ResourceDictionary>
+        <converters:Base64ImageConverter x:Key="Base64ImageConverter"/>
     </ContentPage.Resources>
     <Grid RowSpacing="0" 
            ColumnSpacing="0">
@@ -18,7 +17,7 @@
         </Grid.RowDefinitions>
         <ListView x:Name="MessagesListView"
                   Grid.Row="0" 
-                  ItemTemplate="{StaticResource MessageTemplateSelector}" 
+                  ItemTemplate="{Binding ChatBubbleTypeSelector}" 
                   ItemsSource="{Binding Controller.CurrentConversation.Messages}" 
                   Margin="0"
                   HasUnevenRows="True" 

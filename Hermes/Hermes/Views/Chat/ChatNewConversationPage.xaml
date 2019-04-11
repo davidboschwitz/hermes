@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hermes.Views.Chat.ChatNewConversationPage"
+             Title="Chat">
+    <ContentPage.Content>
+        <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical">
+                <Label Text="Select Recipient" />
+                <ListView x:Name="ContactsListView"
+                          ItemsSource="{Binding Controller.Contacts}"
+                          Margin="0"
+                          IsPullToRefreshEnabled="False"
+                          HasUnevenRows="False"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="Fill"
+                          SeparatorColor="Black">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="10" Margin="0">
+                                    <Label Text="{Binding Name}" 
+                                       FontSize="24" />
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Button CornerRadius="25" Text="+"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
+                    Command="{Binding NewContactCommand}"/>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>

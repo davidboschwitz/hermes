@@ -13,7 +13,7 @@ namespace Hermes.Networking
 
         void SendMessage(Type type, DatabaseItem obj);
 
-        //event Action<DatabaseItem> MessageRecieved;
+        //event Action<DatabaseItem> MessageReceived;
         //event Action<DatabaseItem> MessageSent;
 
         //void AttachMessageHandler(MessageHandler messageHandler);
