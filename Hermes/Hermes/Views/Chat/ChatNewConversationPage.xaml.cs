@@ -1,5 +1,5 @@
 ﻿using Hermes.Capability.Chat;
-using Hermes.ViewModels;
+using Hermes.ViewModels.Chat;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

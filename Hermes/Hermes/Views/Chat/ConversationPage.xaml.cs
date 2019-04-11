@@ -1,6 +1,6 @@
 ﻿using Hermes.Capability.Chat;
-using Hermes.ViewModels;
-using System;
+using Hermes.ViewModels.Chat;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,8 +17,6 @@ namespace Hermes.Views.Chat
             BindingContext = vm;
             
             ConversationListView.ItemSelected += vm.SelctedItemHandler;
-
-            //Convert.FromBase64String();
         }
     }
 }

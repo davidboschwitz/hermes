@@ -8,28 +8,20 @@ using System.Windows.Input;
 
 using Xamarin.Forms;
 
-namespace Hermes.ViewModels
+namespace Hermes.ViewModels.Chat
 {
-    public class ConversationPageViewModel : BaseViewModel
+    public class ConversationPageViewModel : ChatBaseViewModel
     {
         public Guid Me => new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
 
-        private IChatController controller;
-        public IChatController Controller
-        {
-            get { return controller; }
-            set { SetProperty(ref controller, value); }
-        }
-
         public ICommand NewConversationCommand { get; }
-        
+
         private ChatPage ChatPage { get; }
         private ChatNewConversationPage ChatNewConversationPage { get; }
         private NavigationPage NavigationChatPage { get; }
 
-        public ConversationPageViewModel(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage)
+        public ConversationPageViewModel(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage) : base(controller)
         {
-            Controller = controller;
             ChatPage = chatPage;
             ChatNewConversationPage = chatNewConversationPage;
 

@@ -4,12 +4,10 @@ using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Hermes.ViewModels
+namespace Hermes.ViewModels.Chat
 {
-    public class AddContactViewModel : BaseViewModel
+    public class AddContactViewModel : ChatBaseViewModel
     {
-        public IChatController Controller { get; }
-
         public ICommand CreateContactCommand { get; }
 
         private string contactInputGuidText = string.Empty;
@@ -26,10 +24,8 @@ namespace Hermes.ViewModels
             set { SetProperty(ref contactInputNameText, value); }
         }
 
-        public AddContactViewModel(IChatController controller)
+        public AddContactViewModel(IChatController controller) : base(controller)
         {
-            Controller = controller;
-
             CreateContactCommand = new Command(CreateContactFunction);
         }
 
