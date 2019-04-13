@@ -1,5 +1,6 @@
 ﻿using Hermes.Capability.Chat.Model;
 using Hermes.Database;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,7 +51,6 @@ namespace Hermes.Capability.Chat
             {
                 ContactsMap.Add(contact.ID, contact);
             }
-            SortContacts();
 
             ConversationsMap = new Dictionary<Guid, ChatConversation>();
             //ChatMessages
@@ -78,19 +78,17 @@ namespace Hermes.Capability.Chat
             }
 
             //Finalize initialization of conversations
-            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values);
             SortConversations();
+            SortContacts();
         }
 
         public void AddMessage(ChatMessage msg)
         {
             var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
 
-            ChatConversation conversation;
-            if (!ConversationsMap.TryGetValue(other, out conversation))
+            if (!ConversationsMap.TryGetValue(other, out var conversation))
             {
-                ChatContact contact;
-                if (!ContactsMap.TryGetValue(other, out contact))
+                if (!ContactsMap.TryGetValue(other, out var contact))
                 {
                     contact = new ChatContact(other, "no name");
                     ContactsMap.Add(other, contact);
@@ -154,8 +152,7 @@ namespace Hermes.Capability.Chat
 
         public void SelectConversation(ChatContact contact)
         {
-            ChatConversation conversation;
-            if (!ConversationsMap.TryGetValue(contact.ID, out conversation))
+            if (!ConversationsMap.TryGetValue(contact.ID, out var conversation))
             {
                 conversation = new ChatConversation(contact);
                 ConversationsMap.Add(contact.ID, conversation);
@@ -173,12 +170,14 @@ namespace Hermes.Capability.Chat
 
         private void SortContacts()
         {
-            Contacts = new ObservableCollection<ChatContact>(ContactsMap.Values.OrderBy(o => o.Name));
+            var list = ContactsMap.Values.OrderBy(o => o.Name);
+            Contacts = new ObservableCollection<ChatContact>(list);
         }
 
         private void SortConversations()
         {
-            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values.OrderByDescending(d => d.LastTimestamp));
+            var list = ConversationsMap.Values.OrderByDescending(d => d.LastTimestamp);
+            Conversations = new ObservableCollection<ChatConversation>(list);
         }
 
         #region INotifyPropertyChanged
