@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Hermes.Capability.Map;
+using System.Collections.ObjectModel;
 
 namespace Hermes.Pages
 {
@@ -10,6 +12,9 @@ namespace Hermes.Pages
     {
         public MapPage()
         {
+            MapsController controller;
+            ObservableCollection<PinItem> receivingPins = controller.Pins;
+
             OriginalCustomMap customMap = new OriginalCustomMap()
             {
                 HeightRequest = 100,
@@ -28,45 +33,9 @@ namespace Hermes.Pages
                 Url = "https://www.redcross.org/store"
             };
 
-            var examplePinMedical = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(42.02290, -93.63912),
-                Address = " - need to possibly implement - ",
-                Id = "medical",
-                Label = "medical",
-                Url = "http://www.redcross.org"
-            };
-
-            var examplePinShelter = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(42.02045, -93.60968),
-                Address = " - need to possibly implement - ",
-                Id = "shelter",
-                Label = "shelter",
-                Url = "http://www.redcross.org"
-            };
-
-            customMap.CustomPins = new List<CustomPin> { examplePinSupplies, examplePinMedical, examplePinShelter };
+            customMap.CustomPins = new List<CustomPin> { examplePinSupplies };
             customMap.Pins.Add(examplePinSupplies);
-            customMap.Pins.Add(examplePinMedical);
-            customMap.Pins.Add(examplePinShelter);
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
-
-            //Content = customMap;
-
-            /*
-            var addPin = new ToggleButton { Text = "Add pin" };
-
-            var buttons = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                Children = {
-                    addPin
-                }
-            };
-            */
 
             Content = new StackLayout
             {
@@ -74,8 +43,7 @@ namespace Hermes.Pages
                 Children = {
                     customMap,
                 }
-            };
-            
+            }; 
         }
     }
 }
