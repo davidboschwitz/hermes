@@ -5,6 +5,7 @@ using Hermes.Menu;
 using Hermes.Pages;
 using Hermes.Views.Chat;
 using System.Collections.Generic;
+using Hermes.Networking;
 
 namespace Hermes.Views
 {
@@ -54,6 +55,10 @@ namespace Hermes.Views
 
             builder.Register(c => new ChatVerificationCreatorPage(c.Resolve<IChatController>()))
                    .As<ChatVerificationCreatorPage>()
+                   .SingleInstance();
+
+            builder.Register(c => new NetSyncPageWow(c.Resolve<NetworkController>()))
+                   .As<NetSyncPageWow>()
                    .SingleInstance();
 
             builder.Register(c => new MainPage(c.Resolve<MenuPage>()))

@@ -13,7 +13,7 @@ namespace Hermes
     public partial class App : Application
     {
         IContainer Container;
-        INetworkController NetworkController;
+        NetworkController NetworkController;
 
         public static double ScreenWidth;
         public static double ScreenHeight;
@@ -28,7 +28,7 @@ namespace Hermes
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();
 
-            var networkController = Container.Resolve<INetworkController>();
+            var networkController = Container.Resolve<NetworkController>();
             NetworkController = networkController;
 
             //Container.Resolve<IHermesSupportService>().HermesIdentifier();
