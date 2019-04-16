@@ -1,4 +1,5 @@
-﻿using Hermes.Models;
+﻿using Hermes.Capability.Map;
+using Hermes.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,6 +12,8 @@ namespace Hermes.Pages
     {  
         public AdminPinPage(CustomPin pin)
         {
+            MapsController controller;
+
             AdminPinMap customMap = new AdminPinMap()
             {
                 HeightRequest = 100,
@@ -36,9 +39,21 @@ namespace Hermes.Pages
 
             void confirm_clicked(object sender, EventArgs e)
             {
-                //TODO:
-                //Save pin to DB
+                List<PinItem> list = new List<PinItem>();
 
+                PinItem dbPin = new PinItem
+                {
+                    Address = newPin.Address,
+                    Information = "",
+                    Url = newPin.Url,
+                    PinType = newPin.Label,
+                    Latitude = newPin.Position.Latitude,
+                    Longitude = newPin.Position.Longitude
+                };
+
+                list.Add(dbPin);
+
+                controller.savePins(list);
             }
 
             async void back_clickedAsync(object sender, EventArgs e)

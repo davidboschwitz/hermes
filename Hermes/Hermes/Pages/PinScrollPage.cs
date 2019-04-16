@@ -20,16 +20,10 @@ namespace Hermes.Pages
                 HorizontalOptions = LayoutOptions.Center
             };
 
-            var types = new List<String>
-            {
-                "Medical",
-                "Shelter",
-                "Supplies",
-                "All"
-            };
-
-            var typesPicker = new Picker { Title = "Filter by type", TitleColor = Color.Red };
-            typesPicker.ItemsSource = types;
+            var typesPicker = new Picker {
+                Title = "Filter by type",
+                ItemsSource = { }
+            };       
 
             var pinCard = new PinCard
             {

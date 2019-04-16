@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Hermes.Networking;
 using Hermes.Database;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Hermes.Capability.Map
 {
-    public class MapsController : IMapController
+    //[HermesNotifyNamespace("Map")]
+    //[HermesSyncTable(typeof(PinItem))]
+    public class MapsController 
     {
         private DatabaseController DatabaseController;
 

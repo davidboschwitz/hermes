@@ -61,7 +61,7 @@ namespace Hermes.Pages
                     Type = PinType.Place,
                     Position = new Position(position.Latitude, position.Longitude),
                     Address = address.Text,
-                    //TODO: Id = ,
+                    //TODO: Information = information,
                     Label = pinType.SelectedItem.ToString(),
                     Url = url.Text
                 };

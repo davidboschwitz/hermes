@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hermes.Database\Hermes.Database.csproj" />
+    <ProjectReference Include="..\Hermes.Networking\Hermes.Networking.csproj" />
   </ItemGroup>
 
 </Project>
