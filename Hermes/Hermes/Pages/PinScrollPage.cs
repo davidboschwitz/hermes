@@ -11,7 +11,6 @@ namespace Hermes.Pages
 {
     class PinScrollPage : ContentPage
     {
-
         public PinScrollPage()
         {
             Label header = new Label
@@ -21,15 +20,26 @@ namespace Hermes.Pages
                 HorizontalOptions = LayoutOptions.Center
             };
 
+            var types = new List<String>
+            {
+                "Medical",
+                "Shelter",
+                "Supplies",
+                "All"
+            };
+
+            var typesPicker = new Picker { Title = "Filter by type", TitleColor = Color.Red };
+            typesPicker.ItemsSource = types;
+
             var pinCard = new PinCard
             {
                 Address = "4172 Kaitlin Dr Vadnais Heights",
                 Info = "Justin's house",
-                Image = "medical.png"
+                Image = "medical.png",
+                Type = "medical"
             };
 
             var pins = new ObservableCollection<PinCard>();
-
 
             ListView listView = new ListView
             {
@@ -75,11 +85,10 @@ namespace Hermes.Pages
             {
                 Children = {
                     header,
+                    typesPicker,
                     listView
                 }
             };
-
-
         }
     }
 }
