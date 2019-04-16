@@ -23,9 +23,12 @@
                VerticalOptions="FillAndExpand"
                />
         <Button x:Name="TakePhoto" 
+                Text="+"
                 Command="{Binding TakeImageCommand}"
                 Grid.Row="1"
                 Grid.Column="0"
+                HorizontalOptions="Fill"
+                WidthRequest="32"
                 />
         <Entry x:Name="chatTextInput"
                  Text="{Binding InputBarText}"
@@ -33,15 +36,18 @@
                  TextColor="Black"
                  Keyboard="Chat"
                  HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand"
                  PlaceholderColor="LightGray"
                  Placeholder="Type your message here"
                  Grid.Row="1"
                  Grid.Column="1"/>
         <!--" Completed="Handle_Completed"-->
-        <Button Text="Send"
+        <Button x:Name="SendButton"
+                Text=">"
                 Grid.Row="1"
                 Grid.Column="2"
-                VerticalOptions="Center"
+                HorizontalOptions="Fill"
+                WidthRequest="32"
                 Command="{Binding SendCommand}" />    
     </Grid>
 </ContentView>

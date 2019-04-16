@@ -17,5 +17,11 @@ namespace Hermes.Views.Chat
 
             ContactsListView.ItemSelected += vm.SelectContactHandler;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.Animate("xx", s => Layout(new Rectangle(((-1 + s) * Width), Y, Width, Height)), 16, 250, Easing.Linear, null, null);
+        }
     }
 }

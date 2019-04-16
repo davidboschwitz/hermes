@@ -16,7 +16,7 @@ namespace Hermes.Views.Chat
             var vm = new ConversationPageViewModel(controller, chatPage, chatNewConversationPage);
             BindingContext = vm;
             
-            ConversationListView.ItemSelected += vm.SelctedItemHandler;
+            //ConversationListView.ItemSelected += vm.SelctedItemHandler;
         }
     }
 }

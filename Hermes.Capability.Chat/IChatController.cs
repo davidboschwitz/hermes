@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 
 namespace Hermes.Capability.Chat
 {
-    [HermesNotifyNamespace(Capability.Namespace)]
-    [HermesSyncTable(typeof(ChatMessage)), HermesSyncTable(typeof(ChatVerificationMessage)), HermesSyncTable(typeof(ChatImageMessage))]
     public interface IChatController : ICapabilityController
     {
         Guid Me { get; }
