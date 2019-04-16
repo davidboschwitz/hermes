@@ -9,10 +9,12 @@ using Xamarin.Forms.Maps;
 namespace Hermes.Pages
 {
     class AdminPinPage : ContentPage
-    {  
-        public AdminPinPage(CustomPin pin)
+    {
+        MapsController Controller;
+
+        public AdminPinPage(CustomPin pin, MapsController controller)
         {
-            MapsController controller;
+            Controller = controller;
 
             AdminPinMap customMap = new AdminPinMap()
             {
@@ -53,7 +55,7 @@ namespace Hermes.Pages
 
                 list.Add(dbPin);
 
-                controller.savePins(list);
+                Controller.savePins(list);
             }
 
             async void back_clickedAsync(object sender, EventArgs e)

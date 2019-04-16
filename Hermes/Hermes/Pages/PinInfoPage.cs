@@ -1,4 +1,5 @@
-﻿using Hermes.Models;
+﻿using Hermes.Capability.Map;
+using Hermes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,12 @@ namespace Hermes.Pages
 {
     public class PinInfoPage : ContentPage
     {
-        public PinInfoPage()
+        MapsController Controller;
+
+        public PinInfoPage(MapsController controller)
         {
+            Controller = controller;
+
             Label header = new Label
             {
                 Text = "Pin Information",
@@ -66,7 +71,7 @@ namespace Hermes.Pages
                     Url = url.Text
                 };
 
-                await Navigation.PushModalAsync(new AdminPinPage(newPin));
+                await Navigation.PushModalAsync(new AdminPinPage(newPin, Controller));
             }
 
             Content = new StackLayout

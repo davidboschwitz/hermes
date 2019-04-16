@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Hermes.Capability.Chat;
+using Hermes.Capability.Map;
 using Hermes.Menu;
 using Hermes.Pages;
 using Hermes.Views.Chat;
@@ -23,11 +24,11 @@ namespace Hermes.Views
                    .As<MapPage>()
                    .SingleInstance();
 
-            builder.Register(c => new PinInfoPage())
+            builder.Register(c => new PinInfoPage(c.Resolve<MapsController>()))
                    .As<PinInfoPage>()
                    .SingleInstance();
 
-            builder.Register(c => new PinScrollPage())
+            builder.Register(c => new PinScrollPage(c.Resolve<MapsController>()))
                    .As<PinScrollPage>()
                    .SingleInstance();
 
