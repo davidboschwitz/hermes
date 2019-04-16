@@ -1,6 +1,7 @@
 ﻿using Hermes.Capability.Chat.Model;
 using Hermes.Database;
 using Hermes.Networking;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
