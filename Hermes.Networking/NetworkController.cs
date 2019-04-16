@@ -118,7 +118,7 @@ namespace Hermes.Networking
         public void Sync(NetworkConnection connection, NetworkSequence sequence)
         {
             Debug.WriteLine("Syncing!!");
-            sequence.Run(this, DatabaseController, connection);
+            sequence.RunSequence(this, DatabaseController, connection);
         }
 
         public void SendMessage(Type type, DatabaseItem item)
