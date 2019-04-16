@@ -30,7 +30,7 @@ namespace Hermes.Views
                     return;
 
                 var navigationPage = ((HermesMenuItem)e.SelectedItem).NavigationPage;
-                await RootPage.NavigateFromMenu(navigationPage);
+                await RootPage.SetNavigationRoot(navigationPage);
             };
         }
     }

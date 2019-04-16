@@ -13,7 +13,9 @@ namespace Hermes.Database
             {
                 var filename = "hermes.db3";
                 string libraryPath;
-                switch (Device.RuntimePlatform)
+                string platform = "none";
+                try { platform = Device.RuntimePlatform; } catch (Exception) { }
+                switch (platform)
                 {
                     case Device.Android:
                         libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

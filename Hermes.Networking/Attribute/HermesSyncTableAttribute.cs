@@ -2,7 +2,7 @@
 
 namespace Hermes.Networking
 {
-    [AttributeUsage(AttributeTargets.Interface, AllowMultiple = true, Inherited = false)]
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class HermesSyncTableAttribute : Attribute
     {
         public HermesSyncTableAttribute(Type tableType)

@@ -14,9 +14,14 @@ namespace Hermes.Networking
 
         public event Action<string, string, Guid> Notify;
 
-        public void FireNotify(string messageNamespace, string messageName, Guid messageID)
+        public void FireNotify(string messageName, Guid messageID)
         {
-            Notify?.Invoke(messageNamespace, messageName, messageID);
+            Notify?.Invoke(Namespace, messageName, messageID);
+        }
+
+        public override string ToString()
+        {
+            return $"NamespaceNotificationController({Namespace})";
         }
     }
 }

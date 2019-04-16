@@ -8,6 +8,7 @@ namespace Hermes.Capability.Chat
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new ChatController(c.Resolve<DatabaseController>()))
+                   .As<ICapabilityController>()
                    .As<IChatController>()
                    .SingleInstance();
         }

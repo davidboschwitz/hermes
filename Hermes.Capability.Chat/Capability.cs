@@ -7,6 +7,7 @@
         {
             public const string ChatMessage = "ChatMessage";
             public const string ChatVerificationMessage = "ChatVerificationMessage";
+            public const string ChatImageMessage = "ChatImageMessage";
         }
     }
 }

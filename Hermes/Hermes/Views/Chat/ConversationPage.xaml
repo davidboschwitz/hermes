@@ -5,40 +5,51 @@
              xmlns:local="clr-namespace:Hermes.Views.Chat"
              Title="Chat">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="ConversationListView"
-                      ItemsSource="{Binding Controller.Conversations}"
-                      Margin="0"
-                      IsPullToRefreshEnabled="True"
-                      HasUnevenRows="True"
-                      VerticalOptions="FillAndExpand"
-                      HorizontalOptions="Fill"
-                      SeparatorColor="Black">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame Padding="10" Margin="0">
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                    <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding Name}" 
+        <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout>
+                <ListView x:Name="ConversationListView"
+                          ItemsSource="{Binding Controller.Conversations}"
+                          SelectedItem="{Binding SelectedConversation, Mode=TwoWay}"
+                          Margin="0"
+                          IsPullToRefreshEnabled="True"
+                          HasUnevenRows="True"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="Fill"
+                          SeparatorColor="Black">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="10" Margin="0">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding Contact.Name}" 
                                                FontSize="24" 
                                                />
-                                        <!--AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"-->
-                                        <Label Text="{Binding LastBody}" 
+                                            <!--AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"-->
+                                            <Label Text="{Binding LastBody}" 
                                                />
-                                        <!--AbsoluteLayout.LayoutBounds="50, 35, 200, 25"-->
-                                    </StackLayout>
-                                    <Label Text="{Binding LastTimestamp, StringFormat='{}{0:M/d h:mmtt}'}}" 
+                                            <!--AbsoluteLayout.LayoutBounds="50, 35, 200, 25"-->
+                                        </StackLayout>
+                                        <Label Text="{Binding LastTimestamp, StringFormat='{}{0:M/d h:mmtt}'}" 
                                            HorizontalOptions="End" 
                                            HorizontalTextAlignment="End"
                                            />
-                                    <!--AbsoluteLayout.LayoutBounds="250.25, 0.25, 50, 50 "-->
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                        <!--AbsoluteLayout.LayoutBounds="250.25, 0.25, 50, 50 "-->
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Header>
+                        <Label Text="Conversations" />
+                    </ListView.Header>
+                </ListView>
+            </StackLayout>
+            <Button CornerRadius="25" Text="+ Conversation" 
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-150}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
+                    Command="{Binding NewConversationCommand}"
+                    />
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

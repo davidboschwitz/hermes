@@ -9,9 +9,11 @@ namespace Hermes.Menu
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new HermesMenuItem("News", c.Resolve<AboutPage>()))
+            builder.Register(c => new HermesMenuItem("News", c.Resolve<NewsPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
+                .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("Chat/Verify", c.Resolve<ChatVerificationCreatorPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
@@ -20,6 +22,8 @@ namespace Hermes.Menu
             builder.Register(c => new HermesMenuItem("Map/PinScrollPage", c.Resolve<PinScrollPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("About", c.Resolve<AboutPage>()))
+                .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("Net", c.Resolve<NetSyncPageWow>()))
                 .As<HermesMenuItem>();
         }
     }

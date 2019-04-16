@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hermes.Views.Chat.AddContactPage"
+             Title="Add Contact">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Name"/>
+            <Entry x:Name="ContactInputName"
+                   Text="{Binding ContactInputNameText}"
+                   Margin="1"
+                   TextColor="Black"
+                   Keyboard="Chat"
+                   HorizontalOptions="FillAndExpand"
+                   PlaceholderColor="LightGray"
+                   Placeholder="" />
+            <Label Text="Guid" />
+            <Entry x:Name="ContactInputGuid"
+                   Text="{Binding ContactInputGuidText}"
+                   Margin="1"
+                   TextColor="Black"
+                   Keyboard="Chat"
+                   HorizontalOptions="FillAndExpand"
+                   PlaceholderColor="LightGray"
+                   Placeholder="" />
+            <Button x:Name="CreateContactButton"
+                    Text="Create Contact"
+                    Command="{Binding CreateContactCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
