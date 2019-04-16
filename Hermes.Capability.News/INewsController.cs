@@ -8,5 +8,7 @@ namespace Hermes.Capability.News
     public interface INewsController : ICapabilityController
     {
         ObservableCollection<NewsItem> Feed { get; }
+
+        void InsertReport(string title, string body);
     }
 }

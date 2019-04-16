@@ -22,8 +22,12 @@ namespace Hermes.Views
 
             builder.Register(c => new NewsPage(c.Resolve<INewsController>()))
                    .As<NewsPage>()
-				   .SingleInstance();
-				   
+                   .SingleInstance();
+
+            builder.Register(c => new NewsAdminPage(c.Resolve<INewsController>()))
+                   .As<NewsAdminPage>()
+                   .SingleInstance();
+
             builder.Register(c => new MapPage())
                    .As<MapPage>()
                    .SingleInstance();

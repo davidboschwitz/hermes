@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Hermes.Capability.News;
+using Hermes.ViewModels.News;
 
 namespace Hermes.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewsAdminPage : ContentPage
-	{
-		public NewsAdminPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NewsAdminPage : ContentPage
+    {
+        public NewsAdminPage(INewsController controller)
+        {
+            InitializeComponent();
+
+            BindingContext = new NewsAdminViewModel(controller);
+        }
+    }
 }

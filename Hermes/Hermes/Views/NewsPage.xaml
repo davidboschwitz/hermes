@@ -5,15 +5,21 @@
              x:Class="Hermes.Views.NewsPage">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="listView" 
+                    <Label Text="Result will appear here."
+                           VerticalOptions="Fill"
+                           FontSize="14">
+                    </Label>
+                    <SearchBar Placeholder ="Search here">
+                    </SearchBar>
+                    <ListView x:Name="listView" 
                       ItemSelected="OnItemSelected"
                       ItemsSource="{Binding Controller.Feed}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:NewsCell Title="{Binding Title}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <local:NewsCell Title="{Binding Title}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

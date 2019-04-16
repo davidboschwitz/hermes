@@ -4,9 +4,20 @@
              x:Class="Hermes.Views.NewsAdminPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="News Admin Page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Editor x:Name="titleEditor"
+                    Text="{Binding TitleEditorText}"
+                    Placeholder="Add title" />
+            <Editor x:Name="bodyEditor"
+                    Text="{Binding BodyEditorText}"
+                    Placeholder="Add Body" />
+
+            <Button x:Name="SubmitReportButton"
+                    Text="Submit Report"
+                    Command="{Binding AddItemCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
