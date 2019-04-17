@@ -58,10 +58,10 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-            if (map != null)
-            {
-                map.MapClick += GoogleMap_MapClick;
-            }
+            //if (map != null)
+            //{
+            //    map.MapClick += GoogleMap_MapClick;
+            //}
         }
        
 
@@ -118,27 +118,27 @@ namespace Hermes.Droid
             return null;
         }
 
-        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
-        {
-            ((AdminPinMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
-            var addingPin = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(e.Point.Latitude, e.Point.Longitude),
-                Address = " - need to possibly implement - ",
-                Id = "medical",
-                Label = "medical",
-                Url = "http://www.redcross.org"
-            };
+        //private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        //{
+            
+        //    var addingPin = new CustomPin
+        //    {
+        //        Type = PinType.Place,
+        //        Position = new Position(e.Point.Latitude, e.Point.Longitude),
+        //        Address = " - need to possibly implement - ",
+        //        Id = "medical",
+        //        Label = "medical",
+        //        Url = "http://www.redcross.org"
+        //    };
 
 
-            Map.Pins.Add(addingPin);
-            customPins.Add(addingPin);
+        //    Map.Pins.Add(addingPin);
+        //    customPins.Add(addingPin);
 
-            Position p = new Position(e.Point.Latitude, e.Point.Longitude);            
+        //    Position p = new Position(e.Point.Latitude, e.Point.Longitude);            
 
-            PopupMenu menu = new PopupMenu(Android.App.Application.Context, view);
-        }
+        //    PopupMenu menu = new PopupMenu(Android.App.Application.Context, view);
+        //}
 
         public Android.Views.View GetInfoWindow(Marker marker)
         {

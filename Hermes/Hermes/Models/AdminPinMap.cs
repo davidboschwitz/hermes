@@ -11,11 +11,6 @@ namespace Hermes.Models
 
         public event EventHandler<MapTapEventArgs> Tapped;
 
-        public void OnTap(Position coordinate)
-        {
-            OnTap(new MapTapEventArgs { Position = coordinate });
-        }
-
         protected virtual void OnTap(MapTapEventArgs e)
         {
             Tapped?.Invoke(this, e);

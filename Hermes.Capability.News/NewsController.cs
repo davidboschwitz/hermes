@@ -10,6 +10,9 @@ namespace Hermes.Capability.News
     {
         private DatabaseController DatabaseController;
 
+        public event Action<Type, DatabaseItem> SendMessage;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<NewsItem> Feed { get; }
 
         public NewsController(DatabaseController databaseController)
@@ -44,6 +47,11 @@ namespace Hermes.Capability.News
             //Check for existing items
             DatabaseController.Insert(a1);
             DatabaseController.Insert(a2);
+        }
+
+        public void OnNotification(string messageNamespace, string messageName, Guid messageID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Hermes.Pages
                 Placeholder = "Address: Street, City State"
             };
 
-            Editor information = new Editor { Placeholder = "Information" };
+            Entry information = new Entry { Placeholder = "Information" };
 
             Entry url = new Entry
             {
@@ -66,7 +66,7 @@ namespace Hermes.Pages
                     Type = PinType.Place,
                     Position = new Position(position.Latitude, position.Longitude),
                     Address = address.Text,
-                    //TODO: Information = information,
+                    Information = information.Text,
                     Label = pinType.SelectedItem.ToString(),
                     Url = url.Text
                 };

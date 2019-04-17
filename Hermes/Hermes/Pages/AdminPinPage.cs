@@ -41,21 +41,19 @@ namespace Hermes.Pages
 
             void confirm_clicked(object sender, EventArgs e)
             {
-                List<PinItem> list = new List<PinItem>();
-
                 PinItem dbPin = new PinItem
                 {
                     Address = newPin.Address,
-                    Information = "",
+                    Information = newPin.Information,
                     Url = newPin.Url,
                     PinType = newPin.Label,
                     Latitude = newPin.Position.Latitude,
                     Longitude = newPin.Position.Longitude
                 };
 
-                list.Add(dbPin);
+                Debug.WriteLine(dbPin.Information);
 
-                Controller.savePins(list);
+                Controller.savePin(dbPin);
             }
 
             async void back_clickedAsync(object sender, EventArgs e)

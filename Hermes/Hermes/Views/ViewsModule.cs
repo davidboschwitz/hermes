@@ -26,7 +26,7 @@ namespace Hermes.Views
                    .As<NewsPage>()
 				   .SingleInstance();
 				   
-            builder.Register(c => new MapPage())
+            builder.Register(c => new MapPage(c.Resolve<MapsController>()))
                    .As<MapPage>()
                    .SingleInstance();
 

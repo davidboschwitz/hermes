@@ -10,9 +10,12 @@ namespace Hermes.Pages
 {
     public class MapPage : ContentPage
     {
-        public MapPage()
+        MapsController Controller;
+        
+        public MapPage(MapsController controller)
         {
-            MapsController controller;
+            Controller = controller;
+
             ObservableCollection<PinItem> receivingPins = controller.Pins;
 
             OriginalCustomMap customMap = new OriginalCustomMap()
@@ -33,8 +36,33 @@ namespace Hermes.Pages
                 Url = "https://www.redcross.org/store"
             };
 
-            customMap.CustomPins = new List<CustomPin> { examplePinSupplies };
-            customMap.Pins.Add(examplePinSupplies);
+            var outputPins = new List<CustomPin>();
+
+            foreach (var p in receivingPins)
+            {
+                var tempPin = new CustomPin
+                {
+                    Type = PinType.Place,
+                    Position = p.Position,
+                    Address = p.Address,
+                    Id = p.PinType,
+                    Label = p.PinType,
+                    Url = p.Url
+                };
+
+                outputPins.Add(tempPin);
+                
+            }
+
+            outputPins.Add(examplePinSupplies);
+
+            customMap.CustomPins = outputPins;
+            
+            foreach(var pin in outputPins)
+            {
+                customMap.Pins.Add(pin);
+            }
+
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
 
             Content = new StackLayout

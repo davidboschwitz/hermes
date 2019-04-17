@@ -3,6 +3,7 @@ using Hermes.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
@@ -16,100 +17,112 @@ namespace Hermes.Pages
 
         public PinScrollPage(MapsController controller)
         {
-            Controller = controller;
-
-            Label header = new Label
+            try
             {
-                Text = "Pins",
-                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-                HorizontalOptions = LayoutOptions.Center
-            };
+                Controller = controller;
 
-            var pinTypePicker = new Picker
-            {
-                Title = "Filter by type",
-                ItemsSource = { "Medical", "Shelter", "Supplies" }
-            };
-
-
-            //Dummy Data
-            var pinCard = new PinItem
-            {
-                Address = "4172 Kaitlin Dr Vadnais Heights",
-                Information = "Justin's house",
-                PinType = "medical"
-            };
-
-            var pinCard2 = new PinItem
-            {
-                Address = "4176 Kaitlin Dr Vadnais Heights",
-                Information = "Justin's house",
-                PinType = "shelter"
-            };
-
-            var pinCard3 = new PinItem
-            {
-                Address = "4180 Kaitlin Dr Vadnais Heights",
-                Information = "Justin's house",
-                PinType = "supplies"
-            };
-
-            var dbPins = controller.Pins;
-            //var dbPins = new ObservableCollection<PinItem>();
-            //dbPins.Add(pinCard);
-            //dbPins.Add(pinCard2);
-            //dbPins.Add(pinCard3);
-
-            var pins = new ObservableCollection<PinCard>();
-
-            ListView listView = new ListView
-            {
-                ItemTemplate = new DataTemplate(typeof(ImageCell)),
-                ItemsSource = pins,
-            };
-
-            listView.ItemTemplate.SetBinding(ImageCell.TextProperty, "Address");
-            listView.ItemTemplate.SetBinding(ImageCell.DetailProperty, "Info");
-            listView.ItemTemplate.SetBinding(ImageCell.ImageSourceProperty, "Image");
-
-            foreach (var p in dbPins)
-            {
-                if (p.PinType == pinTypePicker.SelectedItem.ToString())
+                Label header = new Label
                 {
-                    var pinC = new PinCard
+                    Text = "Pins",
+                    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                    HorizontalOptions = LayoutOptions.Center
+                };
+
+                var pinTypePicker = new Picker
+                {
+                    Title = "Filter by type",
+                    Items = { "All","Medical", "Shelter", "Supplies" },
+                    SelectedIndex = 0
+                };
+
+
+                //Dummy Data
+                var pinCard = new PinItem
+                {
+                    Address = "4172 Kaitlin Dr Vadnais Heights",
+                    Information = "Justin's house",
+                    PinType = "medical"
+                };
+
+                var pinCard2 = new PinItem
+                {
+                    Address = "4176 Kaitlin Dr Vadnais Heights",
+                    Information = "Justin's house",
+                    PinType = "shelter"
+                };
+
+                var pinCard3 = new PinItem
+                {
+                    Address = "4180 Kaitlin Dr Vadnais Heights",
+                    Information = "Justin's house",
+                    PinType = "supplies"
+                };
+
+                var cards = new ObservableCollection<PinCard>();
+
+                var dbPins = controller.Pins;
+                //var dbPins = new ObservableCollection<PinItem>();
+                dbPins.Add(pinCard);
+                dbPins.Add(pinCard2);
+                dbPins.Add(pinCard3);
+
+                foreach (var p in dbPins)
+                {
+                    if (p.PinType == pinTypePicker.SelectedItem.ToString())
                     {
-                        Address = p.Address,
-                        Info = p.Information,
-                        Image = p.PinType + ".png",
-                        Type = p.PinType
-                    };
-                    pins.Add(pinC);
+                        var pinC = new PinCard
+                        {
+                            Address = p.Address,
+                            Info = p.Information,
+                            Image = p.PinType + ".png",
+                            Type = p.PinType
+                        };
+                        cards.Add(pinC);
+                    }
                 }
-            }
 
-            Geocoder geoCoder = new Geocoder();
+                ListView listView = new ListView
+                {
+                    ItemTemplate = new DataTemplate(typeof(ImageCell)),
+                    ItemsSource = cards,
+                };
 
-            listView.ItemTapped += pin_clickedAsync;
+                listView.ItemTemplate.SetBinding(ImageCell.TextProperty, "Address");
+                listView.ItemTemplate.SetBinding(ImageCell.DetailProperty, "Info");
+                listView.ItemTemplate.SetBinding(ImageCell.ImageSourceProperty, "Image");
 
-            async void pin_clickedAsync(object sender, ItemTappedEventArgs e)
-            {
-                var location = e.Item as PinCard;
+                Geocoder geoCoder = new Geocoder();
 
-                var positions = (await geoCoder.GetPositionsForAddressAsync(location.Address));
+                listView.ItemTapped += pin_clickedAsync;
 
-                Position position = positions.FirstOrDefault();
+                async void pin_clickedAsync(object sender, ItemTappedEventArgs e)
+                {
+                    var location = e.Item as PinCard;
 
-                await Navigation.PushModalAsync(new PinCardMap(position));
-            }
+                    var positions = (await geoCoder.GetPositionsForAddressAsync(location.Address));
 
-            Content = new StackLayout
-            {
-                Children = {
+                    Position position = positions.FirstOrDefault();
+
+                    await Navigation.PushModalAsync(new PinCardMap(position));
+                }
+
+                Content = new StackLayout
+                {
+                    Children = {
                     header,
                     pinTypePicker,
                     listView
                 }
-            };
+                };
+
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Justin suckssss");
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.StackTrace); 
+            }
+            
         }
     }
 }

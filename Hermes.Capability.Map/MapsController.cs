@@ -4,11 +4,12 @@ using Hermes.Database;
 using System.Collections.ObjectModel;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Hermes.Capability.Map
 {
-    //[HermesNotifyNamespace(Capability.Namespace)]
-    //[HermesSyncTable(typeof(PinItem))]
+    [HermesNotifyNamespace(Capability.Namespace)]
+    [HermesSyncTable(typeof(PinItem))]
     public class MapsController : ICapabilityController
     {
         private DatabaseController DatabaseController;
@@ -22,8 +23,6 @@ namespace Hermes.Capability.Map
         {
             DatabaseController = databaseController;
 
-            //Initialize();
-
             Pins = new ObservableCollection<PinItem>();
 
             DatabaseController.CreateTable<PinItem>();
@@ -33,9 +32,10 @@ namespace Hermes.Capability.Map
             }
         }
 
-        public void savePins(List<PinItem> pins)
+        public void savePin(PinItem pin)
         {
-            DatabaseController.InsertAll(pins);
+            Debug.WriteLine(pin.Information);
+            DatabaseController.Insert(pin);
         }
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
