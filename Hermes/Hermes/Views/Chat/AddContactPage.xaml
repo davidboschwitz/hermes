@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.Chat.AddContactPage"
-             Title="Add Contact">
+             xmlns:hermes="clr-namespace:Hermes"
+             Title="{x:Static hermes:Resources.AddContactTitle}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Name"/>
+            <Label Text="{x:Static hermes:Resources.AddContactPage_Label_Name}"/>
             <Entry x:Name="ContactInputName"
                    Text="{Binding ContactInputNameText}"
                    Margin="1"
@@ -14,7 +15,7 @@
                    HorizontalOptions="FillAndExpand"
                    PlaceholderColor="LightGray"
                    Placeholder="" />
-            <Label Text="Guid" />
+            <Label Text="{x:Static hermes:Resources.AddContactPage_Label_Guid}" />
             <Entry x:Name="ContactInputGuid"
                    Text="{Binding ContactInputGuidText}"
                    Margin="1"
@@ -24,8 +25,9 @@
                    PlaceholderColor="LightGray"
                    Placeholder="" />
             <Button x:Name="CreateContactButton"
-                    Text="Create Contact"
+                    Text="{x:Static hermes:Resources.AddContactPage_Button_AddContact}"
                     Command="{Binding CreateContactCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    

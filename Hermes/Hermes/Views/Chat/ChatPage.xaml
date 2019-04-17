@@ -4,7 +4,8 @@
              x:Class="Hermes.Views.Chat.ChatPage" 
              xmlns:local="clr-namespace:Hermes.Views.Chat"
              xmlns:converters="clr-namespace:Hermes.Views.Converters"
-             Title="Chat">
+             xmlns:hermes="clr-namespace:Hermes"
+             Title="{x:Static hermes:Resources.Chat}">
     <ContentPage.Resources>
         <converters:Base64ImageConverter x:Key="Base64ImageConverter"/>
     </ContentPage.Resources>
