@@ -17,7 +17,7 @@ namespace Hermes.Views.Chat
         public ChatVerificationCreatorPage(IChatController controller)
         {
             InitializeComponent();
-
+            NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = new ChatVerificationCreatorViewModel(controller);
         }
     }

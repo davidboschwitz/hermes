@@ -9,6 +9,7 @@ namespace Hermes.Views.Chat
         public ChatInputBar()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

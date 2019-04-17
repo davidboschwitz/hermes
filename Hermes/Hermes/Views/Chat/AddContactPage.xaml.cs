@@ -12,7 +12,7 @@ namespace Hermes.Views.Chat
         public AddContactPage(IChatController controller)
         {
             InitializeComponent();
-
+            NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = new AddContactViewModel(controller);
         }
     }

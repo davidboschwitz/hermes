@@ -69,6 +69,8 @@ namespace Hermes.Pages
                 await Navigation.PushModalAsync(new AdminPinPage(newPin));
             }
 
+            NavigationPage.SetHasNavigationBar(this, false);
+
             Content = new StackLayout
             {
                 Spacing = 1,

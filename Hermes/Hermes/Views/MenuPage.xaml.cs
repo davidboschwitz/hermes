@@ -14,8 +14,8 @@ namespace Hermes.Views
         public MenuPage(IEnumerable<HermesMenuItem> menuItems)
         {
             InitializeComponent();
-            
-            foreach(var menuItem in menuItems)
+
+            foreach (var menuItem in menuItems)
             {
                 MenuItems.Add(menuItem);
             }

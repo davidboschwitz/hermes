@@ -67,7 +67,7 @@ namespace Hermes.Pages
                 }
             };
             */
-
+            NavigationPage.SetHasNavigationBar(this, false);
             Content = new StackLayout
             {
                 Spacing = 0,

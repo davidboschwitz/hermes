@@ -21,6 +21,7 @@ namespace Hermes.Views
         public NewsPage(INewsController controller)
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             Controller = controller;
             BindingContext = this;
             Content = BuildView();

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Hermes.Views.Chat.ChatPage" 
              xmlns:local="clr-namespace:Hermes.Views.Chat"
+             ControlTemplate="{StaticResource MainPageTemplate}"
              xmlns:converters="clr-namespace:Hermes.Views.Converters"
              Title="Chat">
     <ContentPage.Resources>

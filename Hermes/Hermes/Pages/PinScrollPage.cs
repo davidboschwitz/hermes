@@ -30,6 +30,7 @@ namespace Hermes.Pages
 
             var pins = new ObservableCollection<PinCard>();
 
+            NavigationPage.SetHasNavigationBar(this, false);
 
             ListView listView = new ListView
             {

@@ -1,7 +1,15 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hermes.Views.NewsReportPage">
-    <ContentPage.Content>
-
-    </ContentPage.Content>
+﻿<!--?xml version="1.0" encoding="utf-8" ?-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="MyAppNamespace.Views.NewsReportPage" 
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             BackgroundColor="#FFFFFF"
+             Title="HERMES">
+ <StackLayout Orientation="Vertical" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" x:Name="mainContainer" Spacing="10">
+   <StackLayout.Padding>
+     <OnPlatform x:TypeArguments="Thickness" iOS="10, 10, 10, 10" Android="10, 10, 10, 10"></OnPlatform>
+   </StackLayout.Padding>
+   <Label x:Name="Title" Text="My page Title" FontSize="28" TextColor="#000" FontAttributes="Bold"></Label>
+   <Label x:Name="Summary" Text="Content here..." FontSize="16"></Label>
+ </StackLayout>
 </ContentPage>
+    

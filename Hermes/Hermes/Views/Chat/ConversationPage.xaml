@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.Chat.ConversationPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
              xmlns:local="clr-namespace:Hermes.Views.Chat"
              Title="Chat">
     <ContentPage.Content>

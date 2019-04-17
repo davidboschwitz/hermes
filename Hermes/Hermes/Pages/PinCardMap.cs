@@ -35,6 +35,8 @@ namespace Hermes.Pages
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(center.Latitude, center.Longitude), Distance.FromMiles(1.0)));
 
+            NavigationPage.SetHasNavigationBar(this, false);
+
             Content = new StackLayout
             {
                 Spacing = 0,

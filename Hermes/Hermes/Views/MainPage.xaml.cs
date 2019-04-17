@@ -13,7 +13,7 @@ namespace Hermes.Views
         public MainPage(MenuPage menu)
         {
             InitializeComponent();
-
+            NavigationPage.SetHasNavigationBar(this, false);
             Master = menu;
             MasterBehavior = MasterBehavior.Popover;
 

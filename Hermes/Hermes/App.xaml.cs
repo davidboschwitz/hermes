@@ -24,6 +24,7 @@ namespace Hermes
         {
             InitializeComponent();
 
+            NavigationPage.SetHasNavigationBar(this, false);
             builder.Register<Application>(c => this);
             builder.RegisterModule(new HermesModule());
             Container = builder.Build();

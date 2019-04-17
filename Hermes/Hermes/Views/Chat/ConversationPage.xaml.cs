@@ -12,7 +12,7 @@ namespace Hermes.Views.Chat
         public ConversationPage(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage)
         {
             InitializeComponent();
-
+            NavigationPage.SetHasNavigationBar(this, false);
             var vm = new ConversationPageViewModel(controller, chatPage, chatNewConversationPage);
             BindingContext = vm;
             

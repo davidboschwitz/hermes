@@ -15,7 +15,8 @@ namespace Hermes.Views
 
         public String Body { get; set; }
 
-        public NewsReportPage() { 
+        public NewsReportPage() {
+
         var titleLabel = new Label
         {
             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),

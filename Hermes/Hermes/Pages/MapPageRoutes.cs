@@ -51,6 +51,8 @@ namespace Hermes.Pages
 
             getLocation.Clicked += new EventHandler(OnButtonClicked);
 
+            NavigationPage.SetHasNavigationBar(this, false);
+
             async void OnButtonClicked(object sender, EventArgs e)
             {
                 var locator = CrossGeolocator.Current;
