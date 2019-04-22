@@ -11,6 +11,7 @@ namespace Hermes.Pages
     {  
         public AdminPinPage(CustomPin pin)
         {
+            ControlTemplate = (ControlTemplate)Application.Current.Resources["MainPageTemplate"];
             AdminPinMap customMap = new AdminPinMap()
             {
                 HeightRequest = 100,

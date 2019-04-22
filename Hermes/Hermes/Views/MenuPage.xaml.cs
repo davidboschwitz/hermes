@@ -1,4 +1,5 @@
 ﻿using Hermes.Menu;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,6 +11,11 @@ namespace Hermes.Views
     {
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         public List<HermesMenuItem> MenuItems = new List<HermesMenuItem>();
+
+        public void OnMenuButtonPressed(object sender, EventArgs e)
+        {
+            (Application.Current.MainPage as MainPage).CloseMenu();
+        }
 
         public MenuPage(IEnumerable<HermesMenuItem> menuItems)
         {

@@ -10,7 +10,7 @@
 
                 <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="100"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -20,7 +20,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     Spacing="0"
-                    BackgroundColor="#6200EE"
+                    BackgroundColor="#6900FF"
                     HeightRequest="100"
                     Grid.Column="0" Grid.Row="0">
                         <StackLayout.Padding>
@@ -28,7 +28,23 @@
                             iOS="10, 10, 10, 10"
                             Android="10, 10, 10, 10"/>
                         </StackLayout.Padding>
-                        <Label Font="64" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Text="Hermes"/>
+                        <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center" WidthRequest="50">
+                                <Image Source="https://www.travelomind.com/assets/hamburger-icon.png" WidthRequest="100" HeightRequest="100">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnMenuButtonPressed" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0, 0, 0, 0" Padding="0, 0, 0, 0">
+                                <StackLayout Padding="0, 0, 0, 0" Margin="0, 0, 0, 0" Spacing="0" HeightRequest="50">
+                                    <Label FontSize="56" FontFamily="GillSans" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="End" Text="HERMES"/>
+                                </StackLayout>
+                                <StackLayout Padding="0, 0, 0, 0" Margin="0, 0, 0, 0" Spacing="0" HeightRequest="50">
+                                    <Label FontSize="18" FontFamily="GillSans" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" Text="Test"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
                     </StackLayout>
                     <!-- End Header -->
 

@@ -14,6 +14,8 @@ namespace Hermes.Pages
 
         public PinScrollPage()
         {
+            ControlTemplate = (ControlTemplate)Application.Current.Resources["MainPageTemplate"];
+
             Label header = new Label
             {
                 Text = "Pins",

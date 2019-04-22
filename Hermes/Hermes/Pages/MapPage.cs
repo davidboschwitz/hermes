@@ -10,6 +10,9 @@ namespace Hermes.Pages
     {
         public MapPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
+            ControlTemplate = (ControlTemplate)Application.Current.Resources["MainPageTemplate"];
+
             OriginalCustomMap customMap = new OriginalCustomMap()
             {
                 HeightRequest = 100,
@@ -67,7 +70,8 @@ namespace Hermes.Pages
                 }
             };
             */
-            NavigationPage.SetHasNavigationBar(this, false);
+            
+
             Content = new StackLayout
             {
                 Spacing = 0,

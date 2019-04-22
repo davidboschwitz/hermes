@@ -12,6 +12,7 @@ namespace Hermes.Pages
         public PinCardMap(Position p)
         {
             Position center = p;
+            ControlTemplate = (ControlTemplate)Application.Current.Resources["MainPageTemplate"];
 
             OriginalCustomMap customMap = new OriginalCustomMap()
             {

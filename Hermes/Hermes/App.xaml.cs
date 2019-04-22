@@ -38,6 +38,11 @@ namespace Hermes
             MainPage = mainPage;
         }
 
+        public void OnMenuButtonPressed(object sender, EventArgs e)
+        {
+            (Application.Current.MainPage as MainPage).OpenMenu();
+        }
+
         protected override void OnStart()
         {
             // Handle when your app starts

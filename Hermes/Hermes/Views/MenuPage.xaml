@@ -3,14 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.MenuPage"
              Title="Menu">
-    <StackLayout VerticalOptions="FillAndExpand">
+    <StackLayout BackgroundColor="#6900FF">
+        <StackLayout HeightRequest="100" BackgroundColor="#6900FF" Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness"
+                            iOS="10, 10, 10, -15.5"
+                            Android="10, 10, 10, -15.5"/>
+            </StackLayout.Padding>
+            <StackLayout Orientation="Vertical" VerticalOptions="Center" WidthRequest="50">
+                <Image Source="https://www.travelomind.com/assets/hamburger-icon.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenuButtonPressed" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <StackLayout Orientation="Vertical"  HorizontalOptions="FillAndExpand">
+            </StackLayout>
+        </StackLayout>
         <ListView x:Name="ListViewMenu"
-                    HasUnevenRows="True">
+                    HasUnevenRows="True"
+                  BackgroundColor="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
                             <Label Text="{Binding Title}" FontSize="20"/>
+                            <!--ADD IMAGE TO END OF MENU-->
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Hermes.Menu;
 using Xamarin.Forms.Xaml;
 using System.Diagnostics;
+using System;
 
 namespace Hermes.Views
 {
@@ -44,6 +45,20 @@ namespace Hermes.Views
                 if (Device.RuntimePlatform == Device.Android)
                     await Task.Delay(100);
 
+                IsPresented = false;
+            }
+        }
+
+        public void OpenMenu()
+        {
+            IsPresented = true;
+        }
+
+        public async void CloseMenu()
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                await Task.Delay(100);
                 IsPresented = false;
             }
         }

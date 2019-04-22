@@ -15,6 +15,7 @@ namespace Hermes.Pages
         {
             var currentLatitude = 0.0;
             var currentLongitude = 0.0;
+            ControlTemplate = (ControlTemplate)Application.Current.Resources["MainPageTemplate"];
 
             RouteCustomMap customMap = new RouteCustomMap()
             {
