@@ -41,15 +41,9 @@ namespace Hermes.Pages
 
             void confirm_clicked(object sender, EventArgs e)
             {
-                PinItem dbPin = new PinItem
-                {
-                    Address = newPin.Address,
-                    Information = newPin.Information,
-                    Url = newPin.Url,
-                    PinType = newPin.Label,
-                    Latitude = newPin.Position.Latitude,
-                    Longitude = newPin.Position.Longitude
-                };
+                DateTime timestamp = DateTime.Now;
+
+                PinItem dbPin = new PinItem(newPin.Address,newPin.Information,newPin.Url,newPin.Label,timestamp);          
 
                 Debug.WriteLine(dbPin.Information);
 
