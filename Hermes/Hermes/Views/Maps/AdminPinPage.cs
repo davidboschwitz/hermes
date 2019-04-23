@@ -47,7 +47,7 @@ namespace Hermes.Pages
 
                 var dbPin = new PinItem(newPin.Address,newPin.Information,newPin.Url,newPin.Label,timestamp);          
 
-                Controller.savePin(dbPin);
+                Controller.SavePin(dbPin);
 
                 RootPage.SetNavigationRoot(new NavigationPage(new PinInfoPage(Controller)));
             }

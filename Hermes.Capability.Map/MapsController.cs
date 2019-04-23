@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Hermes.Capability.Map
 {
@@ -15,7 +16,6 @@ namespace Hermes.Capability.Map
         private DatabaseController DatabaseController;
 
         public event Action<Type, DatabaseItem> SendMessage;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<PinItem> Pins { get; }
 
@@ -36,21 +36,34 @@ namespace Hermes.Capability.Map
         {
             Debug.WriteLine(pin.Information);
             DatabaseController.Insert(pin);
+            Pins.Add(pin);
+            OnPropertyChanged("Pins");
         }
-
-        //private void Initialize()
-        //{
-        //    DatabaseController.CreateTable<PinItem>();
-        //    /*Dummy Data*/
-        //    PinItem p1 = new PinItem();
-            
-        //    //Check for existing items
-        //    DatabaseController.Insert(p1);
-        //}
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
         {
             throw new NotImplementedException();
         }
+
+        #region INotifyPropertyChanged
+        protected bool SetProperty<T>(ref T backingStore, T value,
+            [CallerMemberName]string propertyName = "",
+            Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }

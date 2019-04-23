@@ -34,37 +34,10 @@ namespace Hermes.Pages
                     Items = { "All","Medical", "Shelter", "Supplies" },
                     SelectedIndex = 0
                 };
-
-
-                //Dummy Data
-                //PinItem pinCard = new PinItem
-                //{
-                //    Address = "4172 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "medical"
-                //};
-
-                //var pinCard2 = new PinItem
-                //{
-                //    Address = "4176 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "shelter"
-                //};
-
-                //var pinCard3 = new PinItem
-                //{
-                //    Address = "4180 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "supplies"
-                //};
-
+         
                 var cards = new ObservableCollection<PinCard>();
 
                 ObservableCollection<PinItem> dbPins = Controller.Pins;
-                //var dbPins = new ObservableCollection<PinItem>();
-                //dbPins.Add(pinCard);
-                //dbPins.Add(pinCard2);
-                //dbPins.Add(pinCard3);
 
                 foreach (var p in dbPins.ToList())
                 {
@@ -105,6 +78,32 @@ namespace Hermes.Pages
                     await Navigation.PushModalAsync(new PinCardMap(position));
                 }
 
+                listView.RefreshCommand = new Command(refreshAsync);
+                Controller.PropertyChanged += (a,b) => { refreshAsync(); };
+
+                void refreshAsync()
+                {
+                    dbPins = Controller.Pins;
+                    cards = new ObservableCollection<PinCard>();
+                    foreach (var p in dbPins.ToList())
+                    {
+                        Debug.WriteLine(p.PinType.ToString());
+                        var pinC = new PinCard
+                        {
+                            Address = p.Address,
+                            Info = p.Information,
+                            //Image = "/" + p.PinType + ".png",
+                            Image = "/medical.png",
+                            Type = p.PinType
+                        };
+                        cards.Add(pinC);
+                    }
+
+                    listView.ItemsSource = cards;
+                }
+
+                
+
                 Content = new StackLayout
                 {
                     Children = {
@@ -122,6 +121,11 @@ namespace Hermes.Pages
                 Debug.WriteLine(e.StackTrace); 
             }
             
+        }
+
+        void refresh()
+        {
+
         }
 
         public ObservableCollection<PinItem> RetrieveData()
