@@ -45,7 +45,7 @@ namespace Hermes.Pages
             {
                 DateTime timestamp = DateTime.Now;
 
-                var dbPin = new PinItem(newPin.Address,newPin.Information,newPin.Url,newPin.Label,timestamp);          
+                var dbPin = new PinItem(newPin.Address,newPin.Information,newPin.Url,newPin.Label,newPin.Position,timestamp);          
 
                 Controller.SavePin(dbPin);
 

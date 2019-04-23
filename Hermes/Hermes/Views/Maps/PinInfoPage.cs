@@ -35,7 +35,7 @@ namespace Hermes.Pages
             Picker pinType = new Picker
             {
                 Title = "Pin Type",
-                Items = { "Medical Pin", "Supply Pin", "Shelter Pin" }
+                Items = { "Medical", "Supply", "Shelter" }
 
             };
 

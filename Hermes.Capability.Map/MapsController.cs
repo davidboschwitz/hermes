@@ -34,11 +34,17 @@ namespace Hermes.Capability.Map
 
         public void SavePin(PinItem pin)
         {
-            Debug.WriteLine(pin.Information);
             DatabaseController.Insert(pin);
             Pins.Add(pin);
             OnPropertyChanged("Pins");
         }
+
+        //public void DeletePin(PinItem pin)
+        //{
+        //    DatabaseController.Delete(pin);
+        //    Pins.Remove(pin);
+        //    OnPropertyChanged("Pins");
+        //}
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
         {
