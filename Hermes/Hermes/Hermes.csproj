@@ -32,7 +32,7 @@
     <Compile Update="Views\Chat\ChatBubbleImageReceived.xaml.cs">
       <DependentUpon>ChatBubbleImageReceived.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NewsPage.xaml.cs">
+    <Compile Update="Views\News\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
 	</Compile>
     <ProjectReference Include="..\..\Hermes.Capability.News\Hermes.Capability.News.csproj" />
@@ -55,7 +55,7 @@
     <Compile Update="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NewsReportPage.xaml.cs">
+    <Compile Update="Views\News\NewsReportPage.xaml.cs">
       <DependentUpon>NewsReportPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -94,7 +94,7 @@
     <EmbeddedResource Update="Views\MenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\NewsReportPage.xaml">
+    <EmbeddedResource Update="Views\News\NewsReportPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -16,10 +16,25 @@
                       ItemsSource="{Binding Controller.Feed}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <local:NewsCell Title="{Binding Title}"/>
+                        <ViewCell>
+                            <StackLayout
+                                Spacing="20">
+                            <StackLayout
+                                Padding="20"
+                                BackgroundColor="LightGray"
+                                Orientation="Vertical">
+                                    <Label Text="{Binding Title}" 
+                                       TextColor="Black"    
+                                       VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+            <Button Text="Get location"
+                    Clicked="OnButtonClicked">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

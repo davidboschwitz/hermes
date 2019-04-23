@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -28,6 +29,7 @@ namespace Hermes.Capability.News
             foreach(var newsItem in DatabaseController.Table<NewsItem>())
             {
                 Feed.Add(newsItem);
+                Debug.WriteLine($"NewsController.Feed.Add({newsItem.Title},{newsItem.Body})");
             }
         }
         
