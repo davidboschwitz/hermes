@@ -1,5 +1,6 @@
 ﻿using Hermes.Capability.Map;
 using Hermes.Models;
+using Hermes.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ namespace Hermes.Pages
 {
     class AdminPinPage : ContentPage
     {
+        protected MainPage RootPage => Application.Current.MainPage as MainPage;
         MapsController Controller;
 
         public AdminPinPage(CustomPin pin, MapsController controller)
@@ -41,24 +43,18 @@ namespace Hermes.Pages
 
             void confirm_clicked(object sender, EventArgs e)
             {
-                PinItem dbPin = new PinItem
-                {
-                    Address = newPin.Address,
-                    Information = newPin.Information,
-                    Url = newPin.Url,
-                    PinType = newPin.Label,
-                    Latitude = newPin.Position.Latitude,
-                    Longitude = newPin.Position.Longitude
-                };
+                DateTime timestamp = DateTime.Now;
 
-                Debug.WriteLine(dbPin.Information);
+                var dbPin = new PinItem(newPin.Address,newPin.Information,newPin.Url,newPin.Label,timestamp);          
 
-                Controller.SavePin(dbPin);
+                Controller.savePin(dbPin);
+
+                RootPage.SetNavigationRoot(new NavigationPage(new PinInfoPage(Controller)));
             }
 
             async void back_clickedAsync(object sender, EventArgs e)
             {
-                await Navigation.PopModalAsync();
+                RootPage.NavigatePop();
             }
 
             var centerLat = newPin.Position.Latitude;

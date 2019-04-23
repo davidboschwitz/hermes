@@ -37,48 +37,47 @@ namespace Hermes.Pages
 
 
                 //Dummy Data
-                var pinCard = new PinItem
-                {
-                    Address = "4172 Kaitlin Dr Vadnais Heights",
-                    Information = "Justin's house",
-                    PinType = "medical"
-                };
+                //PinItem pinCard = new PinItem
+                //{
+                //    Address = "4172 Kaitlin Dr Vadnais Heights",
+                //    Information = "Justin's house",
+                //    PinType = "medical"
+                //};
 
-                var pinCard2 = new PinItem
-                {
-                    Address = "4176 Kaitlin Dr Vadnais Heights",
-                    Information = "Justin's house",
-                    PinType = "shelter"
-                };
+                //var pinCard2 = new PinItem
+                //{
+                //    Address = "4176 Kaitlin Dr Vadnais Heights",
+                //    Information = "Justin's house",
+                //    PinType = "shelter"
+                //};
 
-                var pinCard3 = new PinItem
-                {
-                    Address = "4180 Kaitlin Dr Vadnais Heights",
-                    Information = "Justin's house",
-                    PinType = "supplies"
-                };
+                //var pinCard3 = new PinItem
+                //{
+                //    Address = "4180 Kaitlin Dr Vadnais Heights",
+                //    Information = "Justin's house",
+                //    PinType = "supplies"
+                //};
 
                 var cards = new ObservableCollection<PinCard>();
 
-                var dbPins = controller.Pins;
+                ObservableCollection<PinItem> dbPins = Controller.Pins;
                 //var dbPins = new ObservableCollection<PinItem>();
-                dbPins.Add(pinCard);
-                dbPins.Add(pinCard2);
-                dbPins.Add(pinCard3);
+                //dbPins.Add(pinCard);
+                //dbPins.Add(pinCard2);
+                //dbPins.Add(pinCard3);
 
-                foreach (var p in dbPins)
+                foreach (var p in dbPins.ToList())
                 {
-                    if (p.PinType == pinTypePicker.SelectedItem.ToString())
-                    {
+                    Debug.WriteLine(p.PinType.ToString());
                         var pinC = new PinCard
                         {
                             Address = p.Address,
                             Info = p.Information,
-                            Image = p.PinType + ".png",
+                            //Image = "/" + p.PinType + ".png",
+                            Image = "/medical.png",
                             Type = p.PinType
                         };
-                        cards.Add(pinC);
-                    }
+                        cards.Add(pinC);               
                 }
 
                 ListView listView = new ListView
@@ -123,6 +122,13 @@ namespace Hermes.Pages
                 Debug.WriteLine(e.StackTrace); 
             }
             
+        }
+
+        public ObservableCollection<PinItem> RetrieveData()
+        {
+            ObservableCollection<PinItem> pinList = Controller.Pins;
+
+            return pinList;
         }
     }
 }

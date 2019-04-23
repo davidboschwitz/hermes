@@ -49,28 +49,28 @@ namespace Hermes.Droid
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
 
-            if (map != null)
-            {
-                map.MapClick += GoogleMap_MapClick;
-            }
+            //if (map != null)
+            //{
+            //    map.MapClick += GoogleMap_MapClick;
+            //}
         }
 
-        private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
-        {
-            ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
-            var addingPin = new CustomPin
-            {
-                Type = PinType.Place,
-                Position = new Position(e.Point.Latitude, e.Point.Longitude),
-                Address = " - need to possibly implement - ",
-                Id = "shelter",
-                Label = "shelter",
-                Url = "http://www.redcross.org"
-            };
+        //private void GoogleMap_MapClick(object sender, GoogleMap.MapClickEventArgs e)
+        //{
+        //    ((OriginalCustomMap)Element).OnTap(new Position(e.Point.Latitude, e.Point.Longitude));
+        //    var addingPin = new CustomPin
+        //    {
+        //        Type = PinType.Place,
+        //        Position = new Position(e.Point.Latitude, e.Point.Longitude),
+        //        Address = " - need to possibly implement - ",
+        //        Id = "shelter",
+        //        Label = "shelter",
+        //        Url = "http://www.redcross.org"
+        //    };
 
-            Map.Pins.Add(addingPin);
-            customPins.Add(addingPin);
-        }
+        //    Map.Pins.Add(addingPin);
+        //    customPins.Add(addingPin);
+        //}
 
         protected override MarkerOptions CreateMarker(Pin pin)
         {
