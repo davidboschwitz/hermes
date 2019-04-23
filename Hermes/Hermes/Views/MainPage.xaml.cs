@@ -64,6 +64,23 @@ namespace Hermes.Views
             }
         }
 
+        public async Task NavigateToPageReplaceLast2(ContentPage selectedPage)
+        {
+            Debug.WriteLine($"Switched to {selectedPage.GetType().FullName}");
+            if (selectedPage != null && Detail != selectedPage)
+            {
+                var navPage = (Detail as NavigationPage);
+                await navPage.PopAsync();
+                await navPage.PopAsync();
+                await navPage.PushAsync(selectedPage);
+
+                if (Device.RuntimePlatform == Device.Android)
+                    await Task.Delay(100);
+
+                IsPresented = false;
+            }
+        }
+
         public async Task NavigatePop()
         {
             var navPage = (Detail as NavigationPage);

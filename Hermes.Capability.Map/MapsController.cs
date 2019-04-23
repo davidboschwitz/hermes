@@ -38,6 +38,16 @@ namespace Hermes.Capability.Map
             DatabaseController.Insert(pin);
         }
 
+        //private void Initialize()
+        //{
+        //    DatabaseController.CreateTable<PinItem>();
+        //    /*Dummy Data*/
+        //    PinItem p1 = new PinItem();
+            
+        //    //Check for existing items
+        //    DatabaseController.Insert(p1);
+        //}
+
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
         {
             throw new NotImplementedException();

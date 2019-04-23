@@ -46,7 +46,6 @@ namespace Hermes.Capability.Chat
         public ChatController(DatabaseController databaseController)
         {
             DatabaseController = databaseController;
-
             //contacts
             DatabaseController.CreateTable<ChatContact>();
             ContactsMap = new Dictionary<Guid, ChatContact>();
@@ -79,6 +78,18 @@ namespace Hermes.Capability.Chat
             {
                 AddMessage(msg);
             }
+
+
+            var o = Guid.NewGuid();
+            var m = Me;
+            var c = new ChatContact(o, "Jackie");
+            ContactsMap.Add(o, c);
+
+            AddMessage(new ChatMessage(o, m, "Hey dude how's it goin?"));
+            AddMessage(new ChatMessage(m, o, "Oh hey there man, its going alright, just got set up on Hermes by a Red Cross volunteer!"));
+            AddMessage(new ChatMessage(o, m, "Me too! I'm pretty stoked to be so connected, even without a persistent internet connection!"));
+            AddMessage(new ChatMessage(m, o, "And don't even get me started on the frequent news and maps updates, aid for dayz!"));
+            AddMessage(new ChatMessage(o, m, "So glad we could connect over Hermes!"));
 
             //Finalize initialization of conversations
             SortConversations();

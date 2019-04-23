@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Hermes.Capability.Map;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Hermes.Pages
 {
@@ -16,7 +17,7 @@ namespace Hermes.Pages
         {
             Controller = controller;
 
-            ObservableCollection<PinItem> receivingPins = controller.Pins;
+            ObservableCollection<PinItem> dbPins = controller.Pins;
 
             OriginalCustomMap customMap = new OriginalCustomMap()
             {
@@ -38,8 +39,9 @@ namespace Hermes.Pages
 
             var outputPins = new List<CustomPin>();
 
-            foreach (var p in receivingPins)
+            foreach (var p in dbPins)
             {
+                Debug.WriteLine(p.Address);
                 var tempPin = new CustomPin
                 {
                     Type = PinType.Place,
@@ -60,6 +62,8 @@ namespace Hermes.Pages
             
             foreach(var pin in outputPins)
             {
+                Debug.WriteLine(pin.Address);
+                Debug.WriteLine(pin.Label);
                 customMap.Pins.Add(pin);
             }
 
