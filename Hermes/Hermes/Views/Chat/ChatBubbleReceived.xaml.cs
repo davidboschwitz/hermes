@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace Hermes.Views.Chat
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChatBubbleRecieved : ViewCell
+    public partial class ChatBubbleReceived : ViewCell
     {
-        public ChatBubbleRecieved()
+        public ChatBubbleReceived()
         {
             InitializeComponent();
         }
