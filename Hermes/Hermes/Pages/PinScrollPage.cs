@@ -13,7 +13,7 @@ namespace Hermes.Pages
 {
     public class PinScrollPage : ContentPage
     {
-        MapsController Controller;
+        readonly MapsController Controller;
 
         public PinScrollPage(MapsController controller)
         {

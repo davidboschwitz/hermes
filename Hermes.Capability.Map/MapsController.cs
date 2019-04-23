@@ -32,7 +32,7 @@ namespace Hermes.Capability.Map
             }
         }
 
-        public void savePin(PinItem pin)
+        public void SavePin(PinItem pin)
         {
             Debug.WriteLine(pin.Information);
             DatabaseController.Insert(pin);

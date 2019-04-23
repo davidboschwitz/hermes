@@ -10,7 +10,7 @@ namespace Hermes.Pages
 {
     public class MapPage : ContentPage
     {
-        MapsController Controller;
+        readonly MapsController Controller;
         
         public MapPage(MapsController controller)
         {

@@ -53,7 +53,7 @@ namespace Hermes.Pages
 
                 Debug.WriteLine(dbPin.Information);
 
-                Controller.savePin(dbPin);
+                Controller.SavePin(dbPin);
             }
 
             async void back_clickedAsync(object sender, EventArgs e)
