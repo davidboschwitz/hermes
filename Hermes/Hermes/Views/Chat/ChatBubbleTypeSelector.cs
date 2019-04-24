@@ -16,7 +16,7 @@ namespace Hermes.Views.Chat
 
         private Guid me;
 
-        public ChatBubbleTypeSelector(IChatController controller)
+        public ChatBubbleTypeSelector(ChatController controller)
         {
             me = controller.Me;
 

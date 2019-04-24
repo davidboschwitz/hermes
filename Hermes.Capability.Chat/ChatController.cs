@@ -13,10 +13,10 @@ using System.Runtime.CompilerServices;
 namespace Hermes.Capability.Chat
 {
     [HermesNotifyNamespace(Capability.Namespace)]
-    [HermesSyncTable(typeof(ChatMessage)), HermesSyncTable(typeof(ChatVerificationMessage)), HermesSyncTable(typeof(ChatImageMessage))]
-    public class ChatController : IChatController
+    [HermesSyncTable(typeof(ChatMessage)), HermesSyncTable(typeof(ChatVerificationMessage)), HermesSyncTable(typeof(ChatImageMessage)), HermesSyncTable(typeof(ChatContact))]
+    public class ChatController : ICapabilityController
     {
-        public Guid Me => new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
+        public Guid Me => DatabaseController.PersonalID();
 
         private ChatConversation currentConversation;
         public ChatConversation CurrentConversation
@@ -58,10 +58,6 @@ namespace Hermes.Capability.Chat
             ConversationsMap = new Dictionary<Guid, ChatConversation>();
             //ChatMessages
             DatabaseController.CreateTable<ChatMessage>();
-            var x1 = new ChatMessage(Me, Guid.NewGuid(), "test1");
-            DatabaseController.Insert(x1);
-            var x2 = new ChatMessage(Guid.NewGuid(), Me, "test2");
-            DatabaseController.Insert(x2);
             foreach (var msg in DatabaseController.Table<ChatMessage>())
             {
                 AddMessage(msg);
@@ -87,6 +83,8 @@ namespace Hermes.Capability.Chat
 
         public void AddMessage(ChatMessage msg)
         {
+            if (msg == null)
+                return;
             var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
 
             if (!ConversationsMap.TryGetValue(other, out var conversation))
@@ -109,6 +107,33 @@ namespace Hermes.Capability.Chat
         {
             //throw new NotImplementedException();
             Debug.WriteLine($"[ChatController]: OnNotification({messageNamespace}, {messageName}, {messageID})");
+            if (Capability.Namespace.Equals(messageNamespace))
+            {
+                if (Capability.MessageNames.ChatMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatVerificationMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatVerificationMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatImageMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatImageMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatContact.Equals(messageName))
+                {
+                    var contact = DatabaseController.Table<ChatContact>().Where(m => m.MessageID.Equals(messageID)).First();
+                    ContactsMap.Add(contact.ID, contact);
+                    SortContacts();
+                }
+            }
         }
 
         public void SendNewChatMessage(ChatConversation conversation, string messageBody)

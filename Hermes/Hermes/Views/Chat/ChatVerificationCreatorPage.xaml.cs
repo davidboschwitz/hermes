@@ -9,7 +9,7 @@ namespace Hermes.Views.Chat
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChatVerificationCreatorPage : ContentPage
     {
-        public ChatVerificationCreatorPage(IChatController controller)
+        public ChatVerificationCreatorPage(ChatController controller)
         {
             InitializeComponent();
 

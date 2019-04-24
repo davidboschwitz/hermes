@@ -9,7 +9,7 @@ namespace Hermes.Capability.Chat
         {
             builder.Register(c => new ChatController(c.Resolve<DatabaseController>()))
                    .As<ICapabilityController>()
-                   .As<IChatController>()
+                   .As<ChatController>()
                    .SingleInstance();
         }
     }

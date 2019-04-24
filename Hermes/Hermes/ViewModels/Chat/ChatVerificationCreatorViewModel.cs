@@ -18,7 +18,7 @@ namespace Hermes.ViewModels.Chat
             set { SetProperty(ref photoImageSource, value); }
         }
 
-        public ChatVerificationCreatorViewModel(IChatController controller) : base(controller)
+        public ChatVerificationCreatorViewModel(ChatController controller) : base(controller)
         {
             TakePhotoCommand = new Command(TakePhotoFunction);
         }

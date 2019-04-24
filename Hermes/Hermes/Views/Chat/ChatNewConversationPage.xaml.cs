@@ -9,7 +9,7 @@ namespace Hermes.Views.Chat
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChatNewConversationPage : ContentPage
     {
-        public ChatNewConversationPage(IChatController controller, ChatPage chatPage)
+        public ChatNewConversationPage(ChatController controller, ChatPage chatPage)
         {
             InitializeComponent();
             var vm = new ChatNewConversationViewModel(controller, chatPage);

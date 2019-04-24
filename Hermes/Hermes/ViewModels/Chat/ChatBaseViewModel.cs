@@ -4,14 +4,14 @@ namespace Hermes.ViewModels.Chat
 {
     public class ChatBaseViewModel : BaseViewModel
     {
-        private IChatController controller;
-        public IChatController Controller
+        private ChatController controller;
+        public ChatController Controller
         {
             get { return controller; }
             set { SetProperty(ref controller, value); }
         }
 
-        public ChatBaseViewModel(IChatController controller)
+        public ChatBaseViewModel(ChatController controller)
         {
             Controller = controller;
         }

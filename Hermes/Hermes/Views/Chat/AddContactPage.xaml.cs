@@ -9,7 +9,7 @@ namespace Hermes.Views.Chat
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddContactPage : ContentPage
     {
-        public AddContactPage(IChatController controller)
+        public AddContactPage(ChatController controller)
         {
             InitializeComponent();
 

@@ -13,7 +13,7 @@ namespace Hermes.ViewModels.Chat
 
         public ICommand NewContactCommand { get; }
 
-        public ChatNewConversationViewModel(IChatController controller, ChatPage chatPage) : base(controller)
+        public ChatNewConversationViewModel(ChatController controller, ChatPage chatPage) : base(controller)
         {
             ChatPage = chatPage;
 
