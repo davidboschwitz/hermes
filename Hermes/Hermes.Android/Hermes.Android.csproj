@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeocodedWaypoint.cs" />
-    <Compile Include="JustViewCustomRenderer.cs" />
     <Compile Include="AdminPinPlacer.cs" />
     <Compile Include="OriginalCustomRenderer.cs" />
     <Compile Include="AndroidHermesSupportService.cs" />
