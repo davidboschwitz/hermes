@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 				android:gravity="center"
-                android:text="S"
+                android:text="title"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
             <TextView
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 				android:gravity="center"
-                android:text="InfoWindowSubtitle"
+                android:text="infoWindowSubtitle"
                 android:textColor="@android:color/black" />
         </LinearLayout>
         <ImageButton
