@@ -31,18 +31,6 @@ namespace Hermes.Pages
 
             customMap.CustomPins = outputPin;
             customMap.Pins.Add(p);
-            
-            //Button back = new Button
-            //{
-            //    Text = "back"
-            //};
-
-            //back.Clicked += back_clickedAsync;
-
-            //async void back_clickedAsync(object sender, EventArgs e)
-            //{
-            //    await Navigation.PopModalAsync();
-            //}
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(center.Latitude, center.Longitude), Distance.FromMiles(1.0)));
 

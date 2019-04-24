@@ -48,8 +48,7 @@ namespace Hermes.Pages
                         {
                             Address = p.Address,
                             Info = p.Information,
-                            Image = "//Resources/" + p.PinType + ".png",
-                            //Image = "/medical.png",
+                            Image = p.PinType.ToString().ToLower() + ".png",
                             Type = p.PinType
                         };
                     Debug.WriteLine(pinC.Image);
@@ -61,7 +60,6 @@ namespace Hermes.Pages
                     ItemTemplate = new DataTemplate(typeof(ImageCell)),
                     ItemsSource = cards,
                 };
-
                 listView.ItemTemplate.SetBinding(ImageCell.TextProperty, "Address");
                 listView.ItemTemplate.SetBinding(ImageCell.DetailProperty, "Info");
                 listView.ItemTemplate.SetBinding(ImageCell.ImageSourceProperty, "Image");
@@ -110,11 +108,12 @@ namespace Hermes.Pages
                             {
                                 Address = p.Address,
                                 Info = p.Information,
-                                Image = "/Resources/" + p.PinType + ".png",
-                                //Image = "/medical.png",
+                                Image = p.PinType.ToString().ToLower() + ".png",
                                 Type = p.PinType
                             };
                             cards.Add(pinC);
+                            Debug.WriteLine(pinC.Image);
+
                         }
                     }
 
@@ -133,23 +132,11 @@ namespace Hermes.Pages
             }
             catch(Exception e)
             {
-                Debug.WriteLine("Justin suckssss");
+                Debug.WriteLine("-----------ERROR------------");
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace); 
             }
             
-        }
-
-        void refresh()
-        {
-
-        }
-
-        public ObservableCollection<PinItem> RetrieveData()
-        {
-            ObservableCollection<PinItem> pinList = Controller.Pins;
-
-            return pinList;
         }
     }
 }
