@@ -22,12 +22,14 @@ namespace Hermes.Capability.Map
              
         }
 
-        public PinItem(string address, string information, string url, string pinType, DateTime timeStamp) : base(Guid.NewGuid(), Guid.NewGuid(), new Guid(), DateTime.Now, DateTime.Now, Capability.Namespace, Capability.MessageNames.PinItem)
+        public PinItem(string address, string information, string url, string pinType, Position position, DateTime timeStamp) : base(Guid.NewGuid(), Guid.NewGuid(), new Guid(), DateTime.Now, DateTime.Now, Capability.Namespace, Capability.MessageNames.PinItem)
         {
             Address = address;
             Information = information;
             Url = url;
             PinType = pinType;
+            Latitude = position.Latitude;
+            Longitude = position.Longitude;
             CreatedTimestamp = timeStamp;
         }
 

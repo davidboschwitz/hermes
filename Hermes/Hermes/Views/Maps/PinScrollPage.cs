@@ -1,5 +1,6 @@
 ﻿using Hermes.Capability.Map;
 using Hermes.Models;
+using Hermes.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,9 @@ namespace Hermes.Pages
 {
     public class PinScrollPage : ContentPage
     {
-        readonly MapsController Controller;
+        protected MainPage RootPage => Application.Current.MainPage as MainPage;
+
+        MapsController Controller;
 
         public PinScrollPage(MapsController controller)
         {
@@ -34,49 +37,21 @@ namespace Hermes.Pages
                     Items = { "All","Medical", "Shelter", "Supplies" },
                     SelectedIndex = 0
                 };
-
-
-                //Dummy Data
-                //PinItem pinCard = new PinItem
-                //{
-                //    Address = "4172 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "medical"
-                //};
-
-                //var pinCard2 = new PinItem
-                //{
-                //    Address = "4176 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "shelter"
-                //};
-
-                //var pinCard3 = new PinItem
-                //{
-                //    Address = "4180 Kaitlin Dr Vadnais Heights",
-                //    Information = "Justin's house",
-                //    PinType = "supplies"
-                //};
-
+         
                 var cards = new ObservableCollection<PinCard>();
 
                 ObservableCollection<PinItem> dbPins = Controller.Pins;
-                //var dbPins = new ObservableCollection<PinItem>();
-                //dbPins.Add(pinCard);
-                //dbPins.Add(pinCard2);
-                //dbPins.Add(pinCard3);
 
                 foreach (var p in dbPins.ToList())
                 {
-                    Debug.WriteLine(p.PinType.ToString());
                         var pinC = new PinCard
                         {
                             Address = p.Address,
                             Info = p.Information,
-                            //Image = "/" + p.PinType + ".png",
-                            Image = "/medical.png",
+                            Image = p.PinType.ToString().ToLower() + ".png",
                             Type = p.PinType
                         };
+                    Debug.WriteLine(pinC.Image);
                         cards.Add(pinC);               
                 }
 
@@ -85,7 +60,6 @@ namespace Hermes.Pages
                     ItemTemplate = new DataTemplate(typeof(ImageCell)),
                     ItemsSource = cards,
                 };
-
                 listView.ItemTemplate.SetBinding(ImageCell.TextProperty, "Address");
                 listView.ItemTemplate.SetBinding(ImageCell.DetailProperty, "Info");
                 listView.ItemTemplate.SetBinding(ImageCell.ImageSourceProperty, "Image");
@@ -96,13 +70,54 @@ namespace Hermes.Pages
 
                 async void pin_clickedAsync(object sender, ItemTappedEventArgs e)
                 {
-                    var location = e.Item as PinCard;
+                    var card = e.Item as PinCard;
 
-                    var positions = (await geoCoder.GetPositionsForAddressAsync(location.Address));
+                    var positions = (await geoCoder.GetPositionsForAddressAsync(card.Address));
 
                     Position position = positions.FirstOrDefault();
 
-                    await Navigation.PushModalAsync(new PinCardMap(position));
+                    CustomPin newPin = new CustomPin
+                    {
+                        Type = PinType.Place,
+                        Position = new Position(position.Latitude, position.Longitude),
+                        Address = card.Address,
+                        Information = card.Info,
+                        Label = card.Type                        
+                    };
+
+                    await RootPage.NavigateToPage(new PinCardMap(newPin, Controller));
+                }
+
+                listView.RefreshCommand = new Command(refreshAsync);
+                Controller.PropertyChanged += (a,b) => { refreshAsync(); };
+
+                pinTypePicker.SelectedIndexChanged += (sender,e) => { refreshAsync(); };
+
+                void refreshAsync()
+                {
+                    dbPins = Controller.Pins;
+                    cards = new ObservableCollection<PinCard>();
+                    foreach (var p in dbPins.ToList())
+                    {
+                        Debug.WriteLine(p.PinType.ToString());
+                        Debug.WriteLine(pinTypePicker.SelectedItem);
+
+                        if (p.PinType.ToString() == pinTypePicker.SelectedItem || pinTypePicker.SelectedItem == "All") {
+                            Debug.WriteLine(p.PinType.ToString());
+                            var pinC = new PinCard
+                            {
+                                Address = p.Address,
+                                Info = p.Information,
+                                Image = p.PinType.ToString().ToLower() + ".png",
+                                Type = p.PinType
+                            };
+                            cards.Add(pinC);
+                            Debug.WriteLine(pinC.Image);
+
+                        }
+                    }
+
+                    listView.ItemsSource = cards;
                 }
 
                 Content = new StackLayout
@@ -117,18 +132,11 @@ namespace Hermes.Pages
             }
             catch(Exception e)
             {
-                Debug.WriteLine("Justin suckssss");
+                Debug.WriteLine("-----------ERROR------------");
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine(e.StackTrace); 
             }
             
-        }
-
-        public ObservableCollection<PinItem> RetrieveData()
-        {
-            ObservableCollection<PinItem> pinList = Controller.Pins;
-
-            return pinList;
         }
     }
 }

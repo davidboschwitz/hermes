@@ -1,4 +1,5 @@
-﻿using Hermes.Models;
+﻿using Hermes.Capability.Map;
+using Hermes.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +10,13 @@ namespace Hermes.Pages
 {
     class PinCardMap : ContentPage
     {
-        public PinCardMap(Position p)
+        MapsController Controller;
+
+        public PinCardMap(CustomPin p, MapsController controller)
         {
-            Position center = p;
+            Controller = controller;
+
+            Position center = p.Position;
 
             OriginalCustomMap customMap = new OriginalCustomMap()
             {
@@ -21,17 +26,11 @@ namespace Hermes.Pages
                 MapType = MapType.Street,
             };
 
-            Button back = new Button
-            {
-                Text = "back"
-            };
+            var outputPin = new List<CustomPin>();
+            outputPin.Add(p);
 
-            back.Clicked += back_clickedAsync;
-
-            async void back_clickedAsync(object sender, EventArgs e)
-            {
-                await Navigation.PopModalAsync();
-            }
+            customMap.CustomPins = outputPin;
+            customMap.Pins.Add(p);
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(center.Latitude, center.Longitude), Distance.FromMiles(1.0)));
 
@@ -39,7 +38,7 @@ namespace Hermes.Pages
             {
                 Spacing = 0,
                 Children = {
-                    back,
+                    //back,
                     customMap
                 }
             };

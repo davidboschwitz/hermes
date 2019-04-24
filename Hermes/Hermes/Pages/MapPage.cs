@@ -17,7 +17,7 @@ namespace Hermes.Pages
         {
             Controller = controller;
 
-            ObservableCollection<PinItem> dbPins = controller.Pins;
+            ObservableCollection<PinItem> dbPins = Controller.Pins;
 
             OriginalCustomMap customMap = new OriginalCustomMap()
             {
@@ -41,7 +41,6 @@ namespace Hermes.Pages
 
             foreach (var p in dbPins)
             {
-                Debug.WriteLine(p.Address);
                 var tempPin = new CustomPin
                 {
                     Type = PinType.Place,
@@ -53,7 +52,6 @@ namespace Hermes.Pages
                 };
 
                 outputPins.Add(tempPin);
-                
             }
 
             outputPins.Add(examplePinSupplies);
@@ -62,9 +60,37 @@ namespace Hermes.Pages
             
             foreach(var pin in outputPins)
             {
-                Debug.WriteLine(pin.Address);
-                Debug.WriteLine(pin.Label);
                 customMap.Pins.Add(pin);
+            }
+
+            Controller.PropertyChanged += (a, b) => { refreshAsync(); };
+
+            void refreshAsync()
+            {
+                dbPins = controller.Pins;
+                outputPins = new List<CustomPin>();
+
+                foreach (var p in dbPins)
+                {
+                    var tempPin = new CustomPin
+                    {
+                        Type = PinType.Place,
+                        Position = p.Position,
+                        Address = p.Address,
+                        Id = p.PinType,
+                        Label = p.PinType,
+                        Url = p.Url
+                    };
+
+                    outputPins.Add(tempPin);
+                }
+
+                customMap.CustomPins = outputPins;
+
+                foreach (var pin in outputPins)
+                {
+                    customMap.Pins.Add(pin);
+                }
             }
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(42.025250, -93.650870), Distance.FromMiles(1.0)));
