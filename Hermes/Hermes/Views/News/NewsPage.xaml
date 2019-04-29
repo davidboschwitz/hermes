@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hermes.Views"
-             x:Class="Hermes.Views.NewsPage">
+             x:Class="Hermes.Views.NewsPage"
+             Title="News">
     <ContentPage.Content>
         <StackLayout>
                     <Label Text="Result will appear here."
@@ -17,15 +18,17 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                         <ViewCell>
+                            <StackLayout 
+                                Margin="10">
                             <StackLayout
-                                Spacing="20">
-                            <StackLayout
-                                Padding="20"
                                 BackgroundColor="LightGray"
                                 Orientation="Vertical">
-                                    <Label Text="{Binding Title}" 
-                                       TextColor="Black"    
-                                       VerticalOptions="Center"/>
+                                    <Label Text="{Binding Title}"
+                                           FontSize="13"
+                                           MinimumHeightRequest="30"
+                                           TextColor="Black"    
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>
