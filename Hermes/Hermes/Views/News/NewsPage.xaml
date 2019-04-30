@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hermes.Views"
+             x:Class="Hermes.Views.NewsPage"
+             Title="News">
+    <ContentPage.Content>
+        <StackLayout>
+                    <Label Text="Result will appear here."
+                           VerticalOptions="Fill"
+                           FontSize="14">
+                    </Label>
+                    <SearchBar Placeholder ="Search here">
+                    </SearchBar>
+                    <ListView x:Name="listView" 
+                      ItemSelected="OnItemSelected"
+                      ItemsSource="{Binding Controller.Feed}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                        <ViewCell>
+                            <StackLayout 
+                                Margin="10">
+                            <StackLayout
+                                BackgroundColor="LightGray"
+                                Orientation="Vertical">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="13"
+                                           MinimumHeightRequest="30"
+                                           TextColor="Black"    
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+            <Button Text="Get location"
+                    Clicked="OnButtonClicked">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

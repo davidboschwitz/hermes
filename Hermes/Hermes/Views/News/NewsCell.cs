@@ -17,25 +17,27 @@ namespace Hermes.Views
         public NewsCell()
         {
             //instantiate each of our views
-            StackLayout cellWrapper = new StackLayout();
-            StackLayout horizontalLayout = new StackLayout();
-            Label left = new Label();
-            Label right = new Label()
+            StackLayout cellWrapper = new StackLayout
             {
-                Text = ""
+                Padding = 20L,
+                WidthRequest = 50L
             };
+            StackLayout horizontalLayout = new StackLayout
+            {
+                Padding = 20L,
+                WidthRequest = 50L,
+                BackgroundColor = Color.Gray,
+                Orientation = StackOrientation.Horizontal
+            };
+            Label title = new Label();
 
             //set bindings
-            left.SetBinding(Label.TextProperty, "Title");
-
+            title.SetBinding(Label.TextProperty, "Title");
             //Set properties for desired design
-            cellWrapper.BackgroundColor = Color.FromHex("#eee");
-            horizontalLayout.Orientation = StackOrientation.Horizontal;
-            right.HorizontalOptions = LayoutOptions.EndAndExpand;
-            left.TextColor = Color.FromHex("#f35e20");
+            title.TextColor = Color.Black;
 
             //add views to the view hierarchy
-            horizontalLayout.Children.Add(left);
+            horizontalLayout.Children.Add(title);
             cellWrapper.Children.Add(horizontalLayout);
             View = cellWrapper;
         }
@@ -51,6 +53,7 @@ namespace Hermes.Views
             get { return (string)GetValue(BodyProperty); }
             set { SetValue(BodyProperty, value); }
         }
+
 
     }
 }

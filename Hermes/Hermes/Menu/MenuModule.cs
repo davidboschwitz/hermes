@@ -11,6 +11,8 @@ namespace Hermes.Menu
         {
             builder.Register(c => new HermesMenuItem("News", c.Resolve<NewsPage>()))
                 .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("NewsAdmin", c.Resolve<NewsAdminPage>()))
+                .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat/Verify", c.Resolve<ChatVerificationCreatorPage>()))
