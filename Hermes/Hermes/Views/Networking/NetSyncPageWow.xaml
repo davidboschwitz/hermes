@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hermes.Views.NetSyncPageWow">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Sync Me_Baby"
+                    Clicked="Button_Clicked" />
+            <Button Text="Sync Bluetooth"
+                    Clicked="Button_Bluetooth" />
+            <Frame BorderColor="Black">
+                <StackLayout>
+                    <Button Text="Start Bluetooth"
+                    Clicked="Button_Clicked_1"/>
+                    <ListView x:Name="ListOfDevices"
+                ItemSelected="ListView_ItemSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding Name}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

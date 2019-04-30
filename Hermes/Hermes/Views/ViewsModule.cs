@@ -7,6 +7,7 @@ using Hermes.Views.Chat;
 using System.Collections.Generic;
 using Hermes.Networking;
 using Hermes.Database;
+using Hermes.Services;
 
 namespace Hermes.Views
 {
@@ -58,7 +59,7 @@ namespace Hermes.Views
                    .As<ChatVerificationCreatorPage>()
                    .SingleInstance();
 
-            builder.Register(c => new NetSyncPageWow(c.Resolve<NetworkController>()))
+            builder.Register(c => new NetSyncPageWow(c.Resolve<NetworkController>(), c.ResolveOptional<IHermesBluetoothService>()))
                    .As<NetSyncPageWow>()
                    .SingleInstance();
 
