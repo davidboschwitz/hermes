@@ -10,6 +10,10 @@ namespace Hermes.Droid
             builder.Register(c => new AndroidHermesSupportService())
                    .As<IHermesSupportService>()
                    .SingleInstance();
+
+            builder.Register(c => new AndroidToastService())
+                   .As<IHermesToastService>()
+                   .SingleInstance();
         }
     }
 }

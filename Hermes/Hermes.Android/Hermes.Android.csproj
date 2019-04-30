@@ -73,6 +73,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidToastService.cs" />
     <Compile Include="GeocodedWaypoint.cs" />
     <Compile Include="JustViewCustomRenderer.cs" />
     <Compile Include="AdminPinPlacer.cs" />

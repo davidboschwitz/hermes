@@ -10,6 +10,10 @@ namespace Hermes.iOS
             builder.Register(c => new iOSHermesSupportService())
                    .As<IHermesSupportService>()
                    .SingleInstance();
+
+            builder.Register(c => new iOSToastService())
+                   .As<IHermesToastService>()
+                   .SingleInstance();
         }
     }
 }
