@@ -313,7 +313,7 @@ namespace Hermes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Submit.
         /// </summary>
         internal static string Submit {
             get {
