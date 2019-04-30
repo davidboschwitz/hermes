@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="AddContactButton" xml:space="preserve">
     <value>+ Contact</value>
   </data>
@@ -135,10 +138,79 @@
   <data name="AddConversationButton" xml:space="preserve">
     <value>+ Conversation</value>
   </data>
+  <data name="AddressStreetCityState" xml:space="preserve">
+    <value>Address: Street, City State</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Chat" xml:space="preserve">
     <value>Chat</value>
   </data>
+  <data name="ChatVerify" xml:space="preserve">
+    <value>Chat/Verify</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="GetLocation" xml:space="preserve">
+    <value>Get Location</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="MapInfo" xml:space="preserve">
+    <value>Map/PinInfoPage</value>
+  </data>
+  <data name="MapPinScrollPage" xml:space="preserve">
+    <value>Map/PinScrollPage</value>
+  </data>
+  <data name="Medical" xml:space="preserve">
+    <value>Medical</value>
+  </data>
+  <data name="MedicalPin" xml:space="preserve">
+    <value>Medical Pin</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Net" xml:space="preserve">
+    <value>Net</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="PinInformation" xml:space="preserve">
+    <value>Pin Information</value>
+  </data>
+  <data name="Pins" xml:space="preserve">
+    <value>Pins</value>
+  </data>
+  <data name="PinType" xml:space="preserve">
+    <value>Pin Type</value>
+  </data>
   <data name="SelectContact" xml:space="preserve">
     <value>Select Contact</value>
+  </data>
+  <data name="Shelter" xml:space="preserve">
+    <value>Shelter</value>
+  </data>
+  <data name="ShelterPin" xml:space="preserve">
+    <value>Shelter Pin</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Supplies" xml:space="preserve">
+    <value>Supplies</value>
+  </data>
+  <data name="SupplyPin" xml:space="preserve">
+    <value>Supply Pin</value>
+  </data>
+  <data name="URL" xml:space="preserve">
+    <value>URL</value>
   </data>
 </root>

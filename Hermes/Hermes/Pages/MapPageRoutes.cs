@@ -30,7 +30,7 @@ namespace Hermes.Pages
                 Position = new Position(42.02332, -93.66791),
                 Address = " - need to possibly implement - ",
                 Id = "supplies",
-                Label = "supplies",
+                Label = Hermes.Resources.Supplies,
                 Url = "https://www.redcross.org/store"
             };
 
@@ -40,13 +40,13 @@ namespace Hermes.Pages
                 Position = new Position(42.020454, -93.60969),
                 Address = " - need to possibly implement - ",
                 Id = "supplies",
-                Label = "supplies",
+                Label = Hermes.Resources.Supplies,
                 Url = "https://www.redcross.org/store"
             };
 
             var getLocation = new Button
             {
-                Text = "Get Location"
+                Text = Hermes.Resources.GetLocation
             };
 
             getLocation.Clicked += new EventHandler(OnButtonClicked);

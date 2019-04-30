@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Hermes;
 
 
 namespace Hermes.Pages
@@ -16,7 +17,7 @@ namespace Hermes.Pages
         {
             Label header = new Label
             {
-                Text = "Pin Information",
+                Text = Hermes.Resources.PinInformation,
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center
             };
@@ -25,27 +26,27 @@ namespace Hermes.Pages
 
             Picker pinType = new Picker
             {
-                Title = "Pin Type",
-                Items = { "Medical Pin", "Supply Pin", "Shelter Pin" }
+                Title = Hermes.Resources.PinType,
+                Items = { Hermes.Resources.MedicalPin, Hermes.Resources.SupplyPin, Hermes.Resources.ShelterPin }
 
             };
 
             Entry address = new Entry
             {
-                Placeholder = "Address: Street, City State"
+                Placeholder = Hermes.Resources.AddressStreetCityState
             };
 
-            Editor information = new Editor { Placeholder = "Information" };
+             Editor information = new Editor { Placeholder = Hermes.Resources.Information };
 
             Entry url = new Entry
             {
-                Placeholder = "URL"
+                Placeholder = Hermes.Resources.URL
             };
 
 
             Button submit = new Button
             {
-                Text = "Submit"
+                Text = Hermes.Resources.Submit
             };
 
             submit.Clicked += sub_ClickedAsync;

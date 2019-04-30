@@ -23,7 +23,7 @@ namespace Hermes.Pages
 
             Button back = new Button
             {
-                Text = "back"
+                Text = Hermes.Resources.Back
             };
 
             back.Clicked += back_clickedAsync;

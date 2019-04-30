@@ -24,7 +24,7 @@ namespace Hermes.Pages
                 Position = new Position(42.02525, -93.65087),
                 Address = " - need to possibly implement - ",
                 Id = "supplies",
-                Label = "supplies",
+                Label = Hermes.Resources.Supplies,
                 Url = "https://www.redcross.org/store"
             };
 
@@ -34,7 +34,7 @@ namespace Hermes.Pages
                 Position = new Position(42.02290, -93.63912),
                 Address = " - need to possibly implement - ",
                 Id = "medical",
-                Label = "medical",
+                Label = Hermes.Resources.Medical,
                 Url = "http://www.redcross.org"
             };
 
@@ -44,7 +44,7 @@ namespace Hermes.Pages
                 Position = new Position(42.02045, -93.60968),
                 Address = " - need to possibly implement - ",
                 Id = "shelter",
-                Label = "shelter",
+                Label = Hermes.Resources.Shelter,
                 Url = "http://www.redcross.org"
             };
 

@@ -23,12 +23,12 @@ namespace Hermes.Pages
 
             Button confirm = new Button
             {
-                Text = "Confirm"
+                Text = Hermes.Resources.Confirm
             };
 
             Button back = new Button
             {
-                Text = "back"
+                Text = Hermes.Resources.Back
             };
 
             confirm.Clicked += confirm_clicked;

@@ -61,6 +61,15 @@ namespace Hermes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to + Contact.
         /// </summary>
         internal static string AddContactButton {
@@ -115,6 +124,24 @@ namespace Hermes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address: Street, City State.
+        /// </summary>
+        internal static string AddressStreetCityState {
+            get {
+                return ResourceManager.GetString("AddressStreetCityState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat.
         /// </summary>
         internal static string Chat {
@@ -124,11 +151,200 @@ namespace Hermes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat/Verify.
+        /// </summary>
+        internal static string ChatVerify {
+            get {
+                return ResourceManager.GetString("ChatVerify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Location.
+        /// </summary>
+        internal static string GetLocation {
+            get {
+                return ResourceManager.GetString("GetLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        internal static string Map {
+            get {
+                return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map/PinInfoPage.
+        /// </summary>
+        internal static string MapInfo {
+            get {
+                return ResourceManager.GetString("MapInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map/PinScrollPage.
+        /// </summary>
+        internal static string MapPinScrollPage {
+            get {
+                return ResourceManager.GetString("MapPinScrollPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical.
+        /// </summary>
+        internal static string Medical {
+            get {
+                return ResourceManager.GetString("Medical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical Pin.
+        /// </summary>
+        internal static string MedicalPin {
+            get {
+                return ResourceManager.GetString("MedicalPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net.
+        /// </summary>
+        internal static string Net {
+            get {
+                return ResourceManager.GetString("Net", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        internal static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Information.
+        /// </summary>
+        internal static string PinInformation {
+            get {
+                return ResourceManager.GetString("PinInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pins.
+        /// </summary>
+        internal static string Pins {
+            get {
+                return ResourceManager.GetString("Pins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Type.
+        /// </summary>
+        internal static string PinType {
+            get {
+                return ResourceManager.GetString("PinType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Contact.
         /// </summary>
         internal static string SelectContact {
             get {
                 return ResourceManager.GetString("SelectContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shelter.
+        /// </summary>
+        internal static string Shelter {
+            get {
+                return ResourceManager.GetString("Shelter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shelter Pin.
+        /// </summary>
+        internal static string ShelterPin {
+            get {
+                return ResourceManager.GetString("ShelterPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supplies.
+        /// </summary>
+        internal static string Supplies {
+            get {
+                return ResourceManager.GetString("Supplies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supply Pin.
+        /// </summary>
+        internal static string SupplyPin {
+            get {
+                return ResourceManager.GetString("SupplyPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL.
+        /// </summary>
+        internal static string URL {
+            get {
+                return ResourceManager.GetString("URL", resourceCulture);
             }
         }
     }

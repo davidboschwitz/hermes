@@ -16,7 +16,7 @@ namespace Hermes.Pages
         {
             Label header = new Label
             {
-                Text = "Pins",
+                Text = Hermes.Resources.Pins,
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center
             };
