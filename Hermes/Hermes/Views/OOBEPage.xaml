@@ -3,26 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.OOBEPage"
              xmlns:hermes="clr-namespace:Hermes"
-             Title="Welcome to Hermes">
+             Title="{x:Static hermes:Resources.OOBEPage_Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Hermes!"
-                VerticalOptions="CenterAndExpand" 
+        <StackLayout Padding="10">
+            <Label Text="{x:Static hermes:Resources.OOBEPage_Label_Briefing}"
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="Please enter some information so we can get to know you"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="Name"/>
+            <Label Text="{x:Static hermes:Resources.OOBEPage_Label_Name}"/>
             <Entry x:Name="OOBEInputName"
                    Text="{Binding OOBEInputName}"
                    Margin="1"
                    TextColor="Black"
                    Keyboard="Chat"
-                   HorizontalOptions="FillAndExpand"
-                   PlaceholderColor="LightGray"
-                   Placeholder="" />
+                   ReturnCommand="OOBEInputURL_Focus"
+                   ReturnType="Next"
+                   HorizontalOptions="FillAndExpand" />
+            <Label Text="" />
+            <Entry x:Name="OOBEInputURL"
+                   Text="{Binding OOBEInputURL}"
+                   Margin="1"
+                   TextColor="Black"
+                   Keyboard="Url"/>
             <Button x:Name="CreateContactButton"
-                    Text="{x:Static hermes:Resources.AddContactPage_Button_AddContact}"
+                    Text="{x:Static hermes:Resources.OOBEPage_Button_Next}"
                     Command="{Binding CreateContactCommand}" />
         </StackLayout>
     </ContentPage.Content>

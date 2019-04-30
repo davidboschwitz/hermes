@@ -138,6 +138,24 @@
   <data name="Chat" xml:space="preserve">
     <value>Chat</value>
   </data>
+  <data name="OOBEPage_Button_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="OOBEPage_Label_Briefing" xml:space="preserve">
+    <value>Please enter some information so we can get to know you</value>
+  </data>
+  <data name="OOBEPage_Label_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OOBEPage_Title" xml:space="preserve">
+    <value>Welcome to Hermes!</value>
+  </data>
+  <data name="OOBEPage_Toast_NameTooShort" xml:space="preserve">
+    <value>Name must be at least 3 characters long</value>
+  </data>
+  <data name="OOBEPage_Toast_URLInvalid" xml:space="preserve">
+    <value>Please enter a valid URL</value>
+  </data>
   <data name="SelectContact" xml:space="preserve">
     <value>Select Contact</value>
   </data>

@@ -124,6 +124,60 @@ namespace Hermes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string OOBEPage_Button_Next {
+            get {
+                return ResourceManager.GetString("OOBEPage_Button_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter some information so we can get to know you.
+        /// </summary>
+        internal static string OOBEPage_Label_Briefing {
+            get {
+                return ResourceManager.GetString("OOBEPage_Label_Briefing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string OOBEPage_Label_Name {
+            get {
+                return ResourceManager.GetString("OOBEPage_Label_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Hermes!.
+        /// </summary>
+        internal static string OOBEPage_Title {
+            get {
+                return ResourceManager.GetString("OOBEPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be at least 3 characters long.
+        /// </summary>
+        internal static string OOBEPage_Toast_NameTooShort {
+            get {
+                return ResourceManager.GetString("OOBEPage_Toast_NameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid URL.
+        /// </summary>
+        internal static string OOBEPage_Toast_URLInvalid {
+            get {
+                return ResourceManager.GetString("OOBEPage_Toast_URLInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Contact.
         /// </summary>
         internal static string SelectContact {
