@@ -24,7 +24,7 @@ namespace Hermes.ViewModels.Chat
             set { SetProperty(ref contactInputNameText, value); }
         }
 
-        public AddContactViewModel(IChatController controller) : base(controller)
+        public AddContactViewModel(ChatController controller) : base(controller)
         {
             CreateContactCommand = new Command(CreateContactFunction);
         }

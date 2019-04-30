@@ -27,7 +27,7 @@ namespace Hermes.ViewModels.Chat
             }
         }
 
-        public ConversationPageViewModel(IChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage) : base(controller)
+        public ConversationPageViewModel(ChatController controller, ChatPage chatPage, ChatNewConversationPage chatNewConversationPage) : base(controller)
         {
             ChatPage = chatPage;
             ChatNewConversationPage = chatNewConversationPage;

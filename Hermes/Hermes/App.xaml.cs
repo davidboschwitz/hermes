@@ -14,6 +14,7 @@ namespace Hermes
     {
         IContainer Container;
         NetworkController NetworkController;
+        public IHermesToastService Toast { get; }
 
         public static double ScreenWidth;
         public static double ScreenHeight;
@@ -35,6 +36,8 @@ namespace Hermes
 
             var mainPage = Container.Resolve<MainPage>();
             MainPage = mainPage;
+
+            Toast = Container.ResolveOptional<IHermesToastService>();
         }
 
         protected override void OnStart()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
@@ -10,6 +9,8 @@ namespace Hermes.Networking.Connection
     public class SocketNetworkConnection : NetworkConnection
     {
         public override string Name => "Socket";
+        public override Encoding Encoding => Encoding.UTF8;
+
 
         public SocketNetworkConnection(Socket socket)
         {
@@ -24,13 +25,12 @@ namespace Hermes.Networking.Connection
             Socket.Close();
         }
 
-
         public override void Open()
         {
             //Socket should already be open.
         }
 
-        const string EOF_STREAM = "<EOF>";
+        const string EOF_STREAM = "<\"EOF\">";
         private string nextMSG = "";
         public override async Task<string> ReceiveString()
         {
@@ -46,18 +46,20 @@ namespace Hermes.Networking.Connection
                 return rtnx;
             }
             // Data buffer 
-            byte[] bytes = new Byte[1024];
+            byte[] bytes = new byte[1024];
             string data = null;
 
             while (true)
             {
                 int numByte = Socket.Receive(bytes);
-                data += Encoding.ASCII.GetString(bytes, 0, numByte);
+                data += Encoding.GetString(bytes, 0, numByte);
 
                 if (data.Contains(EOF_STREAM))
+                {
                     break;
+                }
             }
-            
+
             Console.WriteLine($"data:{data}");
             Debug.WriteLine($"data:{data}");
             var rtn = data.Substring(0, data.IndexOf(EOF_STREAM));
@@ -69,7 +71,7 @@ namespace Hermes.Networking.Connection
 
         public override async Task SendString(string s)
         {
-            byte[] message = Encoding.ASCII.GetBytes(s + EOF_STREAM);
+            byte[] message = Encoding.GetBytes(s + EOF_STREAM);
             Socket.Send(message);
             Console.WriteLine($"SendString:{s}");
             Debug.WriteLine($"SendString:{s}");

@@ -2,8 +2,6 @@
 using Hermes.Networking.Connection;
 
 using System;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -21,21 +19,23 @@ namespace Hermes.Server
 
         public void Run()
         {
-            IPHostEntry host = Dns.GetHostEntry("localhost");
-            IPAddress ip = IPAddress.Parse("192.168.0.58");//(host.AddressList.First().GetAddressBytes());
             var port = 6969;
-            var server = new TcpListener(ip, port);
+            var server = TcpListener.Create(port);
             server.Start();
 
-            Console.WriteLine($"Listener started on port {ip}:{port}");
+            Console.WriteLine($"Listener started on port {port}");
 
             while (run)
             {
                 // here pending requests are in a queue.
                 if (server.Pending())
                 {
-                    Console.WriteLine("New connection!");
-                    new Thread(() => NetworkController.Sync(new SocketNetworkConnection(server.AcceptSocket()), new UpdateAllSequence())).Start();
+                    new Thread(() =>
+                    {
+                        var socket = server.AcceptSocket();
+                        Console.WriteLine($"New connection from {socket.RemoteEndPoint}!");
+                        NetworkController.Sync(new SocketNetworkConnection(socket), new UpdateAllSequence());
+                    }).Start();
                 }
             }
             server.Stop();

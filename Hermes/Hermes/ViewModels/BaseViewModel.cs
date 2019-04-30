@@ -1,3 +1,4 @@
+using Hermes.Services;
 using Hermes.Views;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Hermes.ViewModels
         }
 
         protected MainPage RootPage => Application.Current.MainPage as MainPage;
+
+        protected IHermesToastService Toast => (Application.Current as App).Toast;
 
         #region INotifyPropertyChanged
         protected bool SetProperty<T>(ref T backingStore, T value,

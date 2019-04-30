@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="iOSHermesSupportService.cs" />
     <Compile Include="iOSModule.cs" />
+    <Compile Include="iOSToastService.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />

@@ -9,6 +9,7 @@ namespace Hermes.Server
     class Program
     {
         private static Program program;
+
         static void Main(string[] args)
         {
             // The code provided will print ‘Hello World’ to the console.
@@ -34,6 +35,7 @@ namespace Hermes.Server
             NetworkController = Container.Resolve<NetworkController>();
             SocketListener = Container.Resolve<SocketListener>();
             DatabaseController = Container.Resolve<DatabaseController>();
+
             Console.WriteLine("Press any key to start listener");
             Console.ReadKey();
             new Thread(SocketListener.Run).Start();
@@ -53,6 +55,8 @@ namespace Hermes.Server
                     case "stop":
                         SocketListener.Stop();
                         running = false;
+                        break;
+                    case "":
                         break;
                     default:
                         Console.WriteLine($"Command '{args[0]}' unknown");

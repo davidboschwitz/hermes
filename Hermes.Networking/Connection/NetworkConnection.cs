@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Hermes.Networking
@@ -6,6 +7,7 @@ namespace Hermes.Networking
     public abstract class NetworkConnection
     {
         public abstract string Name { get; }
+        public abstract Encoding Encoding { get; }
         public abstract void Open();
         public abstract void Close();
 

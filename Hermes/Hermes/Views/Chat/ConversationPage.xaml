@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.Chat.ConversationPage"
              xmlns:local="clr-namespace:Hermes.Views.Chat"
-             Title="Chat">
+             xmlns:hermes="clr-namespace:Hermes"
+             Title="{x:Static hermes:Resources.Chat}">
     <ContentPage.Content>
         <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout>
@@ -45,7 +46,7 @@
                     </ListView.Header>
                 </ListView>
             </StackLayout>
-            <Button CornerRadius="25" Text="+ Conversation" 
+            <Button CornerRadius="25" Text="{x:Static hermes:Resources.AddConversationButton}" 
                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-150}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
                     Command="{Binding NewConversationCommand}"
