@@ -20,5 +20,22 @@ namespace Hermes.Networking
             await new Task(() => { });
             throw new Exception("NetworkSequence.RunTableSyncSequence() must be overriden!");
         }
+
+        public class SyncMetadata
+        {
+            public SyncMetadata(Guid messageID, DateTime updatedTimestamp)
+            {
+                MessageID = messageID;
+                UpdatedTimestamp = updatedTimestamp;
+            }
+
+            public Guid MessageID { get; set; }
+            public DateTime UpdatedTimestamp { get; set; }
+
+            public override string ToString()
+            {
+                return $"[{MessageID}]{UpdatedTimestamp}";
+            }
+        }
     }
 }

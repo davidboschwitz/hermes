@@ -1,16 +1,18 @@
-﻿using System;
+﻿using Hermes.Capability;
+using Hermes.Database;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Hermes.Capability;
-using Hermes.Database;
+using System.Threading.Tasks;
 
 namespace Hermes.Networking
 {
     public class NetworkController
     {
         private DatabaseController DatabaseController { get; }
-        public Guid PersonalID { get; }
+        public Guid PersonalID => DatabaseController.PersonalID();
+        public string CloudURL => DatabaseController.GetProperty("URL");
 
         public NetworkConnection CurrentConnection => throw new NotImplementedException();
 
@@ -29,7 +31,6 @@ namespace Hermes.Networking
                                    IEnumerable<NetworkSequence> networkSequences)
         {
             DatabaseController = databaseController;
-            PersonalID = Guid.NewGuid();
 
             TableSyncControllers = new Dictionary<string, TableSyncController>();
             NotificationControllers = new Dictionary<string, NamespaceNotificationController>();
@@ -68,7 +69,7 @@ namespace Hermes.Networking
                     {
                         if (!TableSyncControllers.TryGetValue(tableAttr.TableType.Name, out var tableController))
                         {
-                            tableController = new TableSyncController(tableAttr.TableType, this);
+                            tableController = new TableSyncController(tableAttr.TableType);
                             TableSyncControllers.Add(tableAttr.TableType.Name, tableController);
                         }
                     }
@@ -118,7 +119,7 @@ namespace Hermes.Networking
         public void Sync(NetworkConnection connection, NetworkSequence sequence)
         {
             Debug.WriteLine("Syncing!!");
-            sequence.RunSequence(this, DatabaseController, connection);
+            Task.Run(() => sequence.RunSequence(this, DatabaseController, connection));
         }
 
         public void SendMessage(Type type, DatabaseItem item)

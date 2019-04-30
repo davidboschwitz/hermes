@@ -53,14 +53,13 @@ namespace Hermes.Networking
             var localTable = db.Query(mapping, $"SELECT * FROM {t.Name}");
 
             var localMeta = localTable
-                .Select(r => new TableSyncController.SyncMetadata(((DatabaseItem)r).MessageID, ((DatabaseItem)r).UpdatedTimestamp))
-                .AsEnumerable<TableSyncController.SyncMetadata>()
+                .Select(r => new SyncMetadata(((DatabaseItem)r).MessageID, ((DatabaseItem)r).UpdatedTimestamp))
+                .AsEnumerable<SyncMetadata>()
                 .ToDictionary(r => r.MessageID, r => r);
             await net.SendString(JsonConvert.SerializeObject(localMeta.Values));
 
             var remoteMetaJson = await net.ReceiveString();
-            var remoteMeta = JsonConvert
-                .DeserializeObject<IEnumerable<TableSyncController.SyncMetadata>>(remoteMetaJson);
+            var remoteMeta = JsonConvert.DeserializeObject<IEnumerable<SyncMetadata>>(remoteMetaJson);
 
             var rowsToGet = remoteMeta.Where(r => (!localMeta.ContainsKey(r.MessageID) || localMeta[r.MessageID].UpdatedTimestamp < r.UpdatedTimestamp));
             var rowsToGetJson = JsonConvert.SerializeObject(rowsToGet.Select(x => x.MessageID));
@@ -78,9 +77,11 @@ namespace Hermes.Networking
             foreach (var row in rowsRecieved)
             {
                 var item = row.ToObject(t.T);
-                db.Insert(item);
+                db.InsertOrReplace(item);
                 if (item is DatabaseItem dbitem)
+                {
                     controller.Notify(dbitem.MessageNamespace, dbitem.MessageName, dbitem.MessageID);
+                }
             }
         }
     }
