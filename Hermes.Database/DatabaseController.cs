@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
 
@@ -13,7 +14,9 @@ namespace Hermes.Database
             {
                 var filename = "hermes.db3";
                 string libraryPath;
-                switch (Device.RuntimePlatform)
+                string platform = "none";
+                try { platform = Device.RuntimePlatform; } catch (Exception) { }
+                switch (platform)
                 {
                     case Device.Android:
                         libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -35,6 +38,59 @@ namespace Hermes.Database
 
         public DatabaseController() : base(DatabaseFilePath)
         {
+            CreateTable<HermesSavedProperty>();
+            properties = new Dictionary<string, string>();
+            foreach(var p in Table<HermesSavedProperty>())
+            {
+                properties.Add(p.Key, p.Value);
+            }
+        }
+
+        private Dictionary<string, string> properties;
+
+        public Guid PersonalID()
+        {
+            var property = GetProperty("PersonalID");
+            if (property == null)
+            {
+                SetProperty("PersonalID", Guid.NewGuid().ToString());
+                property = GetProperty("PersonalID");
+            };
+            return Guid.Parse(property);
+        }
+
+        public string GetProperty(string key)
+        {
+            properties.TryGetValue(key, out var property);
+            return property;
+        }
+
+        public bool SetProperty(string key, string value)
+        {
+            properties[key] = value;
+            var property = new HermesSavedProperty(key, value);
+            var rowsAffected = Update(property);
+            if (rowsAffected == 0)
+            {
+                // The item does not exists in the database so lets insert it
+                rowsAffected = Insert(property);
+            }
+            return rowsAffected > 0;
+        }
+
+        class HermesSavedProperty
+        {
+            public HermesSavedProperty(string key, string value)
+            {
+                Key = key;
+                Value = value;
+            }
+
+            public HermesSavedProperty() { }
+
+            [PrimaryKey, Unique]
+            public string Key { get; set; }
+            public string Value { get; set; }
         }
     }
 }

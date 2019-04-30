@@ -25,6 +25,8 @@ namespace Hermes.Menu
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("About", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("Net", c.Resolve<NetSyncPageWow>()))
+                .As<HermesMenuItem>();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Hermes.Capability.Chat.Model;
 using Hermes.Database;
+using Hermes.Networking;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,9 +12,11 @@ using System.Runtime.CompilerServices;
 
 namespace Hermes.Capability.Chat
 {
-    public class ChatController : IChatController
+    [HermesNotifyNamespace(Capability.Namespace)]
+    [HermesSyncTable(typeof(ChatMessage)), HermesSyncTable(typeof(ChatVerificationMessage)), HermesSyncTable(typeof(ChatImageMessage)), HermesSyncTable(typeof(ChatContact))]
+    public class ChatController : ICapabilityController
     {
-        public Guid Me => new Guid("89c50f2b-83ce-4b05-9c9c-b50c3067e7e1");
+        public Guid Me => DatabaseController.PersonalID();
 
         private ChatConversation currentConversation;
         public ChatConversation CurrentConversation
@@ -50,15 +54,10 @@ namespace Hermes.Capability.Chat
             {
                 ContactsMap.Add(contact.ID, contact);
             }
-            SortContacts();
 
             ConversationsMap = new Dictionary<Guid, ChatConversation>();
             //ChatMessages
             DatabaseController.CreateTable<ChatMessage>();
-            var x1 = new ChatMessage(Me, Guid.NewGuid(), "test1");
-            DatabaseController.Insert(x1);
-            var x2 = new ChatMessage(Guid.NewGuid(), Me, "test2");
-            DatabaseController.Insert(x2);
             foreach (var msg in DatabaseController.Table<ChatMessage>())
             {
                 AddMessage(msg);
@@ -78,19 +77,19 @@ namespace Hermes.Capability.Chat
             }
 
             //Finalize initialization of conversations
-            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values);
             SortConversations();
+            SortContacts();
         }
 
         public void AddMessage(ChatMessage msg)
         {
+            if (msg == null)
+                return;
             var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
 
-            ChatConversation conversation;
-            if (!ConversationsMap.TryGetValue(other, out conversation))
+            if (!ConversationsMap.TryGetValue(other, out var conversation))
             {
-                ChatContact contact;
-                if (!ContactsMap.TryGetValue(other, out contact))
+                if (!ContactsMap.TryGetValue(other, out var contact))
                 {
                     contact = new ChatContact(other, "no name");
                     ContactsMap.Add(other, contact);
@@ -108,6 +107,33 @@ namespace Hermes.Capability.Chat
         {
             //throw new NotImplementedException();
             Debug.WriteLine($"[ChatController]: OnNotification({messageNamespace}, {messageName}, {messageID})");
+            if (Capability.Namespace.Equals(messageNamespace))
+            {
+                if (Capability.MessageNames.ChatMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatVerificationMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatVerificationMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatImageMessage.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<ChatImageMessage>().Where(m => m.MessageID.Equals(messageID)).First();
+                    AddMessage(msg);
+                    SortConversations();
+                }
+                else if (Capability.MessageNames.ChatContact.Equals(messageName))
+                {
+                    var contact = DatabaseController.Table<ChatContact>().Where(m => m.MessageID.Equals(messageID)).First();
+                    ContactsMap.Add(contact.ID, contact);
+                    SortContacts();
+                }
+            }
         }
 
         public void SendNewChatMessage(ChatConversation conversation, string messageBody)
@@ -154,8 +180,7 @@ namespace Hermes.Capability.Chat
 
         public void SelectConversation(ChatContact contact)
         {
-            ChatConversation conversation;
-            if (!ConversationsMap.TryGetValue(contact.ID, out conversation))
+            if (!ConversationsMap.TryGetValue(contact.ID, out var conversation))
             {
                 conversation = new ChatConversation(contact);
                 ConversationsMap.Add(contact.ID, conversation);
@@ -173,12 +198,14 @@ namespace Hermes.Capability.Chat
 
         private void SortContacts()
         {
-            Contacts = new ObservableCollection<ChatContact>(ContactsMap.Values.OrderBy(o => o.Name));
+            var list = ContactsMap.Values.OrderBy(o => o.Name);
+            Contacts = new ObservableCollection<ChatContact>(list);
         }
 
         private void SortConversations()
         {
-            Conversations = new ObservableCollection<ChatConversation>(ConversationsMap.Values.OrderByDescending(d => d.LastTimestamp));
+            var list = ConversationsMap.Values.OrderByDescending(d => d.LastTimestamp);
+            Conversations = new ObservableCollection<ChatConversation>(list);
         }
 
         #region INotifyPropertyChanged

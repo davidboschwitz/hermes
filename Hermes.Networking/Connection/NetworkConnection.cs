@@ -1,0 +1,26 @@
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Hermes.Networking
+{
+    public abstract class NetworkConnection
+    {
+        public abstract string Name { get; }
+        public abstract Encoding Encoding { get; }
+        public abstract void Open();
+        public abstract void Close();
+
+        public virtual async Task<string> ReceiveString()
+        {
+            await new Task(() => { });
+            throw new Exception("NetworkConnection.RecieveString() must be overriden!");
+        }
+
+        public virtual async Task SendString(string s)
+        {
+            await new Task(() => { });
+            throw new Exception("NetworkConnection.SendString() must be overriden!");
+        }
+    }
+}

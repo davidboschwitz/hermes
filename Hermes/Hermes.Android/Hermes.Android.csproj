@@ -73,6 +73,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidToastService.cs" />
+    <Compile Include="Bluetooth\AndroidBluetoothService.cs" />
+    <Compile Include="Bluetooth\BluetoothSocketConnection.cs" />
+    <Compile Include="Bluetooth\Threads\AcceptThread.cs" />
+    <Compile Include="Bluetooth\Threads\ConnectedThread.cs" />
+    <Compile Include="Bluetooth\Threads\ConnectThread.cs" />
     <Compile Include="GeocodedWaypoint.cs" />
     <Compile Include="JustViewCustomRenderer.cs" />
     <Compile Include="AdminPinPlacer.cs" />
@@ -117,6 +123,10 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Hermes.Networking\Hermes.Networking.csproj">
+      <Project>{A9E6ADA9-C55E-488F-8C08-18BFFAAB2E2F}</Project>
+      <Name>Hermes.Networking</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hermes\Hermes.csproj">
       <Project>{4CE708B3-9B8B-4193-B3AC-0CD7B0879ADA}</Project>
       <Name>Hermes</Name>
@@ -153,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\message.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

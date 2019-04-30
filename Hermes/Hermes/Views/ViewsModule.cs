@@ -5,6 +5,9 @@ using Hermes.Menu;
 using Hermes.Pages;
 using Hermes.Views.Chat;
 using System.Collections.Generic;
+using Hermes.Networking;
+using Hermes.Database;
+using Hermes.Services;
 
 namespace Hermes.Views
 {
@@ -40,27 +43,31 @@ namespace Hermes.Views
                    .As<PinScrollPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ChatPage(c.Resolve<IChatController>()))
+            builder.Register(c => new ChatPage(c.Resolve<ChatController>()))
                    .As<ChatPage>()
                    .SingleInstance();
 
-            builder.Register(c => new AddContactPage(c.Resolve<IChatController>()))
+            builder.Register(c => new AddContactPage(c.Resolve<ChatController>()))
                    .As<AddContactPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ChatNewConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>()))
+            builder.Register(c => new ChatNewConversationPage(c.Resolve<ChatController>(), c.Resolve<ChatPage>()))
                    .As<ChatNewConversationPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ConversationPage(c.Resolve<IChatController>(), c.Resolve<ChatPage>(), c.Resolve<ChatNewConversationPage>()))
+            builder.Register(c => new ConversationPage(c.Resolve<ChatController>(), c.Resolve<ChatPage>(), c.Resolve<ChatNewConversationPage>()))
                    .As<ConversationPage>()
                    .SingleInstance();
 
-            builder.Register(c => new ChatVerificationCreatorPage(c.Resolve<IChatController>()))
+            builder.Register(c => new ChatVerificationCreatorPage(c.Resolve<ChatController>()))
                    .As<ChatVerificationCreatorPage>()
                    .SingleInstance();
 
-            builder.Register(c => new MainPage(c.Resolve<MenuPage>()))
+            builder.Register(c => new NetSyncPageWow(c.Resolve<NetworkController>(), c.ResolveOptional<IHermesBluetoothService>()))
+                   .As<NetSyncPageWow>()
+                   .SingleInstance();
+
+            builder.Register(c => new MainPage(c.Resolve<MenuPage>(), c.Resolve<DatabaseController>()))
                    .As<MainPage>()
                    .SingleInstance();
         }

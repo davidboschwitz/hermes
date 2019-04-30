@@ -12,5 +12,10 @@ namespace Hermes.Networking
             T = t;
             Name = t.Name;
         }
+
+        public override string ToString()
+        {
+            return $"TableSyncController({T})";
+        }
     }
 }

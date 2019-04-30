@@ -5,26 +5,18 @@ using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Hermes.ViewModels
+namespace Hermes.ViewModels.Chat
 {
-    public class ChatNewConversationViewModel : BaseViewModel
+    public class ChatNewConversationViewModel : ChatBaseViewModel
     {
-        private IChatController controller;
-        public IChatController Controller
-        {
-            get { return controller; }
-            set { SetProperty(ref controller, value); }
-        }
-
         private ChatPage ChatPage;
-        
+
         public ICommand NewContactCommand { get; }
 
-        public ChatNewConversationViewModel(IChatController controller, ChatPage chatPage)
+        public ChatNewConversationViewModel(ChatController controller, ChatPage chatPage) : base(controller)
         {
-            Controller = controller;
             ChatPage = chatPage;
-            
+
             NewContactCommand = new Command(NewContactFunctionAsync);
         }
 
@@ -35,7 +27,7 @@ namespace Hermes.ViewModels
 
         public async void SelectContactHandler(object sender, SelectedItemChangedEventArgs e)
         {
-            if(e.SelectedItem is ChatContact contact)
+            if (e.SelectedItem is ChatContact contact)
             {
                 Controller.SelectConversation(contact);
                 await RootPage.NavigateToPageReplaceLast(ChatPage);

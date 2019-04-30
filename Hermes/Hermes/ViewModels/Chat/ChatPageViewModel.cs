@@ -21,8 +21,8 @@ namespace Hermes.ViewModels
 
         public ChatBubbleTypeSelector ChatBubbleTypeSelector { get; }
 
-        private IChatController controller;
-        public IChatController Controller
+        private ChatController controller;
+        public ChatController Controller
         {
             get { return controller; }
             set { SetProperty(ref controller, value); }
@@ -43,7 +43,7 @@ namespace Hermes.ViewModels
         }
         private MediaFile photo;
 
-        public ChatPageViewModel(IChatController controller)
+        public ChatPageViewModel(ChatController controller)
         {
             Controller = controller;
 

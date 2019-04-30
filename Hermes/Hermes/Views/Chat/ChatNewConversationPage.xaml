@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hermes.Views.Chat.ChatNewConversationPage"
-             Title="Chat">
+             xmlns:hermes="clr-namespace:Hermes"
+             Title="{x:Static hermes:Resources.SelectContact}">
     <ContentPage.Content>
         <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout Orientation="Vertical">
@@ -27,10 +28,11 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-            <Button CornerRadius="25" Text="+"
-                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
+            <Button CornerRadius="25" Text="{x:Static hermes:Resources.AddContactButton}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-110}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
-                    Command="{Binding NewContactCommand}"/>
+                    Command="{Binding NewContactCommand}"
+                    />
         </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>
