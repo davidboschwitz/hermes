@@ -6,7 +6,8 @@ namespace Hermes.Capability.Chat
     public class ChatMessage : DatabaseItem
     {
         public string Body { get; set; }
-
+        public bool Read { get; set; }
+        
         public ChatMessage()
         {
         }
@@ -14,11 +15,13 @@ namespace Hermes.Capability.Chat
         public ChatMessage(Guid to, Guid from, string body) : base(Guid.NewGuid(), from, to, DateTime.Now, DateTime.Now, Capability.Namespace, Capability.MessageNames.ChatMessage)
         {
             Body = body;
+            Read = false;
         }
 
         internal ChatMessage(Guid to, Guid from, string body, string messageName) : base(Guid.NewGuid(), from, to, DateTime.Now, DateTime.Now, Capability.Namespace, messageName)
         {
             Body = body;
+            Read = false;
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using Xamarin.Forms;
-using Hermes.Capability.Chat;
+﻿using Hermes.Capability.Chat;
 using Hermes.Capability.Chat.Model;
-using System.Diagnostics;
 using System;
+using Xamarin.Forms;
 
 namespace Hermes.Views.Chat
 {
@@ -13,6 +12,8 @@ namespace Hermes.Views.Chat
 
         DataTemplate ChatBubbleImageReceived;
         DataTemplate ChatBubbleImageSent;
+
+        DataTemplate ChatBubbleVerificationReceived;
 
         private Guid me;
 
@@ -25,6 +26,9 @@ namespace Hermes.Views.Chat
 
             ChatBubbleImageReceived = new DataTemplate(typeof(ChatBubbleImageReceived));
             ChatBubbleImageSent = new DataTemplate(typeof(ChatBubbleImageSent));
+
+
+            ChatBubbleVerificationReceived = new DataTemplate(() => { return new ChatBubbleVerificationReceived(controller); });
         }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
@@ -35,7 +39,7 @@ namespace Hermes.Views.Chat
             }
             else if (item is ChatVerificationMessage verifyMsg)
             {
-                return verifyMsg.RecipientID == me ? ChatBubbleImageReceived : ChatBubbleImageSent;
+                return verifyMsg.RecipientID == me ? ChatBubbleVerificationReceived : ChatBubbleImageSent;
             }
             else if (item is ChatMessage chatMsg)
             {
