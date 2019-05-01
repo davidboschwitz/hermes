@@ -5,6 +5,7 @@ namespace Hermes.Capability.Chat.Model
     public class ChatVerificationMessage : ChatMessage
     {
         public string Image { get; set; }
+        public bool Accepted { get; set; }
 
         public ChatVerificationMessage()
         {
@@ -13,6 +14,7 @@ namespace Hermes.Capability.Chat.Model
         public ChatVerificationMessage(Guid to, Guid from, string body, string image) : base(from, to, body, Capability.MessageNames.ChatVerificationMessage)
         {
             Image = image;
+            Accepted = false;
         }
     }
 }

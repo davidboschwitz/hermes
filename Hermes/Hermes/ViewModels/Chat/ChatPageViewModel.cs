@@ -2,31 +2,22 @@
 using Hermes.Views.Chat;
 using Plugin.Media.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
-
 using Xamarin.Forms;
 
-namespace Hermes.ViewModels
+namespace Hermes.ViewModels.Chat
 {
-    public class ChatPageViewModel : INotifyPropertyChanged
+    public class ChatPageViewModel : ChatBaseViewModel
     {
         public ICommand SendCommand { get; }
+        public ICommand SendVerificationCommand { get; }
+        public ICommand AcceptVerificationCommand { get; }
         public ICommand TakeImageCommand { get; }
         public ICommand SendImageCommand { get; }
 
         public ChatBubbleTypeSelector ChatBubbleTypeSelector { get; }
-
-        private ChatController controller;
-        public ChatController Controller
-        {
-            get { return controller; }
-            set { SetProperty(ref controller, value); }
-        }
 
         private string inputBarText = string.Empty;
         public string InputBarText
@@ -43,14 +34,45 @@ namespace Hermes.ViewModels
         }
         private MediaFile photo;
 
-        public ChatPageViewModel(ChatController controller)
+        public ChatPageViewModel(ChatController controller) : base(controller)
         {
-            Controller = controller;
-
             SendCommand = new Command(SendFunction);
+            SendVerificationCommand = new Command(SendVerificationFunction);
             TakeImageCommand = new Command(TakeImageFunction);
 
             ChatBubbleTypeSelector = new ChatBubbleTypeSelector(controller);
+
+            AcceptVerificationCommand = new Command(AcceptVerificationFunction);
+        }
+
+        private void AcceptVerificationFunction(object obj)
+        {
+            if (obj is Guid messageID)
+            {
+                Controller.AcceptVerification();
+            }
+        }
+
+        private void SendVerificationFunction()
+        {
+            Debug.WriteLine($"vm:SendNewChatVerificationMessage({Controller.CurrentConversation}, {InputBarText})");
+            if (photo == null || InputBarText.Length < 3)
+            {
+                Toast.LongAlert("To request sending a message, please type a message and send a photo.");
+                return;
+            }
+
+            using (var fs = new FileStream(photo.Path, FileMode.Open, FileAccess.Read))
+            {
+                var imageData = new byte[fs.Length];
+                fs.Read(imageData, 0, (int)fs.Length);
+                var imageBase64 = Convert.ToBase64String(imageData);
+                Controller.SendNewChatVerificationMessage(Controller.CurrentConversation, inputBarText, imageBase64);
+            }
+            photo = null;
+            InputImageSource = null;
+            InputBarText = string.Empty;
+            ScrollToLast?.Invoke();
         }
 
         public event Action ScrollToLast;
@@ -61,7 +83,9 @@ namespace Hermes.ViewModels
             photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
             if (photo != null)
+            {
                 InputImageSource = ImageSource.FromStream(() => { return photo.GetStream(); });
+            }
         }
 
         private void SendFunction()
@@ -87,26 +111,5 @@ namespace Hermes.ViewModels
             InputBarText = string.Empty;
             ScrollToLast?.Invoke();
         }
-
-        #region INotifyPropertyChanged
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

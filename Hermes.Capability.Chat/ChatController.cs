@@ -56,22 +56,24 @@ namespace Hermes.Capability.Chat
             }
 
             ConversationsMap = new Dictionary<Guid, ChatConversation>();
+            
             //ChatMessages
             DatabaseController.CreateTable<ChatMessage>();
-            foreach (var msg in DatabaseController.Table<ChatMessage>())
+            foreach (var msg in DatabaseController.Table<ChatMessage>().Where(m => m.RecipientID == Me || m.SenderID == Me))
             {
                 AddMessage(msg);
             }
 
             //ChatVerifciationMessages
             DatabaseController.CreateTable<ChatVerificationMessage>();
-            foreach (var msg in DatabaseController.Table<ChatVerificationMessage>())
+            foreach (var msg in DatabaseController.Table<ChatVerificationMessage>().Where(m => m.RecipientID == Me || m.SenderID == Me))
             {
                 AddMessage(msg);
             }
+
             //ChatImageMessages
             DatabaseController.CreateTable<ChatImageMessage>();
-            foreach (var msg in DatabaseController.Table<ChatImageMessage>())
+            foreach (var msg in DatabaseController.Table<ChatImageMessage>().Where(m => m.RecipientID == Me || m.SenderID == Me))
             {
                 AddMessage(msg);
             }
@@ -83,8 +85,11 @@ namespace Hermes.Capability.Chat
 
         public void AddMessage(ChatMessage msg)
         {
-            if (msg == null)
+            if (msg == null || (msg.RecipientID != Me && msg.SenderID != Me))
+            {
                 return;
+            }
+
             var other = (Me == msg.RecipientID ? msg.SenderID : msg.RecipientID);
 
             if (!ConversationsMap.TryGetValue(other, out var conversation))
@@ -130,7 +135,18 @@ namespace Hermes.Capability.Chat
                 else if (Capability.MessageNames.ChatContact.Equals(messageName))
                 {
                     var contact = DatabaseController.Table<ChatContact>().Where(m => m.MessageID.Equals(messageID)).First();
-                    ContactsMap.Add(contact.ID, contact);
+                    if (contact == null)
+                    {
+                        return;
+                    }
+                    if (ContactsMap.ContainsKey(contact.ID))
+                    {
+                        ContactsMap[contact.ID] = contact;
+                    }
+                    else
+                    {
+                        ContactsMap.Add(contact.ID, contact);
+                    }
                     SortContacts();
                 }
             }
@@ -168,14 +184,35 @@ namespace Hermes.Capability.Chat
             SortConversations();
         }
 
-
-        public void Poop()
+        public void SendNewChatVerificationMessage(ChatConversation conversation, string messageBody, string image)
         {
+            var msg = new ChatVerificationMessage(conversation.Other, Me, messageBody, image);
+
+            //add message to conversation view
+            conversation.Messages.Add(msg);
+
+            //add message to database
+            DatabaseController.Insert(msg);
+
+            //send message to networking
+            SendMessage?.Invoke(typeof(ChatVerificationMessage), msg);
+
+            SortConversations();
         }
 
         public void SelectConversation(ChatConversation conversation)
         {
             CurrentConversation = conversation;
+            foreach (var msg in CurrentConversation.Messages.Reverse())
+            {
+                if (msg.Read)
+                {
+                    break;
+                }
+                msg.Read = true;
+                DatabaseController.Update(msg);
+                SendMessage?.Invoke(msg.GetType(), msg);
+            }
         }
 
         public void SelectConversation(ChatContact contact)
@@ -208,13 +245,25 @@ namespace Hermes.Capability.Chat
             Conversations = new ObservableCollection<ChatConversation>(list);
         }
 
+        public void AcceptVerification()
+        {
+            var msg = CurrentConversation.Messages.Where(m => (m.GetType().Equals(typeof(ChatVerificationMessage)) && m.RecipientID == Me))
+                                              .First() as ChatVerificationMessage;
+            msg.Accepted = true;
+            DatabaseController.Update(msg);
+            SendMessage?.Invoke(msg.GetType(), msg);
+            CurrentConversation.OnPropertyChanged("Messages");
+        }
+
         #region INotifyPropertyChanged
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();

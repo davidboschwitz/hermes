@@ -5,7 +5,7 @@ namespace Hermes.Capability.Chat.Model
 {
     public class ChatContact : DatabaseItem
     {
-        [SQLite.Ignore]
+        [SQLite.Ignore, Newtonsoft.Json.JsonIgnore]
         public Guid ID
         {
             get

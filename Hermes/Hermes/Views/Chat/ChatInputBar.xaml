@@ -48,6 +48,15 @@
                 Grid.Column="2"
                 HorizontalOptions="Fill"
                 WidthRequest="32"
-                Command="{Binding SendCommand}" />    
+                Command="{Binding SendCommand}" />
+        <!--IsVisible="{Binding Controller.CurrentConversation.CanSendMessage}"-->
+        <!--<Button x:Name="SendVerificationButton"
+                Text=">"
+                Grid.Row="1"
+                Grid.Column="2"
+                HorizontalOptions="Fill"
+                WidthRequest="32"
+                IsVisible="{Binding Controller.CurrentConversation.CanSendVerificationMessage}"
+                Command="{Binding SendVerificationCommand}" />-->
     </Grid>
 </ContentView>
