@@ -8,9 +8,9 @@ namespace Hermes.Capability.Map
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new MapsController(c.Resolve<DatabaseController>()))
-                .As<ICapabilityController>()
-                .As<MapsController>()
-                .SingleInstance();
+                   .As<ICapabilityController>()
+                   .As<MapsController>()
+                   .SingleInstance();
         }
     }
 }

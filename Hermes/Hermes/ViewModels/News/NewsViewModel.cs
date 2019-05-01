@@ -4,14 +4,14 @@ namespace Hermes.ViewModels.News
 {
     public class NewsViewModel : BaseViewModel
     {
-        private INewsController controller;
-        public INewsController Controller
+        private NewsController controller;
+        public NewsController Controller
         {
             get { return controller; }
             set { SetProperty(ref controller, value); }
         }
 
-        public NewsViewModel(INewsController controller)
+        public NewsViewModel(NewsController controller)
         {
             Controller = controller;
         }

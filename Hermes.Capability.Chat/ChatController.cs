@@ -55,7 +55,7 @@ namespace Hermes.Capability.Chat
             }
 
             ConversationsMap = new Dictionary<Guid, ChatConversation>();
-            
+
             //ChatMessages
             DatabaseController.CreateTable<ChatMessage>();
             foreach (var msg in DatabaseController.Table<ChatMessage>().Where(m => m.RecipientID == Me || m.SenderID == Me))
@@ -76,18 +76,6 @@ namespace Hermes.Capability.Chat
             {
                 AddMessage(msg);
             }
-
-
-            var o = Guid.NewGuid();
-            var m = Me;
-            var c = new ChatContact(o, "Jackie");
-            ContactsMap.Add(o, c);
-
-            AddMessage(new ChatMessage(o, m, "Hey dude how's it goin?"));
-            AddMessage(new ChatMessage(m, o, "Oh hey there man, its going alright, just got set up on Hermes by a Red Cross volunteer!"));
-            AddMessage(new ChatMessage(o, m, "Me too! I'm pretty stoked to be so connected, even without a persistent internet connection!"));
-            AddMessage(new ChatMessage(m, o, "And don't even get me started on the frequent news and maps updates, aid for dayz!"));
-            AddMessage(new ChatMessage(o, m, "So glad we could connect over Hermes!"));
 
             //Finalize initialization of conversations
             SortConversations();

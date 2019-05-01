@@ -1,4 +1,5 @@
 ﻿using Hermes.Database;
+using Hermes.Networking;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,9 @@ using System.Runtime.CompilerServices;
 
 namespace Hermes.Capability.News
 {
-    public class NewsController : INewsController
+    [HermesNotifyNamespace(Capability.Namespace)]
+    [HermesSyncTable(typeof(NewsItem))]
+    public class NewsController : ICapabilityController
     {
         private DatabaseController DatabaseController;
 
@@ -26,15 +29,16 @@ namespace Hermes.Capability.News
 
             Feed = new ObservableCollection<NewsItem>();
 
-            foreach(var newsItem in DatabaseController.Table<NewsItem>())
+            foreach (var newsItem in DatabaseController.Table<NewsItem>())
             {
                 Feed.Add(newsItem);
                 Debug.WriteLine($"NewsController.Feed.Add({newsItem.Title},{newsItem.Body})");
             }
         }
-        
-        public void InsertReport(string title, string body) {
-            NewsItem report = new NewsItem(title: title, body:body,timeStamp: DateTime.Now);
+
+        public void InsertReport(string title, string body)
+        {
+            NewsItem report = new NewsItem(title: title, body: body, timeStamp: DateTime.Now);
             if (DatabaseController.Insert(report) != 0)
             {
                 Feed.Add(report);
@@ -100,7 +104,9 @@ namespace Hermes.Capability.News
             Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();

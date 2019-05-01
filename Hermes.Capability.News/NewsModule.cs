@@ -8,8 +8,9 @@ namespace Hermes.Capability.News
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new NewsController(c.Resolve<DatabaseController>()))
-                .As<INewsController>()
-                .SingleInstance();
+                   .As<ICapabilityController>()
+                   .As<NewsController>()
+                   .SingleInstance();
         }
     }
 }

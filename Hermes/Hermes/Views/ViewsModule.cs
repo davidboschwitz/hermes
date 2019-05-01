@@ -24,11 +24,11 @@ namespace Hermes.Views
                    .As<AboutPage>()
                    .SingleInstance();
 
-            builder.Register(c => new NewsPage(c.Resolve<INewsController>()))
+            builder.Register(c => new NewsPage(c.Resolve<NewsController>()))
                    .As<NewsPage>()
                    .SingleInstance();
 
-            builder.Register(c => new NewsAdminPage(c.Resolve<INewsController>()))
+            builder.Register(c => new NewsAdminPage(c.Resolve<NewsController>()))
                    .As<NewsAdminPage>()
                    .SingleInstance();
 

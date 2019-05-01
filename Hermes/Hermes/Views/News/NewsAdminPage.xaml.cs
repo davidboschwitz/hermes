@@ -14,7 +14,7 @@ namespace Hermes.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewsAdminPage : ContentPage
     {
-        public NewsAdminPage(INewsController controller)
+        public NewsAdminPage(NewsController controller)
         {
             InitializeComponent();
 

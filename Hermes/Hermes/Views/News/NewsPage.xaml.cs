@@ -14,7 +14,7 @@ namespace Hermes.Views
         private double currentLongitude = 0L;
         private double currentLatitude = 0L;
 
-        public NewsPage(INewsController controller)
+        public NewsPage(NewsController controller)
         {
             InitializeComponent();
             BindingContext = new NewsViewModel(controller);

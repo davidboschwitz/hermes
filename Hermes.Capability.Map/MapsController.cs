@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Hermes.Database;
 using Hermes.Networking;
-using Hermes.Database;
-using System.Collections.ObjectModel;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Hermes.Capability.Map
@@ -57,7 +56,9 @@ namespace Hermes.Capability.Map
             Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();

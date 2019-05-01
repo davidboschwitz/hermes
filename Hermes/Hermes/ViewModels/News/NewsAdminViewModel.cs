@@ -9,8 +9,8 @@ namespace Hermes.ViewModels.News
 {
     public class NewsAdminViewModel : BaseViewModel
     {
-        private INewsController controller;
-        public INewsController Controller
+        private NewsController controller;
+        public NewsController Controller
         {
             get { return controller; }
             set { SetProperty(ref controller, value); }
@@ -24,7 +24,7 @@ namespace Hermes.ViewModels.News
         private string bodyEditorText = string.Empty;
         public string BodyEditorText { get { return bodyEditorText; } set { SetProperty(ref bodyEditorText, value); } }
 
-        public NewsAdminViewModel(INewsController controller)
+        public NewsAdminViewModel(NewsController controller)
         {
             Controller = controller;
 
