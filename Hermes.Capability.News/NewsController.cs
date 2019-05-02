@@ -52,49 +52,58 @@ namespace Hermes.Capability.News
         {
             DatabaseController.CreateTable<NewsItem>();
             /*Dummy Data*/
-            NewsItem a1 = new NewsItem(
-                title: "Flooding Occuring in Ames",
-                body: "Overnight rainfall of 3 to 5 inches across Story County flooded numerous roadways and triggered mudslides, with authorities responding to reports of people trapped in stranded vehicles and forecasters issuing an elevated flood warning for the region Wednesday morning.",
-                timeStamp: DateTime.Now.AddMinutes(12.35)
-            );
-            NewsItem a2 = new NewsItem(
-                 title: "Red Cross Giving Aid at Memorial Union",
-                 body: "The Red Cross is providing shelter, food, health services and emotional support during this challenging situation to those affected, like Rakiea, Jenna and Ollie, whose stories you can read here.  The Red Cross is working around the clock with our partners to get help to where it’s most needed, and we’re reaching more neighborhoods each day.",
-                 timeStamp: DateTime.Now
-             );
-            NewsItem a3 = new NewsItem(
-                title: "Severe Thunderstorm warning in Story County",
-                body: "",
-                timeStamp: DateTime.Now
-            );
-            NewsItem a4 = new NewsItem(
-                title: "I-35 closed down due to pile up",
-                body: "",
-                timeStamp: DateTime.Now
-            );
-            NewsItem a5 = new NewsItem(
-                title: "Blizzard Warning expecting 6-8 inches of Snow",
-                body: "",
-                timeStamp: DateTime.Now
-            );
-            NewsItem a6 = new NewsItem(
-                title: "Tornado forces closure of Lincoln Way and Grand Avenue",
-                body: "",
-                timeStamp: DateTime.Now
-            );
-            //Check for existing items
-            DatabaseController.Insert(a1);
-            DatabaseController.Insert(a2);
-            DatabaseController.Insert(a3);
-            DatabaseController.Insert(a4);
-            DatabaseController.Insert(a5);
-            DatabaseController.Insert(a6);
+            //NewsItem a1 = new NewsItem(
+            //    title: "Flooding Occuring in Ames",
+            //    body: "Overnight rainfall of 3 to 5 inches across Story County flooded numerous roadways and triggered mudslides, with authorities responding to reports of people trapped in stranded vehicles and forecasters issuing an elevated flood warning for the region Wednesday morning.",
+            //    timeStamp: DateTime.Now.AddMinutes(12.35)
+            //);
+            //NewsItem a2 = new NewsItem(
+            //     title: "Red Cross Giving Aid at Memorial Union",
+            //     body: "The Red Cross is providing shelter, food, health services and emotional support during this challenging situation to those affected, like Rakiea, Jenna and Ollie, whose stories you can read here.  The Red Cross is working around the clock with our partners to get help to where it’s most needed, and we’re reaching more neighborhoods each day.",
+            //     timeStamp: DateTime.Now
+            // );
+            //NewsItem a3 = new NewsItem(
+            //    title: "Severe Thunderstorm warning in Story County",
+            //    body: "",
+            //    timeStamp: DateTime.Now
+            //);
+            //NewsItem a4 = new NewsItem(
+            //    title: "I-35 closed down due to pile up",
+            //    body: "",
+            //    timeStamp: DateTime.Now
+            //);
+            //NewsItem a5 = new NewsItem(
+            //    title: "Blizzard Warning expecting 6-8 inches of Snow",
+            //    body: "",
+            //    timeStamp: DateTime.Now
+            //);
+            //NewsItem a6 = new NewsItem(
+            //    title: "Tornado forces closure of Lincoln Way and Grand Avenue",
+            //    body: "",
+            //    timeStamp: DateTime.Now
+            //);
+            ////Check for existing items
+            //DatabaseController.Insert(a1);
+            //DatabaseController.Insert(a2);
+            //DatabaseController.Insert(a3);
+            //DatabaseController.Insert(a4);
+            //DatabaseController.Insert(a5);
+            //DatabaseController.Insert(a6);
 
         }
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
-        {
-            //throw new NotImplementedException();
+        {//throw new NotImplementedException();
+            Debug.WriteLine($"[NewsController]: OnNotification({messageNamespace}, {messageName}, {messageID})");
+            if (Capability.Namespace.Equals(messageNamespace))
+            {
+                if (Capability.MessageNames.NewsItem.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<NewsItem>().Where(m => m.MessageID.Equals(messageID)).First();
+                    Feed.Add(msg);
+                    Feed = new ObservableCollection<NewsItem>(Feed.OrderByDescending(o => o.UpdatedTimestamp));
+                }
+            }
         }
 
         #region INotifyPropertyChanged

@@ -33,6 +33,8 @@ namespace Hermes.Droid
             var builder = new ContainerBuilder();
             builder.RegisterModule(new AndroidModule());
 
+            //Xamarin.Forms.Application.Current.Properties["ExternalStorageDirectory"] = Android.OS.Environment.GetExternalStorageDirectory();
+
             LoadApplication(new App(builder));
             this.RequestPermissions(new[]
             {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Hermes.Capability.Map
@@ -47,7 +48,16 @@ namespace Hermes.Capability.Map
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine($"[MapsController]: OnNotification({messageNamespace}, {messageName}, {messageID})");
+            if (Capability.Namespace.Equals(messageNamespace))
+            {
+                if (Capability.MessageNames.PinItem.Equals(messageName))
+                {
+                    var msg = DatabaseController.Table<PinItem>().Where(m => m.MessageID.Equals(messageID)).First();
+                    Pins.Add(msg);
+                    OnPropertyChanged("Pins");
+                }
+            }
         }
 
         #region INotifyPropertyChanged

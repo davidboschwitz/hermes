@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace Hermes.Database
 {
@@ -12,14 +13,14 @@ namespace Hermes.Database
         {
             get
             {
-                var filename = "hermes.db3";
+                var filename = "hermes.2.db3";
                 string libraryPath;
                 string platform = "none";
                 try { platform = Device.RuntimePlatform; } catch (InvalidOperationException) { }
                 switch (platform)
                 {
                     case Device.Android:
-                        libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);//Xamarin.Forms.Application.Current.Properties["ExternalStorageDirectory"].ToString();
                         break;
                     case Device.iOS:
                         // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms

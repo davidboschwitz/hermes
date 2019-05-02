@@ -1,6 +1,7 @@
 ﻿using Hermes.Capability.Chat;
+using Hermes.Capability.Chat.Model;
 using Hermes.ViewModels.Chat;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,7 +17,11 @@ namespace Hermes.Views.Chat
             var vm = new ConversationPageViewModel(controller, chatPage, chatNewConversationPage);
             BindingContext = vm;
             
-            //ConversationListView.ItemSelected += vm.SelctedItemHandler;
+            //ConversationListView.ItemSelected += async (e, a) => {
+            //    controller.SelectConversation(a.SelectedItem as ChatContact);
+            //    await Task.Delay(1000);
+            //    ConversationListView.SelectedItem = null;
+            //};
         }
     }
 }
