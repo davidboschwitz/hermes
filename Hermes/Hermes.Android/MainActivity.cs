@@ -43,8 +43,8 @@ namespace Hermes.Droid
                 Manifest.Permission.ReadExternalStorage,
                 Manifest.Permission.WriteExternalStorage,
             }, 0);
-            var subtitle = Resource.String.hermes_menu_title;
-            ActionBar.SetSubtitle(subtitle);
+            //var subtitle = Resource.String.hermes_menu_title;
+            //ActionBar.SetSubtitle(subtitle);
         }
 
 
