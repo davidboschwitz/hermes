@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Hermes.Networking;
 using Hermes.Database;
 using Hermes.Services;
+using Hermes.Capability.Permissions;
 
 namespace Hermes.Views
 {
@@ -16,7 +17,7 @@ namespace Hermes.Views
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new MenuPage(menuItems: c.Resolve<IEnumerable<HermesMenuItem>>()))
+            builder.Register(c => new MenuPage(menuItems: c.Resolve<IEnumerable<HermesMenuItem>>(), permissionsController: c.Resolve<PermissionsController>()))
                    .As<MenuPage>()
                    .SingleInstance();
 

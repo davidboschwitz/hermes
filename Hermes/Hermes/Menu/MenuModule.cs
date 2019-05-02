@@ -2,6 +2,7 @@
 using Hermes.Pages;
 using Hermes.Views;
 using Hermes.Views.Chat;
+using static Hermes.Capability.Permissions.PermissionsController;
 
 namespace Hermes.Menu
 {
@@ -11,17 +12,15 @@ namespace Hermes.Menu
         {
             builder.Register(c => new HermesMenuItem("News", c.Resolve<NewsPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem("NewsAdmin", c.Resolve<NewsAdminPage>()))
-                .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Chat", c.Resolve<ConversationPage>()))
-                .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem("Chat/Verify", c.Resolve<ChatVerificationCreatorPage>()))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("Map", c.Resolve<MapPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem("Map/PinInfoPage", c.Resolve<PinInfoPage>()))
+            builder.Register(c => new HermesMenuItem("Points of Interest", c.Resolve<PinScrollPage>()))
                 .As<HermesMenuItem>();
-            builder.Register(c => new HermesMenuItem("Map/PinScrollPage", c.Resolve<PinScrollPage>()))
+            builder.Register(c => new HermesMenuItem("Maps - Add Pin", c.Resolve<PinInfoPage>(), Level.ADMIN))
+                .As<HermesMenuItem>();
+            builder.Register(c => new HermesMenuItem("News - Add Report", c.Resolve<NewsAdminPage>(), Level.ADMIN))
                 .As<HermesMenuItem>();
             builder.Register(c => new HermesMenuItem("About", c.Resolve<AboutPage>()))
                 .As<HermesMenuItem>();

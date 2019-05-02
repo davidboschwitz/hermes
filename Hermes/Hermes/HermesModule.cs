@@ -1,14 +1,12 @@
 ﻿using Autofac;
-using Hermes.Capability.News;
 using Hermes.Capability.Chat;
 using Hermes.Capability.Map;
+using Hermes.Capability.News;
+using Hermes.Capability.Permissions;
 using Hermes.Database;
 using Hermes.Menu;
 using Hermes.Networking;
 using Hermes.Views;
-
-using System.Collections.Generic;
-using Xamarin.Forms;
 
 namespace Hermes
 {
@@ -24,6 +22,7 @@ namespace Hermes
             builder.RegisterModule(new NewsModule());
             builder.RegisterModule(new MapsModule());
             builder.RegisterModule(new ChatModule());
+            builder.RegisterModule(new PermissionsModule());
 
             //view modules
             builder.RegisterModule(new MenuModule());

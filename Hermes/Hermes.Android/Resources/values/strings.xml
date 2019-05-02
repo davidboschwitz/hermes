@@ -2,4 +2,5 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="select_device">Select a device to connect</string>
+  <string name="hermes_menu_title">HERMES</string>
 </resources>

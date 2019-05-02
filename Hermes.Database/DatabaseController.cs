@@ -15,7 +15,7 @@ namespace Hermes.Database
                 var filename = "hermes.db3";
                 string libraryPath;
                 string platform = "none";
-                try { platform = Device.RuntimePlatform; } catch (Exception) { }
+                try { platform = Device.RuntimePlatform; } catch (InvalidOperationException) { }
                 switch (platform)
                 {
                     case Device.Android:
@@ -40,7 +40,7 @@ namespace Hermes.Database
         {
             CreateTable<HermesSavedProperty>();
             properties = new Dictionary<string, string>();
-            foreach(var p in Table<HermesSavedProperty>())
+            foreach (var p in Table<HermesSavedProperty>())
             {
                 properties.Add(p.Key, p.Value);
             }

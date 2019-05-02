@@ -50,7 +50,6 @@ namespace Hermes.Capability.News
 
         private void Initialize()
         {
-            DatabaseController.DropTable<NewsItem>();
             DatabaseController.CreateTable<NewsItem>();
             /*Dummy Data*/
             NewsItem a1 = new NewsItem(
@@ -95,7 +94,7 @@ namespace Hermes.Capability.News
 
         public void OnNotification(string messageNamespace, string messageName, Guid messageID)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         #region INotifyPropertyChanged

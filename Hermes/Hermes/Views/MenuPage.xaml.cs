@@ -1,4 +1,5 @@
-﻿using Hermes.Menu;
+﻿using Hermes.Capability.Permissions;
+using Hermes.Menu;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,13 +12,19 @@ namespace Hermes.Views
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         public List<HermesMenuItem> MenuItems = new List<HermesMenuItem>();
 
-        public MenuPage(IEnumerable<HermesMenuItem> menuItems)
+        PermissionsController PermissionsController;
+
+        public MenuPage(IEnumerable<HermesMenuItem> menuItems, PermissionsController permissionsController)
         {
             InitializeComponent();
-            
-            foreach(var menuItem in menuItems)
+            PermissionsController = permissionsController;
+
+            foreach (var menuItem in menuItems)
             {
-                MenuItems.Add(menuItem);
+                if (PermissionsController.HasPermission(menuItem.AccessLevel))
+                {
+                    MenuItems.Add(menuItem);
+                }
             }
 
             ListViewMenu.ItemsSource = MenuItems;
@@ -27,7 +34,9 @@ namespace Hermes.Views
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
                 if (e.SelectedItem == null)
+                {
                     return;
+                }
 
                 var navigationPage = ((HermesMenuItem)e.SelectedItem).NavigationPage;
                 await RootPage.SetNavigationRoot(navigationPage);

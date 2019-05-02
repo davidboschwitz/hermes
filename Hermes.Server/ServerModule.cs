@@ -5,6 +5,7 @@ using Hermes.Networking;
 using Hermes.Capability.News;
 using Hermes.Capability.Map;
 using Hermes.Capability.Chat;
+using Hermes.Capability.Permissions;
 
 namespace Hermes.Server
 {
@@ -20,6 +21,7 @@ namespace Hermes.Server
             builder.RegisterModule(new NewsModule());
             builder.RegisterModule(new MapsModule());
             builder.RegisterModule(new ChatModule());
+            builder.RegisterModule(new PermissionsModule());
 
             builder.Register(c => new SocketListener(c.Resolve<NetworkController>()))
                    .As<SocketListener>()

@@ -36,6 +36,7 @@
     <ProjectReference Include="..\..\Hermes.Capability.News\Hermes.Capability.News.csproj" />
     <ProjectReference Include="..\..\Hermes.Capability.Chat\Hermes.Capability.Chat.csproj" />
     <ProjectReference Include="..\..\Hermes.Capability.Map\Hermes.Capability.Map.csproj" />
+    <ProjectReference Include="..\..\Hermes.Capability.Permissions\Hermes.Capability.Permissions.csproj" />
     <ProjectReference Include="..\..\Hermes.Database\Hermes.Database.csproj" />
     <ProjectReference Include="..\..\Hermes.Networking\Hermes.Networking.csproj" />
   </ItemGroup>

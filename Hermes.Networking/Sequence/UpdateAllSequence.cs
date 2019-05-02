@@ -29,7 +29,6 @@ namespace Hermes.Networking
 
             var mySyncedTables = controller.NamesOfSyncedTables;
             var mySyncedTablesJson = JsonConvert.SerializeObject(mySyncedTables);
-            Debug.WriteLine($"sT={mySyncedTablesJson}");
             await net.SendString(mySyncedTablesJson);
 
             var otherSyncedTables = JsonConvert.DeserializeObject<IEnumerable<string>>(await net.ReceiveString());
@@ -54,15 +53,16 @@ namespace Hermes.Networking
 
             var localMeta = localTable
                 .Select(r => new SyncMetadata(((DatabaseItem)r).MessageID, ((DatabaseItem)r).UpdatedTimestamp))
-                .AsEnumerable<SyncMetadata>()
                 .ToDictionary(r => r.MessageID, r => r);
             await net.SendString(JsonConvert.SerializeObject(localMeta.Values));
 
             var remoteMetaJson = await net.ReceiveString();
             var remoteMeta = JsonConvert.DeserializeObject<IEnumerable<SyncMetadata>>(remoteMetaJson);
 
-            var rowsToGet = remoteMeta.Where(r => (!localMeta.ContainsKey(r.MessageID) || localMeta[r.MessageID].UpdatedTimestamp < r.UpdatedTimestamp));
-            var rowsToGetJson = JsonConvert.SerializeObject(rowsToGet.Select(x => x.MessageID));
+            var rowsToGet = remoteMeta
+                .Where(r => (!localMeta.ContainsKey(r.MessageID) || localMeta[r.MessageID].UpdatedTimestamp < r.UpdatedTimestamp))
+                .Select(x => x.MessageID);
+            var rowsToGetJson = JsonConvert.SerializeObject(rowsToGet);
             await net.SendString(rowsToGetJson);
 
             var rowsToSendJson = await net.ReceiveString();

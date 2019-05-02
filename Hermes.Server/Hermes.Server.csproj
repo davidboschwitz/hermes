@@ -97,6 +97,10 @@
       <Project>{da32a721-2d82-4f89-9667-37d7b1757a94}</Project>
       <Name>Hermes.Capability.News</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hermes.Capability.Permissions\Hermes.Capability.Permissions.csproj">
+      <Project>{F45407E4-CFF0-4456-96E5-0777E3549559}</Project>
+      <Name>Hermes.Capability.Permissions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hermes.Database\Hermes.Database.csproj">
       <Project>{135EBDFD-D187-4359-89CE-AC784D063F49}</Project>
       <Name>Hermes.Database</Name>
